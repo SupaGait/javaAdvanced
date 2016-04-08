@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Fri Apr 08 18:45:22 CEST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-0153-f6c3-835d-00000597be98 
+on database directory memory:C:\_ProjectsEpita\eclipse_workspace_jee\javaAdvanced\genericHybernateDao\IAM with class loader sun.misc.Launcher$AppClassLoader@78308db1 
+Loaded from file:/C:/Users/Gerard/.m2/repository/org/apache/derby/derby/10.11.1.1/derby-10.11.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_31-b13
+user.dir=C:\_ProjectsEpita\eclipse_workspace_jee\javaAdvanced\genericHybernateDao
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
