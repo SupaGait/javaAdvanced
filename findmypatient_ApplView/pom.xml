@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>fr.gklomphaar</groupId>
+  <artifactId>findmypatient_appview</artifactId>
+  <packaging>jar</packaging>
+
+  <name>findmypatient_ApplView</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+  	<dependency>
+		<groupId>fr.gklomphaar</groupId>
+		<artifactId>findmypatient_core</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+  </dependencies>
+  <parent>
+  	<groupId>fr.gerardklomphaar</groupId>
+  	<artifactId>supa-group</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  </parent>
+</project>
