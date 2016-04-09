@@ -7,8 +7,11 @@ import fr.gklomphaar.datamodel.Identity;
 import fr.gklomphaar.services.dao.generichybernate.WhereClauseBuilder;
 import fr.gklomphaar.services.dao.generichybernate.WhereClauseBuilder.WhereClause;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,15 +24,15 @@ import org.junit.Test;
  */
 public class TestWhereClauseBuilder {
 	
-	//@Test 
+	@Test 
 	public void testWhereClauseConstructor() {
 		Identity testIdentity = new Identity("Frans","Bonnes","Frans@TestReflection.fun");
 		
 		WhereClauseBuilder builder = new WhereClauseBuilder(testIdentity.getClass());
-		final List<String> allClauses = builder.getStringClauses();
-		System.out.println(allClauses.size());
-		for (String clause : allClauses) {
-			System.out.println(clause);
+		final Set<Entry<String, String>> entrySet = builder.getSimpleClauses().entrySet();
+		System.out.println(entrySet.size());
+		for (Entry<String, String> entry : entrySet) {
+			System.out.println(entry.getKey()+":\t"+entry.getValue());
 		}
 		
 		final Map<String, String> clauses = builder.getSimpleClauses();
