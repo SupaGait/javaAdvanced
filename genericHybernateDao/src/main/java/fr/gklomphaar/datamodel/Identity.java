@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.gerardklomphaar.datamodel;
+package fr.gklomphaar.datamodel;
 
 import java.util.Date;
 

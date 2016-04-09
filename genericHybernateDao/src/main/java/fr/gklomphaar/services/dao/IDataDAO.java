@@ -1,12 +1,12 @@
 /**
  * 
  */
-package fr.gklomphaar.GenericHybernateDao;
+package fr.gklomphaar.services.dao;
 
 import java.util.List;
 
-import fr.gklomphaar.GenericHybernateDao.exceptions.DaoLoadObjectException;
-import fr.gklomphaar.GenericHybernateDao.exceptions.DaoSaveObjectException;
+import fr.gklomphaar.services.dao.exceptions.DaoLoadObjectException;
+import fr.gklomphaar.services.dao.exceptions.DaoSaveObjectException;
 
 
 public interface IDataDAO<DataType> {
@@ -28,7 +28,7 @@ public interface IDataDAO<DataType> {
 	 * @return A list of found elements
 	 * @throws DaoLoadObjectException thrown when there are problems with reading the elements
 	 */
-	public List<DataType> search(DataType data, IMatcher<DataType> matcher) throws DaoLoadObjectException;
+	public List<DataType> search(DataType data, String fieldNameToMatch) throws DaoLoadObjectException;
 	/**
 	 * Update a specific element in the DAO
 	 * @param data Element to be updated

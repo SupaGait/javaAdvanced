@@ -1,5 +1,5 @@
 //The Imatcher file
-package fr.gklomphaar.GenericHybernateDao;
+package fr.gklomphaar.services.dao;
 
 
 public interface IMatcher<DataType> {

@@ -29,7 +29,12 @@
 	<bean id="beanBasedSessionFactory"	class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceBean" />
 		<property name="hibernateProperties" ref="hibernateProperties" />
-		<property name="packagesToScan" value="fr.gerardklomphaar.datamodel" />
+		<property name="packagesToScan" >
+			<list>
+				<value>fr.gklomphaar.datamodel</value>
+				<value>fr.gklomphaar.findmypatient.datamodel</value>
+			</list>
+		</property>
 	</bean>
 	
 	

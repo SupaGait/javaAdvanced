@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.gklomphaar.GenericHybernateDao.exceptions;
+package fr.gklomphaar.services.dao.exceptions;
 
 /**
  * An problem occurred loading loading the instance
