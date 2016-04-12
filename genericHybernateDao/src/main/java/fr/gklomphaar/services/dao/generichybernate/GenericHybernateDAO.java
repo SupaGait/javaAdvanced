@@ -31,7 +31,7 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
 	/**
 	 * @param typeClass
 	 */
-	public GenericHybernateDAO(Class<DataType> typeClass,DataSource ds, SessionFactory sessionFactory) {
+	public GenericHybernateDAO(Class<DataType> typeClass,SessionFactory sessionFactory) {
 		this.typeClass = typeClass;
 		this.sessionFactory = sessionFactory;
 	}

@@ -68,7 +68,7 @@ public class TestHybernateGenericDao {
 
 	//@Test
 	public void testAddAndRead() throws DaoLoadObjectException, DaoSaveObjectException {
-		GenericHybernateDAO<Identity> identityDao = new GenericHybernateDAO<>(Identity.class, this.ds, this.sessionFactory);
+		GenericHybernateDAO<Identity> identityDao = new GenericHybernateDAO<>(Identity.class, this.sessionFactory);
 		
 		// Add test identities
 		identityDao.create(new Identity("Frans","Bonnes","Frans@Bonnes.fun"));
@@ -86,7 +86,7 @@ public class TestHybernateGenericDao {
 	
 	@Test
 	public void testFindFields() throws DaoSaveObjectException, DaoLoadObjectException {
-		GenericHybernateDAO<Identity> identityDao = new GenericHybernateDAO<>(Identity.class, this.ds, this.sessionFactory);
+		GenericHybernateDAO<Identity> identityDao = new GenericHybernateDAO<>(Identity.class, this.sessionFactory);
 		
 		// Generate where clauses, check that there are 5 clauses
 		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Identity.class);
@@ -114,7 +114,7 @@ public class TestHybernateGenericDao {
 	
 	@Test
 	public void testUpdate() throws DaoSaveObjectException, DaoLoadObjectException {
-		GenericHybernateDAO<Identity> identityDao = new GenericHybernateDAO<>(Identity.class, this.ds, this.sessionFactory);
+		GenericHybernateDAO<Identity> identityDao = new GenericHybernateDAO<>(Identity.class, this.sessionFactory);
 		
 		final List<Identity> populateIdentities = populateIdentities(identityDao, 1);
 		final Identity identity = populateIdentities.get(0);
@@ -134,7 +134,7 @@ public class TestHybernateGenericDao {
 	
 	@Test
 	public void testDelete() throws DaoSaveObjectException, DaoLoadObjectException {
-		GenericHybernateDAO<Identity> identityDao = new GenericHybernateDAO<>(Identity.class, this.ds, this.sessionFactory);
+		GenericHybernateDAO<Identity> identityDao = new GenericHybernateDAO<>(Identity.class, this.sessionFactory);
 		
 		// Populate and verify size
 		populateIdentities(identityDao, 10);
