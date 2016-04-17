@@ -3,6 +3,12 @@
  */
 package fr.gklomphaar.findmypatient.controller;
 
+import java.sql.DriverManager;
+
+import javax.sql.DataSource;
+
+import org.apache.derby.jdbc.ClientDataSource;
+
 import fr.gklomphaar.findmypatient.config.Configuration;
 import fr.gklomphaar.findmypatient.config.exceptions.ConfigurationFileException;
 import fr.gklomphaar.findmypatient.dao.IDAOManagement;
@@ -33,6 +39,8 @@ public class IdentityController {
 	private PatientJDBCDAO patientJDBCDAO;
 	private UserJDBCDAO userJDBCDAO;
 	
+	private DataSource dataSource;
+	
 	/**
 	 * Create a new instance of the identity controller
 	 * @throws ConfigurationFileException 
@@ -43,11 +51,11 @@ public class IdentityController {
 		this.configuration = new Configuration();
 		
 		// Create UserJDBCDAO, save the management for cleanup
-		this.userJDBCDAO = new UserJDBCDAO();
+		this.userJDBCDAO = new UserJDBCDAO(this.dataSource);
 		this.userDAOManagement = this.userJDBCDAO;
 
 		// Create UserJDBCDAO, save the management for cleanup
-		this.patientJDBCDAO = new PatientJDBCDAO();
+		this.patientJDBCDAO = new PatientJDBCDAO(this.dataSource);
 		this.patientDAOManagement = this.patientJDBCDAO;
 		
 		// Create the User Authority
@@ -76,8 +84,12 @@ public class IdentityController {
 		final String databasePass = this.configuration.getDatabasePass();
 		
 		// Connect both DAO's ( currently same DB, but could be separated)
-		patientJDBCDAO.setDatabaseConnection(databaseURL, databaseUser, databasePass);
-		userJDBCDAO.setDatabaseConnection(databaseURL, databaseUser, databasePass);
+		ClientDataSource clientDataSource = new ClientDataSource();
+		clientDataSource.setServerName(databaseURL);
+		clientDataSource.setUser(databaseUser);
+		clientDataSource.setPassword(databasePass);
+		
+		this.dataSource = clientDataSource;
 		
 		// Enable connections
 		userDAOManagement.connect();

@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoInitializationException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
@@ -24,11 +26,9 @@ import fr.gklomphaar.findmypatient.helpers.IMatcher;
 public abstract class JDBCDAO<DataType> implements IDataDAO<DataType>, IDAOManagement {
 
 	private final String DBTableName;
-	private String url;
-	private String userName;
-	private String password;
+	private DataSource dataSource;
 	protected Connection connection;
-
+	
 	/**
 	 * Implements the logic to parse a ResultSet to a List of specific data type(s).
 	 * @param resultSet
@@ -36,42 +36,6 @@ public abstract class JDBCDAO<DataType> implements IDataDAO<DataType>, IDAOManag
 	 * @throws SQLException
 	 */
 	protected abstract List<DataType> parseQueryResultSet(ResultSet resultSet) throws SQLException;
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
-	/**
-	 * @param url the url to set
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	/**
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
-	/**
-	 * @param userName the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	/**
 	 * Implements the SQL logic to insert a specific dataType into the DAO
 	 * @param dataType
@@ -96,33 +60,20 @@ public abstract class JDBCDAO<DataType> implements IDataDAO<DataType>, IDAOManag
 	/**
 	 * @param DBTableName name of the main table in the DB containing the elements
 	 */
-	public JDBCDAO(String DBTableName)
+	public JDBCDAO(String DBTableName, DataSource dataSource)
 	{
 		this.DBTableName = DBTableName;
-	}
-	
-	/**
-	 * @param url to the JDBC database
-	 * @param name User name for connection to the DB
-	 * @param password password for the connection to the DB
-	 */
-	public void setDatabaseConnection(String url, String name, String password)
-	{
-		this.url = url;
-		this.userName = name;
-		this.password = password;
+		this.dataSource = dataSource;
 	}
 	
 	@Override
 	public void connect() throws DaoInitializationException {
 		try {
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
-			
-			// Set up the connection
-			this.connection = DriverManager.getConnection(this.url, this.userName, this.password);
+			// Get a connection
+			this.connection = dataSource.getConnection();// DriverManager.getConnection(this.url, this.userName, this.password);
 			System.out.println("SQL connection opened.");
 		} 
-		catch (ClassNotFoundException | SQLException e) {
+		catch (SQLException e) {
 			throw new DaoInitializationException(this, e);
 		}
 	}

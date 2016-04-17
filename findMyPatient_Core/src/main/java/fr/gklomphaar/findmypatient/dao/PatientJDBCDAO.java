@@ -9,15 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 
 
 public class PatientJDBCDAO extends JDBCDAO<Patient> {
 
-	public PatientJDBCDAO()
+	public PatientJDBCDAO(DataSource dataSource)
 	{
 		// Pass the table name
-		super("PATIENTS");
+		super("PATIENTS", dataSource);
 	}
 
 	

@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,7 +26,10 @@ public class CreatePatient extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	IDataDAO<Patient> dao = new PatientJDBCDAO();
+	DataSource dataSource;
+	
+	@Autowired
+	IDataDAO<Patient> dao = new PatientJDBCDAO(dataSource);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -49,6 +54,8 @@ public class CreatePatient extends GenericSpringServlet {
 		
 		String str = "";
 		String part = "";
+		
+		// Read the buffer to get all data
 		final BufferedReader reader = request.getReader();
 		while(part != null) {
 			str += part;
@@ -57,29 +64,36 @@ public class CreatePatient extends GenericSpringServlet {
 		
 		System.out.println("Received: "+str);
 		
-		/*
+		// Interpert data as a JSON object and parse it
 		JSONObject json = new JSONObject(str);
 		
 		// Get the parameters
-		final String firstName = json.getString("firstName");
-		final String lastName = json.getString("lastName");
-		final String email = json.getString("email");
+		try {
+			String firstName = json.getString("firstName");
+			String lastName = json.getString("lastName");
+			String email = json.getString("email");
+			
+			System.out.println(firstName+" "+lastName+" "+email);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
-		System.out.println(firstName+" "+lastName+" "+email);
-		*/
-			/*
+		
 		// Create the new patient
 		Patient newPatient = new Patient();
 		
 		try {
 			dao.create(newPatient);
+			response.getWriter().append("Thank you for the new user.");	
 		} catch (DaoSaveObjectException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+			response.getWriter().append("Error while creating the new user.");
+		}
 		
-		response.getWriter().append("Thank you for the new user");
+		
 	}
 
 }

@@ -3,21 +3,21 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
-	   					   
-	   					   
-
-    <bean id="PatientJDBCDAO" class="fr.gklomphaar.findmypatient.dao.PatientJDBCDAO">
-    	<property name="Url" value="jdbc:derby:memory:PatientsDB;create=true" />
-    	<property name="UserName" value="root" />
-    	<property name="Password" value="root" />
-    </bean>
-    <!-- 
+ 
     <bean id="dataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
 		<property name="url" value="jdbc:derby:memory:PatientsDB;create=true"/>
 		<property name="username" value="root"/>
 		<property name="password" value="root"/>
-	</bean> -->
+	</bean>
+	
+    <bean id="PatientJDBCDAO" class="fr.gklomphaar.findmypatient.dao.PatientJDBCDAO" init-method="connect">
+    	<constructor-arg ref="dataSourceBean" />
+    </bean>
+    
+    <!--Add::: Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); -->
+    
+
 	
 
 	
