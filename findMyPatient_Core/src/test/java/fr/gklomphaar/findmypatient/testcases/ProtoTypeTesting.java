@@ -3,6 +3,7 @@ package fr.gklomphaar.findmypatient.testcases;
 
 import java.util.List;
 
+import org.apache.derby.jdbc.ClientDataSource;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,6 +39,15 @@ public class ProtoTypeTesting {
 		//System.out.println("After");
 	}
 	
+	public ClientDataSource getDataSource(){
+		ClientDataSource clientDataSource = new ClientDataSource();
+		clientDataSource.setServerName("jdbc:derby://localhost:1527/PatientsDB;create=true");
+		clientDataSource.setUser("root");
+		clientDataSource.setPassword("root");
+		
+		return clientDataSource;
+	}
+	
 	/**
 	 * Test if DAO create works
 	 */
@@ -45,8 +55,7 @@ public class ProtoTypeTesting {
 	public void testDAOCreate(){
 		try {
 			System.out.println("--Test DAO create--");
-			PatientJDBCDAO patientDAO = new PatientJDBCDAO();
-			patientDAO.setDatabaseConnection("jdbc:derby://localhost:1527/PatientsDB;create=true", "root", "root");
+			PatientJDBCDAO patientDAO = new PatientJDBCDAO(getDataSource());
 			patientDAO.connect();
 			System.out.println("Database connected !");
 			
@@ -71,8 +80,7 @@ public class ProtoTypeTesting {
 			final String tempPatientDisplayName = "NewPatientToBeDeleted";
 			
 			System.out.println("--Test DAO delete--");
-			PatientJDBCDAO patientDAO = new PatientJDBCDAO();
-			patientDAO.setDatabaseConnection("jdbc:derby://localhost:1527/PatientsDB;create=true", "root", "root");
+			PatientJDBCDAO patientDAO = new PatientJDBCDAO(getDataSource());
 			patientDAO.connect();
 			
 			// Add a patient
@@ -117,8 +125,7 @@ public class ProtoTypeTesting {
 	public void testDAOSearch() {
 		try {
 			System.out.println("--Test DAO search--");
-			PatientJDBCDAO patientDAO = new PatientJDBCDAO();
-			patientDAO.setDatabaseConnection("jdbc:derby://localhost:1527/PatientsDB;create=true", "root", "root");
+			PatientJDBCDAO patientDAO = new PatientJDBCDAO(getDataSource());
 			patientDAO.connect();
 			
 			Patient patientToSearch = new Patient("Gerard", null, null, null, null, null, null, null);
@@ -141,8 +148,7 @@ public class ProtoTypeTesting {
 	public void testDAOConnectionWithReadAll() {
 		try {
 			System.out.println("--Test DAO connection--");
-			PatientJDBCDAO patientDAO = new PatientJDBCDAO();
-			patientDAO.setDatabaseConnection("jdbc:derby://localhost:1527/PatientsDB;create=true", "root", "root");
+			PatientJDBCDAO patientDAO = new PatientJDBCDAO(getDataSource());
 			patientDAO.connect();
 			
 			List<Patient> patients = patientDAO.readAll();
@@ -165,8 +171,7 @@ public class ProtoTypeTesting {
 			System.out.println("--Test User authority --");
 			
 			// Create a user DAO
-			UserJDBCDAO userDAO = new UserJDBCDAO();
-			userDAO.setDatabaseConnection("jdbc:derby://localhost:1527/PatientsDB;create=true", "root", "root");
+			UserJDBCDAO userDAO = new UserJDBCDAO(getDataSource());
 			userDAO.connect();
 			
 			// Test Authority functionality

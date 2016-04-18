@@ -25,6 +25,11 @@
 			<artifactId>findmypatient_core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
   		</dependency>
+    	<dependency>
+			<groupId>fr.gklomphaar</groupId>
+			<artifactId>genericHybernateDao</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+  		</dependency>
 	    <dependency>
 	      <groupId>junit</groupId>
 	      <artifactId>junit</artifactId>
