@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import fr.gklomphaar.findmypatient.controller.IdentityController;
 import fr.gklomphaar.findmypatient.dao.IDataDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.User;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
@@ -27,7 +28,7 @@ public class Login extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
 
 	// TODO: For now... 
-	//WebController webController = new WebController();
+	WebController webController = new WebController();
 
 	@Autowired
 	@Qualifier("userDAO")
@@ -61,6 +62,14 @@ public class Login extends GenericSpringServlet {
 			e.printStackTrace();
 		}
 		*/
+		
+		try {
+			patientDAO.create(new Patient());
+		} catch (DaoSaveObjectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

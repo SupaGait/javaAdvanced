@@ -28,7 +28,7 @@ public class PatientJDBCDAO extends JDBCDAO<Patient> {
 		
 		// Iterate through the results and add to list
 		while (rs.next()) {
-			String pId = rs.getString("id");
+			int pId = rs.getInt("id");
 			String ssnNo = rs.getString("ssn");
 			String fName = rs.getString("fname");
 			String lName = rs.getString("lname");
@@ -73,14 +73,14 @@ public class PatientJDBCDAO extends JDBCDAO<Patient> {
 		stmt.setString(7, patient.getDisplayName());
 		stmt.setString(8, patient.getroomNo());
 		
-		stmt.setString(9, patient.getpId());
+		stmt.setInt(9, patient.getpId());
 		return stmt;
 	}
 	@Override
 	protected PreparedStatement deleteData( Patient patient) throws SQLException
 	{
 		PreparedStatement stmt = this.connection.prepareStatement("DELETE FROM PATIENTS WHERE ID=? ");
-		stmt.setString(1, patient.getpId());
+		stmt.setInt(1, patient.getpId());
 		return stmt;
 	}
 }

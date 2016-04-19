@@ -37,14 +37,12 @@ public class WebController {
 	DataSource dataSource;
 	
 	@Autowired
-	@Qualifier(value="userDAO")
-	GenericHybernateDAO<User> userGenericDAO;
-	IDataDAO<User> userDAO = (IDataDAO<User>) userGenericDAO;
+	@Qualifier("userDAO")
+	IDataDAO<User> userDAO;
 	
 	@Autowired
-	@Qualifier(value="patientDAO")
-	GenericHybernateDAO<Patient> patientGenericDAO;
-	IDataDAO<Patient> patientDAO = (IDataDAO<Patient>) patientGenericDAO; 
+	@Qualifier("patientDAO")
+	IDataDAO<Patient> patientDAO; 
 	
 	// Management, requires user authority
 	private UserAuthority userAuthority;

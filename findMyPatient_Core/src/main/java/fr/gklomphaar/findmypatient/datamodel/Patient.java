@@ -12,7 +12,7 @@ public class Patient
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String pId;
+	private int pId;
 	
 	@Column(name="PATIENT_SERIALNUMBER")
 	private String ssnNo;
@@ -39,7 +39,7 @@ public class Patient
 	@Column(name="PATIENT_ROOMNO")
 	private String roomNo;
 	
-	public Patient(String pId, String ssnNo, String fName, String lName, String dob, String cellNo, String Email, String displayName, String roomNo) 
+	public Patient(int pId, String ssnNo, String fName, String lName, String dob, String cellNo, String Email, String displayName, String roomNo) 
 	{
 		this.pId = pId;
 		this.ssnNo = ssnNo;
@@ -53,7 +53,7 @@ public class Patient
 	}
 	public Patient(String ssnNo, String fName, String lName, String dob, String cellNo, String Email, String displayName, String roomNo) 
 	{
-		this.pId = "new patient";
+		this.pId = 0;
 		this.ssnNo = ssnNo;
 		this.fName = fName;
 		this.lName = lName;
@@ -65,7 +65,7 @@ public class Patient
 	}
 	public Patient()
 	{
-		this.pId = "new patient";
+		this.pId = 0;
 		this.ssnNo = "";
 		this.fName = "";
 		this.lName = "";
@@ -76,7 +76,7 @@ public class Patient
 		this.roomNo = "";
 	}
 
-	public String getpId() {
+	public int getpId() {
 		return pId;
 	}
 
