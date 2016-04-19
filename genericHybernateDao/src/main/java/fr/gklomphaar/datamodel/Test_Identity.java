@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="IDENTITIES")
-public class Identity {
+public class Test_Identity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -41,11 +41,11 @@ public class Identity {
 	private Date birthDate;
 	
 	
-	public Identity(){
+	public Test_Identity(){
 		
 	}
 	
-	public Identity(String firstName, String lastName, String email) {
+	public Test_Identity(String firstName, String lastName, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -56,7 +56,7 @@ public class Identity {
 	 */
 	@Override
 	public String toString() {
-		return "Identity [firstName=" + firstName + ", lastName=" + lastName
+		return "Test_Identity [firstName=" + firstName + ", lastName=" + lastName
 				+ ", email=" + email + ", birthDate=" + birthDate + "]\n";
 	}
 	/**

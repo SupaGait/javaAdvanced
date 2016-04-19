@@ -1,19 +1,12 @@
 /**
  * 
  */
-package fr.gklomphaar.generichybernate;
+package fr.gklomphaar.test.whereclausebuilder;
 
-import org.junit.runner.RunWith;
-
-import fr.gklomphaar.datamodel.Identity;
-import fr.gklomphaar.services.dao.generichybernate.WhereClauseBuilder;
+import fr.gklomphaar.datamodel.Test_Identity;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.Test;
 
 /**
  * @author Gerard
@@ -23,7 +16,7 @@ import org.junit.Test;
  */
 public class TestReflection {
 
-	Identity testIdentity = new Identity("Frans","Bonnes","Frans@TestReflection.fun");
+	Test_Identity testIdentity = new Test_Identity("Frans","Bonnes","Frans@TestReflection.fun");
 	
 	//@Test
 	public void testGetFields() {

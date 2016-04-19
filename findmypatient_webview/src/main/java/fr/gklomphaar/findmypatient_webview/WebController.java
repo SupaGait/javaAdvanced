@@ -14,7 +14,7 @@ import fr.gklomphaar.findmypatient.datamodel.PatientManagement;
 import fr.gklomphaar.findmypatient.datamodel.User;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority;
 import fr.gklomphaar.findmypatient.datamodel.UserManagement;
-import fr.gklomphaar.services.dao.generichybernate.GenericHybernateDAO;
+import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 
 /**
  * 

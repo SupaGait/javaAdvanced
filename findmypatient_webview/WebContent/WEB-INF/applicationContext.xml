@@ -32,12 +32,10 @@
 		</property>
 	</bean>
 	
-	<bean id="patientDAO" scope="singleton" class="fr.gklomphaar.services.dao.generichybernate.GenericHybernateDAO">
-		<constructor-arg type="java.lang.Class" value="fr.gklomphaar.findmypatient.datamodel.Patient"/>
+	<bean id="patientDAO" class="fr.gklomphaar.findmypatient_webview.PatientHybernateDAO">
 		<constructor-arg ref="beanBasedSessionFactory"/>
 	</bean>
-	<bean id="userDAO" scope="singleton" class="fr.gklomphaar.services.dao.generichybernate.GenericHybernateDAO">
-		<constructor-arg type="java.lang.Class" value="fr.gklomphaar.findmypatient.datamodel.User"/>
+	<bean id="userDAO" class="fr.gklomphaar.findmypatient_webview.UserHybernateDAO">
 		<constructor-arg ref="beanBasedSessionFactory"/>
 	</bean>
 	

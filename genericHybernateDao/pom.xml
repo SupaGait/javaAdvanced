@@ -2,29 +2,26 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-	 <groupId>fr.gklomphaar</groupId>
-	 <artifactId>genericHybernateDao</artifactId>
-	 <packaging>jar</packaging>
+	<groupId>fr.gklomphaar</groupId>
+	<artifactId>Services</artifactId>
+	<packaging>jar</packaging>
 	
-	 <name>genericHybernateDao</name>
-	 <url>http://maven.apache.org</url>
-	
-	 <properties>
+	<properties>
 	   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	 </properties>
+	</properties>
   
-	 <parent>
-	 	<groupId>fr.gerardklomphaar</groupId>
+	<parent>
+	 	<groupId>fr.gklomphaar</groupId>
 	 	<artifactId>supa-group</artifactId>
 	 	<version>0.0.1-SNAPSHOT</version>
-	 </parent>
+	</parent>
   
   	<dependencies>
-<!--   	  	<dependency>
+   	  	<dependency>
 			<groupId>fr.gklomphaar</groupId>
 			<artifactId>findmypatient_core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-  		</dependency> -->
+  		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -43,10 +40,6 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>	
-		<!-- 		<dependency>
-		<groupId>org.apache.derby</groupId>
-		<artifactId>derbyclient</artifactId>
-		</dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>

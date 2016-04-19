@@ -17,7 +17,7 @@ import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.User;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.WebController;
-import fr.gklomphaar.services.dao.generichybernate.GenericHybernateDAO;
+import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 
 /**
  * Servlet implementation class Login
@@ -31,14 +31,14 @@ public class Login extends GenericSpringServlet {
 
 	@Autowired
 	@Qualifier("userDAO")
-	GenericHybernateDAO<User> userGenericDAO;
-	//IDataDAO<User> userDAO;
+	//GenericHybernateDAO<User> userGenericDAO;
+	IDataDAO<User> userDAO;
 	//IDataDAO<User> userDAO = (IDataDAO<User>) userGenericDAO;
 	
 	@Autowired
 	@Qualifier("patientDAO")
-	GenericHybernateDAO<Patient> patientGenericDAO;
-	//IDataDAO<Patient> patientDAO;
+	//GenericHybernateDAO<Patient> patientGenericDAO;
+	IDataDAO<Patient> patientDAO;
 	//IDataDAO<Patient> patientDAO = (IDataDAO<Patient>) patientGenericDAO; 
 	
 	

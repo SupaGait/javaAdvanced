@@ -1,4 +1,4 @@
-package fr.gklomphaar.services.dao.generichybernate;
+package fr.gklomphaar.findmypatient.dao;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -13,10 +13,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 
-import fr.gklomphaar.services.dao.IDataDAO;
-import fr.gklomphaar.services.dao.exceptions.DaoLoadObjectException;
-import fr.gklomphaar.services.dao.exceptions.DaoSaveObjectException;
-import fr.gklomphaar.services.dao.generichybernate.WhereClauseBuilder.WhereClause;
+import fr.gklomphaar.findmypatient.dao.IDataDAO;
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
+import fr.gklomphaar.findmypatient.helpers.IMatcher;
+import fr.gklomphaar.services.WhereClauseBuilder.WhereClause;
 
 /**
  * @author Gerard
@@ -55,7 +56,8 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
 		return session.createCriteria(typeClass).list();
 	}
 
-	@Override
+	//@Override
+	//TODO:Use correct search
 	public List<DataType> search(DataType data, WhereClause whereClause) throws DaoLoadObjectException {
 
 		// New session
@@ -102,6 +104,12 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
 		session.delete(data);
 		tx.commit();
 		session.close();
+	}
+
+	@Override
+	public List<DataType> search(DataType data, IMatcher<DataType> matcher) throws DaoLoadObjectException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

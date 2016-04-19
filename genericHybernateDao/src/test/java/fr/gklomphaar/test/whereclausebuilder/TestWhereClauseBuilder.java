@@ -1,14 +1,12 @@
 /**
  * 
  */
-package fr.gklomphaar.generichybernate;
+package fr.gklomphaar.test.whereclausebuilder;
 
-import fr.gklomphaar.datamodel.Identity;
-import fr.gklomphaar.services.dao.generichybernate.WhereClauseBuilder;
-import fr.gklomphaar.services.dao.generichybernate.WhereClauseBuilder.WhereClause;
+import fr.gklomphaar.datamodel.Test_Identity;
+import fr.gklomphaar.services.WhereClauseBuilder;
+import fr.gklomphaar.services.WhereClauseBuilder.WhereClause;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -26,7 +24,7 @@ public class TestWhereClauseBuilder {
 	
 	@Test 
 	public void testWhereClauseConstructor() {
-		Identity testIdentity = new Identity("Frans","Bonnes","Frans@TestReflection.fun");
+		Test_Identity testIdentity = new Test_Identity("Frans","Bonnes","Frans@TestReflection.fun");
 		
 		WhereClauseBuilder builder = new WhereClauseBuilder(testIdentity.getClass());
 		final Set<Entry<String, String>> entrySet = builder.getSimpleClauses().entrySet();
@@ -41,7 +39,7 @@ public class TestWhereClauseBuilder {
 	
 	@Test
 	public void testGetWhereClause() {
-		Identity testIdentity = new Identity("Frans","Bonnes","Frans@TestReflection.fun");
+		Test_Identity testIdentity = new Test_Identity("Frans","Bonnes","Frans@TestReflection.fun");
 		
 		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(testIdentity.getClass());
 		final Map<String, WhereClause> whereClauses = whereClauseBuilder.getWhereClauses();

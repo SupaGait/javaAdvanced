@@ -4,13 +4,12 @@
 
   <groupId>fr.gklomphaar</groupId>
   <artifactId>findmypatient_webview</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <name>findmypatient_webview</name>
   
   <parent>
-  	<groupId>fr.gerardklomphaar</groupId>
+  	<groupId>fr.gklomphaar</groupId>
   	<artifactId>supa-group</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -27,7 +26,7 @@
   		</dependency>
     	<dependency>
 			<groupId>fr.gklomphaar</groupId>
-			<artifactId>genericHybernateDao</artifactId>
+			<artifactId>Services</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
   		</dependency>
 	    <dependency>
