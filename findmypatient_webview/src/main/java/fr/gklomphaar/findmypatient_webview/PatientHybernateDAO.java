@@ -3,6 +3,7 @@
  */
 package fr.gklomphaar.findmypatient_webview;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -24,6 +25,6 @@ public class PatientHybernateDAO extends GenericHybernateDAO<Patient> implements
 	@Override
 	public List<Patient> search(Patient data, IMatcher<Patient> matcher) throws DaoLoadObjectException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Patient>();
 	}
 }

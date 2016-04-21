@@ -1,39 +1,46 @@
 package fr.gklomphaar.findmypatient_webview.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-import fr.gklomphaar.findmypatient.controller.IdentityController;
 import fr.gklomphaar.findmypatient.dao.IDataDAO;
+import fr.gklomphaar.findmypatient.dao.PatientJDBCDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
-import fr.gklomphaar.findmypatient.datamodel.User;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.UserController;
-import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class CreatePatient
  */
-@WebServlet("/Login")
-public class Login extends GenericSpringServlet {
+@WebServlet("/ListPatients")
+public class ListPatients extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
- 
+	
 	@Autowired
 	UserController userController;
-	
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public ListPatients() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -42,31 +49,35 @@ public class Login extends GenericSpringServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-/*		try {
-			webController.getUserAuthority().login("test", "hello");
-		} catch (NoAuthorityException | DaoLoadObjectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		
+		List<Patient> patientList = null;
+
+		// Read the patients
 		try {
-			userController.getPatientManagement().add(new Patient());
-		} catch (DaoSaveObjectException | NoAuthorityException e) {
+			patientList = userController.getPatientManagement().readAll();
+			
+		} catch (NoAuthorityException | DaoLoadObjectException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
-		
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		// Pass to the JSP
+        HttpSession session =request.getSession();
+        session.setAttribute("patientsList", patientList);
+        
+        // Dispatch request to the JSP
+        try {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/listPatients.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 
 }

@@ -40,8 +40,10 @@
 		<constructor-arg ref="beanBasedSessionFactory"/>
 	</bean>
 	
-<!-- 	<bean id="webController" class="fr.gklomphaar.findmypatient_webview.WebController">
-	</bean>  -->
+	<bean id="userController" class="fr.gklomphaar.findmypatient_webview.UserController" scope="session">
+		<constructor-arg ref="userDAO"/>
+		<constructor-arg ref="patientDAO"/>
+	</bean>
 	
 <!-- 	<bean id="webController" class="fr.gklomphaar.findmypatient_webview.WebController">
 		<constructor-arg ref="UserDAO"/>

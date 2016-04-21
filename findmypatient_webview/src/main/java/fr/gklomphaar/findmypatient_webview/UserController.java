@@ -21,7 +21,7 @@ import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
  * @author Gerard
  *
  */
-public class WebController {
+public class UserController {
 	
 /*	@Autowired
 	@Qualifier(value="userDAO")
@@ -33,9 +33,10 @@ public class WebController {
 	IPatientHybernateDAO patientDAO;
 	//IDataDAO<Patient> patientDAO;
 */	
+	/*
 	@Autowired
 	DataSource dataSource;
-	
+
 	@Autowired
 	@Qualifier("userDAO")
 	IDataDAO<User> userDAO;
@@ -43,7 +44,7 @@ public class WebController {
 	@Autowired
 	@Qualifier("patientDAO")
 	IDataDAO<Patient> patientDAO; 
-	
+	*/
 	// Management, requires user authority
 	private UserAuthority userAuthority;
 	private PatientManagement patientManagement;
@@ -54,7 +55,7 @@ public class WebController {
 	 * @param userDao The DAO responsible for user CRUD operations
 	 * @param patientDao The DAO responsible for Patient CRUD operations
 	 */
-	public WebController(/*IDataDAO<User> userDAO, IDataDAO<Patient> patientDAO*/){
+	public UserController(IDataDAO<User> userDAO, IDataDAO<Patient> patientDAO){
 		this.userAuthority = new UserAuthority(userDAO);
 		this.userManagement = new UserManagement(userDAO, this.userAuthority);
 		this.patientManagement = new PatientManagement(patientDAO, userAuthority);

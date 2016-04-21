@@ -1,6 +1,7 @@
 package fr.gklomphaar.findmypatient.dao;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -109,7 +110,7 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
 	@Override
 	public List<DataType> search(DataType data, IMatcher<DataType> matcher) throws DaoLoadObjectException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<DataType>();
 	}
 	
 }

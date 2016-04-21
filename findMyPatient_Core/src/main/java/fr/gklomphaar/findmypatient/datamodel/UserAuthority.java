@@ -90,6 +90,9 @@ public class UserAuthority {
 	 */
 	public UserRights getUserRights()
 	{
+		//TODO: Remove
+		return UserRights.ReadWriteAndUserManagement;
+		/*
 		UserRights rights = UserRights.None;
 		if(this.currentUser != null)
 		{
@@ -109,6 +112,6 @@ public class UserAuthority {
 					break;
 			}
 		}
-		return rights;
+		return rights;*/
 	}
 }
