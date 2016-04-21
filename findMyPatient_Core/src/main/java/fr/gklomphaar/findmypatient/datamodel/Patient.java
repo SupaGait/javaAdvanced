@@ -7,146 +7,176 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Patient data
+ * @author Gerard
+ *
+ */
 @Entity
 public class Patient 
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int pId;
+	private int id;
 	
 	@Column(name="PATIENT_SERIALNUMBER")
-	private String ssnNo;
+	private String socialSecurityNumber;
 	
 	@Column(name="PATIENT_FIRSTNAME")
-	private String fName;
+	private String firstName;
 	
 	@Column(name="PATIENT_LASTNAME")
-	private String lName;
+	private String lastName;
 	
-	@Column(name="PATIENT_DOB")
-	private String dob;
+	@Column(name="PATIENT_DATEOFBIRTH")
+	private String dateOfBirth;
 	
-	
-	@Column(name="PATIENT_CELLNO")
-	private String cellNo;
+	@Column(name="PATIENT_TELEPHONENUMBER")
+	private String telephoneNumber;
 	
 	@Column(name="PATIENT_EMAIL")
 	private String email;
 	
-	@Column(name="PATIENT_DISPLAYNAME")
-	private String displayName;
-	
-	@Column(name="PATIENT_ROOMNO")
-	private String roomNo;
+	@Column(name="PATIENT_ROOMNUMBER")
+	private String roomNumber;
 	
 	public Patient(int pId, String ssnNo, String fName, String lName, String dob, String cellNo, String Email, String displayName, String roomNo) 
 	{
-		this.pId = pId;
-		this.ssnNo = ssnNo;
-		this.fName = fName;
-		this.lName = lName;
-		this.dob = dob;
-		this.cellNo = cellNo;
-		this.email = Email;
-		this.displayName = displayName;	
-		this.roomNo = roomNo;
+		this.id = pId;
+		this.socialSecurityNumber = ssnNo;
+		this.firstName = fName;
+		this.lastName = lName;
+		this.dateOfBirth = dob;
+		this.telephoneNumber = cellNo;
+		this.email = Email;	
+		this.roomNumber = roomNo;
 	}
 	public Patient(String ssnNo, String fName, String lName, String dob, String cellNo, String Email, String displayName, String roomNo) 
 	{
-		this.pId = 0;
-		this.ssnNo = ssnNo;
-		this.fName = fName;
-		this.lName = lName;
-		this.dob = dob;
-		this.cellNo = cellNo;
+		this.id = 0;
+		this.socialSecurityNumber = ssnNo;
+		this.firstName = fName;
+		this.lastName = lName;
+		this.dateOfBirth = dob;
+		this.telephoneNumber = cellNo;
 		this.email = Email;
-		this.displayName = displayName;	
-		this.roomNo = roomNo;
+		this.roomNumber = roomNo;
 	}
 	public Patient()
 	{
-		this.pId = 0;
-		this.ssnNo = "";
-		this.fName = "";
-		this.lName = "";
-		this.dob = "";
-		this.cellNo = "";
+		this.id = 0;
+		this.socialSecurityNumber = "";
+		this.firstName = "";
+		this.lastName = "";
+		this.dateOfBirth = "";
+		this.telephoneNumber = "";
 		this.email = "";
-		this.displayName = "";	
-		this.roomNo = "";
+		this.roomNumber = "";
 	}
 
-	public int getpId() {
-		return pId;
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
 	}
-
-
-	public String getSsnNo() {
-		return ssnNo;
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	public void setSsnNo(String ssnNo) {
-		this.ssnNo = ssnNo;
+	/**
+	 * @return the socialSecurityNumber
+	 */
+	public String getSocialSecurityNumber() {
+		return socialSecurityNumber;
 	}
-
-	public String getfName() {
-		return fName;
+	/**
+	 * @param socialSecurityNumber the socialSecurityNumber to set
+	 */
+	public void setSocialSecurityNumber(String socialSecurityNumber) {
+		this.socialSecurityNumber = socialSecurityNumber;
 	}
-	
-	public void setfName(String fName) {
-		this.fName = fName;
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
 	}
-	
-	public String getlName() {
-		return lName;
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-
-	public void setlName(String lName) {
-		this.lName = lName;
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
 	}
-
-	public String getDob() {
-		return dob;
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-
-	public void setDob(String dob) {
-		this.dob = dob;
+	/**
+	 * @return the dateOfBirth
+	 */
+	public String getDateOfBirth() {
+		return dateOfBirth;
 	}
-
-	public String getCellNo() {
-		return cellNo;
+	/**
+	 * @param dateOfBirth the dateOfBirth to set
+	 */
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
-	public void setCellNo(String cellNo) {
-		this.cellNo = cellNo;
+	/**
+	 * @return the telephoneNumber
+	 */
+	public String getTelephoneNumber() {
+		return telephoneNumber;
 	}
-
+	/**
+	 * @param telephoneNumber the telephoneNumber to set
+	 */
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
+	}
+	/**
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
-
+	/**
+	 * @param email the email to set
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getDisplayName() {
-		return displayName;
+	/**
+	 * @return the roomNumber
+	 */
+	public String getRoomNumber() {
+		return roomNumber;
+	}
+	/**
+	 * @param roomNumber the roomNumber to set
+	 */
+	public void setRoomNumber(String roomNumber) {
+		this.roomNumber = roomNumber;
 	}
 	
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
-
-	public String getroomNo() {
-		return roomNo;
-	}
-
-	public void setroomNo(String roomNo) {
-		this.roomNo = roomNo;
-	}
-	
+	/**
+	 * @return String containing the values of all fields
+	 */
 	public String toString() {
-	return "Identity is displayed pId=" + pId + ", ssnNo=" + ssnNo + ", fName =" + fName + ", lName =" + lName + ", Dob =" +dob + 
-				", cellNo=" + cellNo + ", Email=" + email + ", displayName=" + displayName + " Room No " + roomNo   ;
+	return "Identity is displayed id=" + id + ", socialSecurityNumber=" + socialSecurityNumber + ", firstName =" + firstName + ", lastName =" + lastName + ", Dob =" +dateOfBirth + 
+				", telephoneNumber=" + telephoneNumber + ", Email=" + email + ", displayName=" + " Room No " + roomNumber   ;
 	}
 
 	

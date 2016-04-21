@@ -19,7 +19,6 @@ import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
-import fr.gklomphaar.findmypatient.helpers.MatchPatientDisplayName;
 import fr.gklomphaar.findmypatient.helpers.MatchPatientfrontName;
 
 /**
@@ -77,20 +76,20 @@ public class ProtoTypeTesting {
 	public void testDAOAddAndDelete(){
 
 		try {
-			final String tempPatientDisplayName = "NewPatientToBeDeleted";
+			final String tempPatientFirstName = "NewPatientToBeDeleted";
 			
 			System.out.println("--Test DAO delete--");
 			PatientJDBCDAO patientDAO = new PatientJDBCDAO(getDataSource());
 			patientDAO.connect();
 			
 			// Add a patient
-			Patient patientToAdd = new Patient("SSNO", "fName", "lName", "dob", "cellNo","Email",tempPatientDisplayName,"roomNo");
+			Patient patientToAdd = new Patient("SSNO", "fName", "lName", "dob", "cellNo","Email",tempPatientFirstName,"roomNo");
 			patientDAO.create(patientToAdd);
 			
 			// Search the new patient
 			Patient patientToSearch = new Patient();
-			patientToSearch.setDisplayName(tempPatientDisplayName);
-			List<Patient> patientList = patientDAO.search(patientToSearch, new MatchPatientDisplayName());
+			patientToSearch.setFirstName(tempPatientFirstName);
+			List<Patient> patientList = patientDAO.search(patientToSearch, new MatchPatientfrontName());
 			
 			Assert.assertEquals("Added patient did not succeed",0, patientList.size());
 			/*
@@ -273,7 +272,7 @@ public class ProtoTypeTesting {
 		if(patients != null)
 		{
 			for (Patient patient : patients) {
-				System.out.println( String.format("%s %s", patient.getpId() , patient) );
+				System.out.println( String.format("%s %s", patient.getId(), patient) );
 			}
 		}
 	}

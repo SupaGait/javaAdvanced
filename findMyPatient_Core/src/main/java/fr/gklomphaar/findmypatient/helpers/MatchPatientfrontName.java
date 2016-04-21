@@ -7,7 +7,7 @@ public class MatchPatientfrontName implements IMatcher<Patient> {
 
 	@Override
 	public String getSQLMatchStatement(String tableName, Patient patient) {
-		return "select * from "+tableName+" where FNAME='"+patient.getfName()+"'";
+		return "select * from "+tableName+" where FNAME='"+patient.getFirstName()+"'";
 	}
 
 	@Override

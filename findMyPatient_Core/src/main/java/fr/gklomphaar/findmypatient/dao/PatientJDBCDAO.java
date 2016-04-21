@@ -49,14 +49,13 @@ public class PatientJDBCDAO extends JDBCDAO<Patient> {
 	{
 		PreparedStatement stmt = this.connection.prepareStatement("INSERT INTO PATIENTS(SSN, FNAME, LNAME, DOB, CELLNO, EMAIL, DISPLAYNAME, ROOMNO) VALUES(?,?,?,?,?,?,?,?)");
 		
-		stmt.setString(1, patient.getSsnNo());
-		stmt.setString(2, patient.getfName());
-		stmt.setString(3, patient.getlName());
-		stmt.setString(4, patient.getDob());
-		stmt.setString(5, patient.getCellNo());
+		stmt.setString(1, patient.getSocialSecurityNumber());
+		stmt.setString(2, patient.getFirstName());
+		stmt.setString(3, patient.getLastName());
+		stmt.setString(4, patient.getDateOfBirth());
+		stmt.setString(5, patient.getTelephoneNumber());
 		stmt.setString(6, patient.getEmail());
-		stmt.setString(7, patient.getDisplayName());
-		stmt.setString(8, patient.getroomNo());
+		stmt.setString(8, patient.getRoomNumber());
 		
 		return stmt;
 	}
@@ -64,23 +63,22 @@ public class PatientJDBCDAO extends JDBCDAO<Patient> {
 	protected PreparedStatement updateData(Patient patient) throws SQLException
 	{
 		PreparedStatement stmt = this.connection.prepareStatement("UPDATE PATIENTS SET SSN=?, FNAME=?, LNAME=?, DOB=?, CELLNO=?, EMAIL=?, DISPLAYNAME=?, ROOMNO=? WHERE ID=?");
-		stmt.setString(1, patient.getSsnNo());
-		stmt.setString(2, patient.getfName());
-		stmt.setString(3, patient.getlName());
-		stmt.setString(4, patient.getDob());
-		stmt.setString(5, patient.getCellNo());
+		stmt.setString(1, patient.getSocialSecurityNumber());
+		stmt.setString(2, patient.getFirstName());
+		stmt.setString(3, patient.getLastName());
+		stmt.setString(4, patient.getDateOfBirth());
+		stmt.setString(5, patient.getTelephoneNumber());
 		stmt.setString(6, patient.getEmail());
-		stmt.setString(7, patient.getDisplayName());
-		stmt.setString(8, patient.getroomNo());
+		stmt.setString(8, patient.getRoomNumber());
 		
-		stmt.setInt(9, patient.getpId());
+		stmt.setInt(9, patient.getId());
 		return stmt;
 	}
 	@Override
 	protected PreparedStatement deleteData( Patient patient) throws SQLException
 	{
 		PreparedStatement stmt = this.connection.prepareStatement("DELETE FROM PATIENTS WHERE ID=? ");
-		stmt.setInt(1, patient.getpId());
+		stmt.setInt(1, patient.getId());
 		return stmt;
 	}
 }

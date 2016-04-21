@@ -9,14 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fr.gklomphaar.findmypatient.dao.IDataDAO;
-import fr.gklomphaar.findmypatient.dao.PatientJDBCDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
@@ -71,35 +68,49 @@ public class CreatePatient extends GenericSpringServlet {
 		System.out.println("Received: "+str);
 		
 		// Interpert data as a JSON object and parse it
-		JSONObject json = new JSONObject(str);
+		JSONObject jsonRequest = new JSONObject(str);
+		JSONObject jsonResult = new JSONObject();
 		
 		// Get the parameters
 		try {
-			String firstName = json.getString("firstName");
-			String lastName = json.getString("lastName");
-			String email = json.getString("email");
+			String firstName = jsonRequest.getString("firstName");
+			String lastName = jsonRequest.getString("lastName");
+			String dateOfBirth = jsonRequest.getString("dateOfBirth");
+			String roomNumber = jsonRequest.getString("roomNumber");
+			String socialSecurityNumber = jsonRequest.getString("socialSecurityNumber");
+			String telephoneNumber = jsonRequest.getString("telephoneNumber");
+			String email = jsonRequest.getString("email");
 			
 			System.out.println(firstName+" "+lastName+" "+email);
 			
 			// Create the new patient
 			Patient newPatient = new Patient();
-			newPatient.setfName(firstName);
-			newPatient.setlName(lastName);
+			newPatient.setFirstName(firstName);
+			newPatient.setLastName(lastName);
+			newPatient.setDateOfBirth(dateOfBirth);
+			newPatient.setRoomNumber(roomNumber);
+			newPatient.setSocialSecurityNumber(socialSecurityNumber);
+			newPatient.setTelephoneNumber(telephoneNumber);
 			newPatient.setEmail(email);
 			
-			// Save it
+			// Save the new patient
 			try {
 				userController.getPatientManagement().add(newPatient);
-				response.getWriter().append("Thank you for the new user.");	
+				jsonResult.put("succes", true);
+				jsonResult.put("message", "Thank you for the new user.");
+				
 			} catch (DaoSaveObjectException | NoAuthorityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				response.getWriter().append("Error while creating the new user.");
+				jsonResult.put("succes", false);
+				jsonResult.put("message", "Error while creating the new user.");
 			}
 			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			jsonResult.put("succes", false);
+			jsonResult.put("message", "Error while parsing the JSON request for the new user.");
 		}
+		
+		// Write the resulting JSON string back
+		response.setContentType("application/json");
+		jsonResult.write(response.getWriter());
 	}
 }
