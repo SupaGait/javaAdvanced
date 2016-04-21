@@ -2,6 +2,8 @@ package fr.gklomphaar.findmypatient_webview.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +19,8 @@ import fr.gklomphaar.findmypatient.dao.IDataDAO;
 import fr.gklomphaar.findmypatient.dao.PatientJDBCDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
+import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
+import fr.gklomphaar.findmypatient_webview.UserController;
 
 /**
  * Servlet implementation class CreatePatient
@@ -26,11 +30,8 @@ public class CreatePatient extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	DataSource dataSource;
+	UserController userController;
 	
-	@Autowired
-	IDataDAO<Patient> dao = new PatientJDBCDAO(dataSource);
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,8 +44,13 @@ public class CreatePatient extends GenericSpringServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+        // Dispatch request to the JSP
+        try {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/createPatient.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 
 	/**
@@ -74,26 +80,26 @@ public class CreatePatient extends GenericSpringServlet {
 			String email = json.getString("email");
 			
 			System.out.println(firstName+" "+lastName+" "+email);
+			
+			// Create the new patient
+			Patient newPatient = new Patient();
+			newPatient.setfName(firstName);
+			newPatient.setlName(lastName);
+			newPatient.setEmail(email);
+			
+			// Save it
+			try {
+				userController.getPatientManagement().add(newPatient);
+				response.getWriter().append("Thank you for the new user.");	
+			} catch (DaoSaveObjectException | NoAuthorityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				response.getWriter().append("Error while creating the new user.");
+			}
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		// Create the new patient
-		Patient newPatient = new Patient();
-		
-		try {
-			dao.create(newPatient);
-			response.getWriter().append("Thank you for the new user.");	
-		} catch (DaoSaveObjectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			response.getWriter().append("Error while creating the new user.");
-		}
-		
-		
 	}
-
 }

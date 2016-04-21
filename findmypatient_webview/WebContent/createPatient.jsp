@@ -24,7 +24,9 @@
 </head>
 
 <body>
-	<div id="messageCreatePatient"></div>
+	<%@ include file="generalMenu.jsp" %>
+
+	<div id="messageCreatePatient" class="alert alert-success"></div>
 
 	<div id="container">
 		<div xmlns="http://www.w3.org/1999/xhtml" class="bs-example">
@@ -106,7 +108,6 @@
 
 		xhr.open('POST', url, true);
 		xhr.send(JSON.stringify(data));
-		// 		xhr.send("Hello servlet, bring me a coffe please.");
 	}
 </script>
 </html>
