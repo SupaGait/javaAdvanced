@@ -18,23 +18,26 @@
 	<%@ include file="generalMenu.jsp"%>
 
 	<div class="container">
-		<h2>Patient</h2>
+		
 		<!--Search Form -->
-		<form action="/employee" method="get" id="seachEmployeeForm">
+		<form action="/ListPatients" method="get" id="seachPatientForm">
 			<input type="hidden" id="searchAction" name="searchAction" value="searchByName" />
-			<div class="form-group col-xs-5">
-				<input type="text" name="employeeName" id="employeeName" class="form-control" />
+			<div class="form-group col-xs-offset-7 col-xs-4">
+				<input type="text" name="patientName" id="patientName" class="form-control" />
 			</div>
-			<button type="submit" class="btn btn-info">
-				<span class="glyphicon glyphicon-search"></span> Search
-			</button>
+			<div class="form-group col-xs-1">
+				<button type="submit" class="btn btn-info">
+					<span class="glyphicon glyphicon-search"></span> Search
+				</button>
+			</div>
 			<br>
 		</form>
 
+		<h2>Patients</h2>
 		<form action="/ListPatients" method="post" id="patientsForm">
 			<c:choose>
 				<c:when test="${not empty patientsList}">
-					<table class="table table-striped">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<td>#</td>
@@ -45,7 +48,6 @@
 								<td>Social security nr.</td>
 								<td>Telephone nr.</td>
 								<td>Email address</td>
-								<td></td>
 							</tr>
 						</thead>
 						<c:forEach var="patient" items="${patientsList}">
@@ -69,8 +71,7 @@
 				<c:otherwise>
 					<br>
 					</br>
-					<div class="alert alert-info">No people found matching your
-						search criteria</div>
+					<div class="alert alert-info">No patients found</div>
 				</c:otherwise>
 			</c:choose>
 		</form>

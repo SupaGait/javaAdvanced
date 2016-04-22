@@ -13,42 +13,61 @@
 
 <body>
 	<%@ include file="generalMenu.jsp" %>
-	<div id="messageCreatePatient" class="alert"></div>
-	<div id="container">
-		<div>
-			<div role="form" lpformnum="1" action="CreatePatient" id="form">
-				<div class="form-group">
-					<label for="InputFirstName">First name</label> 
-					<input type="text" class="form-control" style="cursor: auto;" id="firstName" name="firstName" placeholder="Enter patient first name" />
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-5 col-sm-offset-2">
+				<div id="messageCreatePatient" class="alert"></div>
+			</div>
+		</div>
+		<div id="form" class="form-horizontal">
+			<div class="form-group">
+				<label for="InputFirstName" class="col-sm-2 control-label">First name</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control col-sm-10" style="cursor: auto;" id="firstName" name="firstName" placeholder="Enter patient first name" />
 				</div>
-				<div class="form-group">
-					<label for="InputLastName">Last name</label>
+			</div>
+			<div class="form-group">
+				<label for="InputLastName" class="col-sm-2 control-label">Last name</label>
+				<div class="col-sm-10">
 					<input type="text" class="form-control" style="cursor: auto;" id="lastName" name="lastName" placeholder="Enter patient last name" />
 				</div>
-				<div class="form-group">
-					<label for="InputDateOfBirth">Date of birth</label>
+			</div>
+			<div class="form-group">
+				<label for="InputDateOfBirth" class="col-sm-2 control-label">Date of birth</label>
+				<div class="col-sm-10">
 					<input type="text" class="form-control" style="cursor: auto;" id="dateOfBirth" name="dateOfBirth" placeholder="Enter patient date of birth" />
 				</div>
-				<div class="form-group">
-					<label for="InputRoomNumber">Room number</label>
+			</div>
+			<div class="form-group">
+				<label for="InputRoomNumber" class="col-sm-2 control-label">Room number</label>
+				<div class="col-sm-10">
 					<input type="text" class="form-control" style="cursor: auto;" id="roomNumber" name="roomNumber" placeholder="Enter patient room number" />
 				</div>
-				<div class="form-group">
-					<label for="InputSocialSecurityNumber">Social security number</label>
+			</div>
+			<div class="form-group">
+				<label for="InputSocialSecurityNumber" class="col-sm-2 control-label">Social security number</label>
+				<div class="col-sm-10">
 					<input type="text" class="form-control" style="cursor: auto;" id="socialSecurityNumber" name="socialSecurityNumber" placeholder="Enter patient social security number" />
 				</div>
-				<div class="form-group">
-					<label for="InputTelephoneNumber">Telephone number</label>
+			</div>
+			<div class="form-group">
+				<label for="InputTelephoneNumber" class="col-sm-2 control-label">Telephone number</label>
+				<div class="col-sm-10">
 					<input type="text" class="form-control" style="cursor: auto;" id="telephoneNumber" name="telephoneNumber" placeholder="Enter patient telephone number" />
 				</div>
-				<div class="form-group">
-					<label for="InputEmail">Email</label>
+			</div>
+			<div class="form-group">
+				<label for="InputEmail" class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
 					<input type="text" class="form-control" style="cursor: auto;" id="email" name="email" placeholder="Enter patient email address" />
 				</div>
+			</div>
 
-				<button onclick="sendCreateInformation()" type="submit" class="btn btn-default">
-					Submit
-				</button>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button onclick="sendCreateInformation()" type="submit" class="btn btn-primary ">Submit</button>
+				</div>
 			</div>
 		</div>
 	</div><!-- /.container -->
@@ -56,6 +75,7 @@
 <!-- Bootstrap scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
+
 <script type="text/javascript">
 	function callbackForCreate(xhr) {
 		// Get the container, and the response and parse it to an JSON object
