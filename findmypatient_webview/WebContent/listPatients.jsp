@@ -73,8 +73,8 @@
 								<td>${patient.socialSecurityNumber}</td>
 								<td>${patient.telephoneNumber}</td>
 								<td>${patient.email}</td>
-								<td>
-									<a href="" id="deletePatient" onclick="sendDeleteInformation(${patient.id})">
+								<td>				
+									<a id="deletePatient" onclick="sendDeleteInformation(${patient.id})">
 								  		<span class="glyphicon glyphicon-trash"/> <!-- trash or remove  -->
 								  	</a>
 								</td>
@@ -100,7 +100,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script type="text/javascript">
-	function callbackForDelete(xhr) {
+	function callbackForDelete(xhr, patientId) {
 		// Get the container, and the response and parse it to an JSON object
 		var mssgContainer = document.getElementById('messageBoxReturnStatus')
 		var jsonObj = JSON.parse(xhr.responseText);
@@ -113,23 +113,20 @@
 		else {
 			mssgContainer.setAttribute("class","alert alert-danger")
 		}
+		
+		// Remove the row containing the patientId
+		var patientRowName = "patient_"+patientId+"_row"; 
+		var patientRowElement = document.getElementById(patientRowName);
+		patientRowElement.parentNode.removeChild(patientRowElement);
 	}
 
 	function sendDeleteInformation(patientId) {
 		data = {}
-		data["patientId"] = patientId
-		/* var formContainer = document.getElementById("form");
-		var inputs = formContainer.getElementsByTagName("input");
-		var inputsSize = inputs.length;
-		var data = {};
-		;
-		for (var i = 0; i < inputsSize; i++) {
-			data[inputs[i].name] = inputs[i].value;
-		} */
-		load("DeletePatient", data, callbackForDelete);
+		data["patientId"] = patientId;
+		load("DeletePatient", data, patientId, callbackForDelete);
 	}
 
-	function load(url, data, callback) {
+	function load(url, data, patientId, callback) {
 		var xhr;
 		if (typeof XMLHttpRequest !== 'undefined')
 			xhr = new XMLHttpRequest();
@@ -158,7 +155,7 @@
 
 			// all is well  
 			if (xhr.readyState === 4) {
-				callback(xhr);
+				callback(xhr, patientId);
 			}
 		}
 

@@ -53,6 +53,7 @@ public class DeletePatient extends GenericSpringServlet {
 			}
 		}
 		else {
+			// patientId not included in the request
 			jsonResult.put("succes", false);
 			jsonResult.put("message", "Error while deleting the patient, no id given.");
 		}
