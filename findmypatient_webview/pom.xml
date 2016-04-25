@@ -2,7 +2,6 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>fr.gklomphaar</groupId>
   <artifactId>findmypatient_webview</artifactId>
   <packaging>war</packaging>
 
@@ -29,11 +28,6 @@
 			<artifactId>Services</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
   		</dependency>
-	    <dependency>
-	      <groupId>junit</groupId>
-	      <artifactId>junit</artifactId>
-	      <scope>test</scope>
-	    </dependency>
 		<dependency>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
@@ -66,6 +60,18 @@
 	        <artifactId>jstl</artifactId>
 	        <version>1.2</version>
 	    </dependency>
+	    
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <scope>test</scope>
+	    </dependency>
+	    <dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
   </dependencies>
   
   	<build>
@@ -87,6 +93,15 @@
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
+				<!-- Attach source code -->
+<!-- 	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-eclipse-plugin</artifactId>
+	                <configuration>
+	                    <downloadSources>true</downloadSources>
+	                    <downloadJavadocs>true</downloadJavadocs>
+	                </configuration>
+	            </plugin> -->
 			</plugins>
 		</pluginManagement>
 	</build>

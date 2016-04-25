@@ -5,7 +5,7 @@ package fr.gklomphaar.test.whereclausebuilder;
 
 import fr.gklomphaar.datamodel.Test_Identity;
 import fr.gklomphaar.services.WhereClauseBuilder;
-import fr.gklomphaar.services.WhereClauseBuilder.WhereClause;
+import fr.gklomphaar.services.WhereClause;
 
 import java.util.Map;
 import java.util.Map.Entry;

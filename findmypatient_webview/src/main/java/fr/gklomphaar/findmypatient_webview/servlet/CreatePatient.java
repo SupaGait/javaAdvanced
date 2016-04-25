@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
+import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.UserController;
 
@@ -26,8 +27,7 @@ import fr.gklomphaar.findmypatient_webview.UserController;
 public class CreatePatient extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired
-	UserController userController;
+	
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -55,20 +55,10 @@ public class CreatePatient extends GenericSpringServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String str = "";
-		String part = "";
-		
 		// Read the buffer to get all data
-		final BufferedReader reader = request.getReader();
-		while(part != null) {
-			str += part;
-			part = reader.readLine();
-		}
+		JSONObject jsonRequest = getRequestAsJson(request);
 		
-		System.out.println("Received: "+str);
-		
-		// Interpert data as a JSON object and parse it
-		JSONObject jsonRequest = new JSONObject(str);
+		// Interpret data as a JSON object and parse it
 		JSONObject jsonResult = new JSONObject();
 		
 		// Get the parameters
@@ -99,14 +89,17 @@ public class CreatePatient extends GenericSpringServlet {
 				jsonResult.put("succes", true);
 				jsonResult.put("message", "Thank you for the new user.");
 				
-			} catch (DaoSaveObjectException | NoAuthorityException e) {
+			} catch (DaoSaveObjectException e) {
 				jsonResult.put("succes", false);
-				jsonResult.put("message", "Error while creating the new user.");
+				jsonResult.put("message", "Error while creating the new patient.");
+			} catch (NoAuthorityException e) {
+				jsonResult.put("succes", false);
+				jsonResult.put("message", "Not sufficient rights to peform the requested action.");
 			}
 			
 		} catch (JSONException e) {
 			jsonResult.put("succes", false);
-			jsonResult.put("message", "Error while parsing the JSON request for the new user.");
+			jsonResult.put("message", "Error while parsing the JSON request for the new patient.");
 		}
 		
 		// Write the resulting JSON string back
