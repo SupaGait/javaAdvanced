@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-5 col-sm-offset-2">
-				<div id="messageCreatePatient" class="alert"></div>
+				<div id="messageCreatePatient" class="alert invisible">Message</div>
 			</div>
 		</div>
 		<div id="form" class="form-horizontal">

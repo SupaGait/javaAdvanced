@@ -22,13 +22,34 @@
 		<!-- Message box  -->
 		<div class="row">
 			<div class="col-sm-5 col-sm-offset-2">
-				<div id="messageBoxReturnStatus" class="alert"></div>
+				<div id="messageBoxReturnStatus" class="alert invisible">Message</div>
 			</div>
 		</div>
 		
 		<!--Search Form -->
+		<div class="row">
+  			<div class="col-sm-6 col-sm-offset-6">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Search by <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</div>
+					<!-- /btn-group -->
+					<input type="text" class="form-control" aria-label="...">
+				</div>
+			</div>
+		</div>
+		<!-- /input-group -->
 		<form action="/ListPatients" method="get" id="seachPatientForm">
-			<input type="hidden" id="searchAction" name="searchAction" value="searchByName" />
+			<!-- <input type="hidden" id="searchAction" name="searchAction" value="searchByName" /> -->
 			<div class="form-group col-xs-offset-7 col-xs-4">
 				<input type="text" name="patientName" id="patientName" class="form-control" />
 			</div>
@@ -47,7 +68,7 @@
 				<c:when test="${not empty patientsList}">
 					<table class="table table-hover table-bordered">
 						<thead style="font-weight: bold;">
-							<tr>
+							<tr style="text-align: center;">
 								<td>#</td>
 								<td>First Name</td>
 								<td>Last name</td>
@@ -73,8 +94,9 @@
 								<td>${patient.socialSecurityNumber}</td>
 								<td>${patient.telephoneNumber}</td>
 								<td>${patient.email}</td>
-								<td>				
-									<a id="deletePatient" onclick="sendDeleteInformation(${patient.id})">
+								<td style="text-align: center;">				
+									<%-- <a id="deletePatient" onclick="sendDeleteInformation(${patient.id})"> --%> 
+									<a id="deletePatient" onclick="callDeleteModal(${patient.id},'${patient.firstName}','${patient.lastName}')">
 								  		<span class="glyphicon glyphicon-trash"/> <!-- trash or remove  -->
 								  	</a>
 								</td>
@@ -86,6 +108,52 @@
 					<div class="alert alert-info">No patients found</div>
 				</c:otherwise>
 			</c:choose>
+		</div>
+		
+		<!-- Delete confirm modal window  -->
+		<div class="modal fade" id="delConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+					</div>
+					<div class="modal-body" id="delConfirmModalBody">
+						<div style="font-weight: bold;">Deleting patient:</div>
+						<div style="font-size: 20px;" id="delConfirmModalField"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button id="deleteConfirmedButton" type="button" class="btn btn-warning" data-dismiss="modal" onclick="">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12" style="text-align: right">
+				<nav>
+				  <ul class="pagination">
+				    <li>
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+				    <li><a href="#">3</a></li>
+				    <li><a href="#">4</a></li>
+				    <li><a href="#">5</a></li>
+				    <li>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
 		</div>
 
 		<div>
@@ -100,12 +168,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script type="text/javascript">
+
+	// Set modal info on show
+	var callDeleteModal = (function (patientId, patientFrontName, patientLastName) {
+	    var deModalElement = document.getElementById('delConfirmModal');
+	    var deModalElementButton = document.getElementById('deleteConfirmedButton');
+	    var delConfirmModalFieldElement = document.getElementById('delConfirmModalField');
+
+	    
+	    // Set fields, show window
+	    return function (patientId, patientFrontName, patientLastName) {
+	    	deModalElementButton.onclick = new Function("sendDeleteInformation("+patientId+")");
+	    	delConfirmModalFieldElement.innerHTML = patientFrontName + " " + patientLastName + " (id: "+ patientId + ")";
+	    	$("#delConfirmModal").modal()
+	    	return;
+	    	}
+	})();
+
 	function callbackForDelete(xhr, patientId) {
 		// Get the container, and the response and parse it to an JSON object
-		var mssgContainer = document.getElementById('messageBoxReturnStatus')
-		var jsonObj = JSON.parse(xhr.responseText);
+		var mssgContainer = document.getElementById('messageBoxReturnStatus') 
+		var patientRowElement = document.getElementById("patient_"+patientId+"_row");
 		
 		// Set the information of the container based on the message
+		var jsonObj = JSON.parse(xhr.responseText);
 		mssgContainer.innerHTML = jsonObj.message;
 		if(jsonObj.succes == true) {
 			mssgContainer.setAttribute("class","alert alert-success")
@@ -115,8 +201,6 @@
 		}
 		
 		// Remove the row containing the patientId
-		var patientRowName = "patient_"+patientId+"_row"; 
-		var patientRowElement = document.getElementById(patientRowName);
 		patientRowElement.parentNode.removeChild(patientRowElement);
 	}
 
