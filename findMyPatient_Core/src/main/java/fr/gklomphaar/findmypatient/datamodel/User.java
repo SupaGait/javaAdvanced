@@ -1,18 +1,31 @@
 
 package fr.gklomphaar.findmypatient.datamodel;
 
-import sun.net.NetworkClient;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Model class, containing specific data about a single user
  *
  */
+@Entity
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
+	
+	@Column(name="USER_USERNAME")
 	private String userName;
+	
+	@Column(name="USER_PASSWORD")
 	private String password;
+	
+	@Column(name="USER_RIGHTS")
 	private String rights;
-	private String id;
 
 	/**
 	 * Creates a new User object
@@ -23,7 +36,7 @@ public class User {
 	{
 		this.userName = name;
 		this.password = password;
-		this.id = "New";
+		this.id = 0;
 	}
 	
 	/**
@@ -33,7 +46,7 @@ public class User {
 	 * @param rights associated to the user
 	 * @param id of the user
 	 */
-	public User(String name, String password, String rights, String id)
+	public User(String name, String password, String rights, int id)
 	{
 		this.userName = name;
 		this.password = password;
@@ -67,7 +80,7 @@ public class User {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	/**

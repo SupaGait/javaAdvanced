@@ -24,6 +24,7 @@ import org.springframework.util.Assert;
 import fr.gklomphaar.findmypatient.testcases.Test_Identity;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
+import fr.gklomphaar.findmypatient.helpers.IMatcher;
 import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 import fr.gklomphaar.services.WhereClauseBuilder;
 import fr.gklomphaar.services.WhereClause;
@@ -103,7 +104,19 @@ public class TestHybernateGenericDao {
 			
 			List<String> fieldList = new ArrayList<String>();
 			fieldList.add(entry.getValue().getDataFieldName());
-			List<Test_Identity> searchResult = identityDao.search(populateIdentities.get(identityNr), fieldList);
+			
+			IMatcher<Test_Identity> nameMatcher = new IMatcher<Test_Identity>() {
+				@Override
+				public List<String> getFields() {
+					return fieldList;
+				}
+				@Override
+				public String getSQLMatchStatement(String tableName, Test_Identity data) {
+					return null;
+				}
+			};
+			
+			List<Test_Identity> searchResult = identityDao.search(populateIdentities.get(identityNr), nameMatcher);
 			org.junit.Assert.assertEquals(1, searchResult.size());
 			
 			identityNr++;
@@ -124,11 +137,21 @@ public class TestHybernateGenericDao {
 		
 		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Test_Identity.class);
 		
-		List<String> fieldList = new ArrayList<String>();
-		fieldList.add("firstName");
-		
 		// Verify that the new name is in the DAO using a search
-		final List<Test_Identity> searchResult = identityDao.search(identity, fieldList);
+		IMatcher<Test_Identity> nameMatcher = new IMatcher<Test_Identity>() {
+			@Override
+			public List<String> getFields() {
+				List<String> fieldList = new ArrayList<String>();
+				fieldList.add("firstName");
+				return fieldList;
+			}
+			@Override
+			public String getSQLMatchStatement(String tableName, Test_Identity data) {
+				return null;
+			}
+		};
+		
+		final List<Test_Identity> searchResult = identityDao.search(identity, nameMatcher);
 		org.junit.Assert.assertEquals(1, searchResult.size());
 		org.junit.Assert.assertEquals(identity.getFirstName(), searchResult.get(0).getFirstName());
 	}

@@ -23,28 +23,6 @@ import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
  */
 public class UserController {
 	
-/*	@Autowired
-	@Qualifier(value="userDAO")
-	IUserHybernateDAO userDAO;
-	//IDataDAO<User> userDAO;
-	
-	@Autowired
-	@Qualifier(value="patientDAO")
-	IPatientHybernateDAO patientDAO;
-	//IDataDAO<Patient> patientDAO;
-*/	
-	/*
-	@Autowired
-	DataSource dataSource;
-
-	@Autowired
-	@Qualifier("userDAO")
-	IDataDAO<User> userDAO;
-	
-	@Autowired
-	@Qualifier("patientDAO")
-	IDataDAO<Patient> patientDAO; 
-	*/
 	// Management, requires user authority
 	private UserAuthority userAuthority;
 	private PatientManagement patientManagement;

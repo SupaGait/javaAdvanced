@@ -14,18 +14,45 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
+import fr.gklomphaar.findmypatient.datamodel.Patient;
+import fr.gklomphaar.findmypatient.datamodel.User;
 import fr.gklomphaar.findmypatient_webview.servlet.DeletePatient;
 
-/**
- * Unit test for find my patient
- */
+@RunWith(SpringJUnit4ClassRunner.class) //This is to tell Junit to run with spring
+@ContextConfiguration(locations={"file:WebContent/WEB-INF/applicationContext.xml"}) // to tell spring to load the required context
 public class FindMyPatientTest extends Mockito
 {
+	@Autowired
+	UserHybernateDAO userDAO;
+	
+	@Autowired
+	PatientHybernateDAO patientDAO;
+	
+	@Test
+	public void testObjectAutoWiring(){
+		Assert.assertNotNull(userDAO);
+		Assert.assertNotNull(patientDAO);
+	}
+	
+	@Test
+	public void resetDataBase() throws DaoSaveObjectException {
+		User adminUser = new User("admin", "admin");
+		userDAO.create(adminUser); 
+		
+		/*Patient patient = new Patient();
+		patient.setFirstName("Gerard");
+		patient.setLastName("Klomphaar");
+		patientDAO.create(patient);*/
+	}
 	 
 	@Test
 	public void deletePatientServletTest() throws ServletException, IOException{

@@ -36,7 +36,7 @@ public class UserJDBCDAO extends JDBCDAO<User> {
 			String name = resultSet.getString("NAME");
 			String pass = resultSet.getString("PASSWORD");
 			String rights = resultSet.getString("RIGHTS");
-			String id = resultSet.getString("ID");
+			int id = resultSet.getInt("ID");
 
 			User user = new User(name, pass, rights, id);
 			userList.add(user);
@@ -63,7 +63,7 @@ public class UserJDBCDAO extends JDBCDAO<User> {
 		PreparedStatement stmt = this.connection.prepareStatement("UPDATE USERS SET NAME=?,PASSWORD=? WHERE ID=?");
 		stmt.setString(1, user.getName());
 		stmt.setString(2, user.getPassword());
-		stmt.setString(3, user.getId());
+		stmt.setInt(3, user.getId());
 		return stmt;
 	}
 
@@ -73,7 +73,7 @@ public class UserJDBCDAO extends JDBCDAO<User> {
 	@Override
 	protected PreparedStatement deleteData(User user) throws SQLException {
 		PreparedStatement stmt = this.connection.prepareStatement("DELETE FROM USERS WHERE ID=?");
-		stmt.setString(3, user.getId());
+		stmt.setInt(3, user.getId());
 		return stmt;
 	}
 }

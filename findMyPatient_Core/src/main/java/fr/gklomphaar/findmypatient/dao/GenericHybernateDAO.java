@@ -26,7 +26,7 @@ import fr.gklomphaar.services.WhereClauseBuilder;
  *
  * @param <DataType> class on which CRUD operations will be done
  */
-public class GenericHybernateDAO<DataType> implements IGenericDataDAO<DataType> {
+public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
 
 	private SessionFactory sessionFactory;
 	private Class<DataType> typeClass;
@@ -59,8 +59,8 @@ public class GenericHybernateDAO<DataType> implements IGenericDataDAO<DataType> 
 	}
 
 	@Override
-	public List<DataType> search(DataType data, List<String> fields) throws DaoLoadObjectException {
-
+	public List<DataType> search(DataType data, IMatcher<DataType> matcher) throws DaoLoadObjectException {
+		List<String> fields = matcher.getFields();
 		List<DataType> foundObjects = null;
 		
 		// New session
