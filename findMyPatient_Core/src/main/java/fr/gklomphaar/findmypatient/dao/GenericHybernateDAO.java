@@ -12,20 +12,21 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
+import org.hibernate.metamodel.relational.Datatype;
 
 import fr.gklomphaar.findmypatient.dao.IDataDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.helpers.IMatcher;
-import fr.gklomphaar.services.WhereClauseBuilder.WhereClause;
+import fr.gklomphaar.services.WhereClause;
+import fr.gklomphaar.services.WhereClauseBuilder;
 
 /**
  * @author Gerard
  *
  * @param <DataType> class on which CRUD operations will be done
  */
-public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
+public class GenericHybernateDAO<DataType> implements IGenericDataDAO<DataType> {
 
 	private SessionFactory sessionFactory;
 	private Class<DataType> typeClass;
@@ -57,30 +58,64 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
 		return session.createCriteria(typeClass).list();
 	}
 
-	//@Override
-	//TODO:Use correct search
-	public List<DataType> search(DataType data, WhereClause whereClause) throws DaoLoadObjectException {
+	@Override
+	public List<DataType> search(DataType data, List<String> fields) throws DaoLoadObjectException {
 
+		List<DataType> foundObjects = null;
+		
 		// New session
 		Session session = sessionFactory.openSession();
 		
-		// Construct the query
-		// TODO: Use a better method, this is not maintainable and only Date en String supported
-		Query query = session.createQuery(whereClause.getClauseQuery());
-		try {
-			final Object valueObject = whereClause.getValue(data);
-			final String assignName = whereClause.getAssignName();
-			if(valueObject instanceof String) {
-				query.setString(assignName, (String)valueObject);
+		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(typeClass);
+		Map<String, WhereClause> dataTypeWhereClauses = whereClauseBuilder.getWhereClauses();
+		
+		// Find the where clauses for the given fields
+		List<WhereClause> whereClauses = new ArrayList<WhereClause>();
+		for (String field : fields) {
+			if(dataTypeWhereClauses.containsKey(field)){
+				whereClauses.add(dataTypeWhereClauses.get(field));
 			}
-			else if(valueObject instanceof Date) {
-				query.setDate(assignName, (Date)valueObject);
-			}
-			
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			throw new DaoLoadObjectException(this, e);
 		}
-		return query.list();
+		
+		// Construct the query
+		if(!whereClauses.isEmpty() ){
+			// Build the query String and create the query
+			String queryString = whereClauses.get(0).getWhereClauseFrom();
+			boolean firstWhere = true;
+			for (WhereClause whereClause : whereClauses) {
+				if(!firstWhere){
+					queryString += " AND ";
+				}
+				else {
+					firstWhere = false;
+				}
+				queryString += whereClause.getWhereClauseWhere();
+			}
+			Query query = session.createQuery(queryString);
+			
+			// Fill the query with name and values
+			try {
+				for(WhereClause whereClause : whereClauses){
+					// TODO: Use a better method, this is not maintainable and only Date and String supported
+					final Object valueObject = whereClause.getValue(data);
+					final String assignName = whereClause.getAssignName();
+					if(valueObject instanceof String) {
+						query.setString(assignName, (String)valueObject);
+					}
+					else if(valueObject instanceof Date) {
+						query.setDate(assignName, (Date)valueObject);
+					}
+				}				
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw new DaoLoadObjectException(this, e);
+			}
+			foundObjects = query.list();
+		}
+		else {
+			throw new DaoLoadObjectException(this, new Exception("No fields given to search."));
+		}
+		
+		return foundObjects;
 	}
 
 	@Override
@@ -106,11 +141,4 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
 		tx.commit();
 		session.close();
 	}
-
-	@Override
-	public List<DataType> search(DataType data, IMatcher<DataType> matcher) throws DaoLoadObjectException {
-		// TODO Auto-generated method stub
-		return new ArrayList<DataType>();
-	}
-	
 }

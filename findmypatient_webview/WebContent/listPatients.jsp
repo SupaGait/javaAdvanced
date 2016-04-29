@@ -175,12 +175,11 @@
 	    var deModalElementButton = document.getElementById('deleteConfirmedButton');
 	    var delConfirmModalFieldElement = document.getElementById('delConfirmModalField');
 
-	    
 	    // Set fields, show window
 	    return function (patientId, patientFrontName, patientLastName) {
 	    	deModalElementButton.onclick = new Function("sendDeleteInformation("+patientId+")");
 	    	delConfirmModalFieldElement.innerHTML = patientFrontName + " " + patientLastName + " (id: "+ patientId + ")";
-	    	$("#delConfirmModal").modal()
+	    	$("#delConfirmModal").modal();
 	    	return;
 	    	}
 	})();
@@ -194,14 +193,13 @@
 		var jsonObj = JSON.parse(xhr.responseText);
 		mssgContainer.innerHTML = jsonObj.message;
 		if(jsonObj.succes == true) {
+			// Remove the row containing the patientId
 			mssgContainer.setAttribute("class","alert alert-success")
+			patientRowElement.parentNode.removeChild(patientRowElement);
 		}
 		else {
 			mssgContainer.setAttribute("class","alert alert-danger")
 		}
-		
-		// Remove the row containing the patientId
-		patientRowElement.parentNode.removeChild(patientRowElement);
 	}
 
 	function sendDeleteInformation(patientId) {

@@ -1,0 +1,42 @@
+@startuml
+interface IDataDAO<dataType>
+IDataDAO <|.. IPatientHybernateDAO
+
+genericHybernateDAO <|.. d  
+@enduml
+
+package fr.shazilgerard.findmypatient.controller {
+	class IdentityController
+}
+package fr.shazilgerard.findmypatient.datamodel {
+	class User
+	class Patient
+	
+	class UserManagement
+	class PatientManagement
+	class UserAuthority
+}
+
+package fr.shazilgerard.findmypatient.dao {
+	interface IDataDAO  
+	interface IDAOManagement
+	abstract class JDBCDAO
+	class UserJDBCDAO
+	class PatientJDBCDAO 
+}
+IDataDAO <|.. JDBCDAO  
+IDAOManagement <|.. JDBCDAO
+JDBCDAO <|-- UserJDBCDAO
+JDBCDAO <|-- PatientJDBCDAO 
+
+IdentityController o-- "1" UserManagement
+IdentityController o-- "1" PatientManagement
+IdentityController o-- "1" UserAuthority
+
+UserManagement --> User
+PatientManagement --> Patient
+UserAuthority --> User
+UserAuthority <- PatientManagement
+UserManagement -> UserAuthority
+	
+GUIView o-- IdentityController

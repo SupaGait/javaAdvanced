@@ -81,11 +81,11 @@ public class WhereClauseBuilder {
 			this.fields.add(fieldName);
 			
 			// Generate a where clause
-			String whereClause = String.format("FROM %s %s_object WHERE %s_object.%s =:%s", 
-					tableName, tableName, tableName, fieldName, fieldName);
+			String whereClauseFrom =String.format("FROM %s %s_object ", tableName, tableName); 
+			String whereClauseWhere = String.format("WHERE %s_object.%s =:%s", tableName, fieldName, fieldName);
 			
 			// Simple clause map
-			this.simpleClauseMap.put(fieldName, whereClause);
+			this.simpleClauseMap.put(fieldName, whereClauseFrom+whereClauseWhere);
 			
 			// Method clause map, search for getter using reflection
 			Method instanceGetMethod = null;
@@ -96,8 +96,8 @@ public class WhereClauseBuilder {
 				e.printStackTrace(); //TODO: remove
 			}
 			
-			WhereClause whereClauseD = new WhereClause(this.dataClass, whereClause, fieldName, instanceGetMethod);
-			this.methodClauseMap.put(fieldName, whereClauseD);
+			WhereClause whereClause = new WhereClause(this.dataClass, fieldName, whereClauseFrom, whereClauseWhere, fieldName, instanceGetMethod);
+			this.methodClauseMap.put(fieldName, whereClause);
 		}
 	}
 }

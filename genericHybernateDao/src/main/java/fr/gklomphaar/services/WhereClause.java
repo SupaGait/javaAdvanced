@@ -7,27 +7,49 @@ import java.lang.reflect.Method;
  * Helper class for whereClauses
  */
 public class WhereClause{
-	private String whereClause;
+	private String dataFieldName;
+	private String whereClauseFrom;
+	private String whereClauseWhere;
 	private Method instanceGetMethod;
 	private String assignName;
 	
 	/**
 	 * Helper class for Where Clauses
 	 * @param dataClass Class object where the where clauses will be created for
-	 * @param whereClause query clause
+	 * @param whereClauseFrom query clause
 	 * @param assignName name of the assignment part in where clause
 	 * @param instanceGetMethod method used for getting value
 	 */
-	public WhereClause(Class<?> dataClass, String whereClause, String assignName, Method instanceGetMethod) {
-		this.whereClause = whereClause;
+	public WhereClause(Class<?> dataClass, String dataFieldName, String whereClauseFrom, String whereClauseWhere, String assignName, Method instanceGetMethod) {
+		this.dataFieldName = dataFieldName;
+		this.whereClauseFrom = whereClauseFrom;
+		this.whereClauseWhere = whereClauseWhere;
 		this.instanceGetMethod = instanceGetMethod;
 		this.assignName = assignName;
+	}
+	/**
+	 * @return the whereClauseFrom
+	 */
+	public String getWhereClauseFrom() {
+		return whereClauseFrom;
+	}
+	/**
+	 * @return the dataFieldName
+	 */
+	public String getDataFieldName() {
+		return dataFieldName;
+	}
+	/**
+	 * @return the whereClauseWhere
+	 */
+	public String getWhereClauseWhere() {
+		return whereClauseWhere;
 	}
 	/**
 	 * @return Where query string
 	 */
 	public String getClauseQuery(){
-		return whereClause;
+		return whereClauseFrom+whereClauseWhere;
 	}
 	/**
 	 * @return Assignment string used in where query (....:='Assignment')

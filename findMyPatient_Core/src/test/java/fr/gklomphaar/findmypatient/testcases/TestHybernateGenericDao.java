@@ -26,7 +26,7 @@ import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 import fr.gklomphaar.services.WhereClauseBuilder;
-import fr.gklomphaar.services.WhereClauseBuilder.WhereClause;
+import fr.gklomphaar.services.WhereClause;
 
 @RunWith(SpringJUnit4ClassRunner.class) //This is to tell Junit to run with spring
 @ContextConfiguration(locations={"application-context.xml"}) // to tell spring to load the required context
@@ -64,7 +64,7 @@ public class TestHybernateGenericDao {
 
 	//@Test
 	public void testAddAndRead() throws DaoLoadObjectException, DaoSaveObjectException {
-		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<>(Test_Identity.class, this.sessionFactory);
+		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<Test_Identity>(Test_Identity.class, this.sessionFactory);
 		
 		// Add test identities
 		identityDao.create(new Test_Identity("Frans","Bonnes","Frans@Bonnes.fun"));
@@ -82,7 +82,7 @@ public class TestHybernateGenericDao {
 	
 	@Test
 	public void testFindFields() throws DaoSaveObjectException, DaoLoadObjectException {
-		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<>(Test_Identity.class, this.sessionFactory);
+		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<Test_Identity>(Test_Identity.class, this.sessionFactory);
 		
 		// Generate where clauses, check that there are 5 clauses
 		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Test_Identity.class);
@@ -101,7 +101,9 @@ public class TestHybernateGenericDao {
 			if(entry.getKey().endsWith("id"))
 				continue; // id currently not updated in local Identity...TODO..
 			
-			List<Test_Identity> searchResult = identityDao.search(populateIdentities.get(identityNr), entry.getValue());
+			List<String> fieldList = new ArrayList<String>();
+			fieldList.add(entry.getValue().getDataFieldName());
+			List<Test_Identity> searchResult = identityDao.search(populateIdentities.get(identityNr), fieldList);
 			org.junit.Assert.assertEquals(1, searchResult.size());
 			
 			identityNr++;
@@ -110,7 +112,7 @@ public class TestHybernateGenericDao {
 	
 	@Test
 	public void testUpdate() throws DaoSaveObjectException, DaoLoadObjectException {
-		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<>(Test_Identity.class, this.sessionFactory);
+		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<Test_Identity>(Test_Identity.class, this.sessionFactory);
 		
 		final List<Test_Identity> populateIdentities = populateIdentities(identityDao, 1);
 		final Test_Identity identity = populateIdentities.get(0);
@@ -122,15 +124,18 @@ public class TestHybernateGenericDao {
 		
 		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Test_Identity.class);
 		
+		List<String> fieldList = new ArrayList<String>();
+		fieldList.add("firstName");
+		
 		// Verify that the new name is in the DAO using a search
-		final List<Test_Identity> searchResult = identityDao.search(identity, whereClauseBuilder.getWhereClauses().get("firstName"));
+		final List<Test_Identity> searchResult = identityDao.search(identity, fieldList);
 		org.junit.Assert.assertEquals(1, searchResult.size());
 		org.junit.Assert.assertEquals(identity.getFirstName(), searchResult.get(0).getFirstName());
 	}
 	
 	@Test
 	public void testDelete() throws DaoSaveObjectException, DaoLoadObjectException {
-		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<>(Test_Identity.class, this.sessionFactory);
+		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<Test_Identity>(Test_Identity.class, this.sessionFactory);
 		
 		// Populate and verify size
 		populateIdentities(identityDao, 10);
