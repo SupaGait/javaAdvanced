@@ -1,7 +1,6 @@
 
 package fr.gklomphaar.findmypatient.datamodel;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,41 +11,46 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class User {
+public class SystemUser {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
-	@Column(name="USER_USERNAME")
 	private String userName;
-	
-	@Column(name="USER_PASSWORD")
 	private String password;
-	
-	@Column(name="USER_RIGHTS")
 	private String rights;
 
 	/**
-	 * Creates a new User object
+	 * Creates a new SystemUser object
 	 * @param name of the user
 	 * @param password of the user
 	 */
-	public User(String name, String password)
+	public SystemUser(String name, String password)
 	{
+		this.id = 0;
 		this.userName = name;
 		this.password = password;
-		this.id = 0;
+		this.rights = "";
 	}
 	
 	/**
-	 * Creates a new User object
+	 *	Default constructor 
+	 */
+	public SystemUser() {
+		this.userName = "";
+		this.password = "";
+		this.rights = "";
+		this.id = 0;
+	}
+
+	/**
+	 * Creates a new SystemUser object
 	 * @param name of the user
 	 * @param password of the user
 	 * @param rights associated to the user
 	 * @param id of the user
 	 */
-	public User(String name, String password, String rights, int id)
+	public SystemUser(String name, String password, String rights, int id)
 	{
 		this.userName = name;
 		this.password = password;
@@ -77,6 +81,34 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param rights the rights to set
+	 */
+	public void setRights(String rights) {
+		this.rights = rights;
+	}
+
 	/**
 	 * @return the id
 	 */

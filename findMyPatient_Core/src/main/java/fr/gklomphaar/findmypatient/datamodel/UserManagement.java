@@ -18,16 +18,16 @@ import fr.gklomphaar.findmypatient.helpers.MatchUserName;
  */
 public class UserManagement {
 	
-	private IDataDAO<User> userDAO;
+	private IDataDAO<SystemUser> userDAO;
 	private UserAuthority userAuthority;
 	private final MatchUserName userMatcher = new MatchUserName();
 
 	/**
-	 * Creates a new instance of the User management
+	 * Creates a new instance of the SystemUser management
 	 * @param userDAO DAO which will take care of the CRUD operations
 	 * @param userAuthority authority manager
 	 */
-	public UserManagement(IDataDAO<User> userDAO, UserAuthority userAuthority)
+	public UserManagement(IDataDAO<SystemUser> userDAO, UserAuthority userAuthority)
 	{
 		this.userDAO = userDAO;
 		this.userAuthority = userAuthority;
@@ -36,16 +36,16 @@ public class UserManagement {
 	/**
 	 * Add a new user
 	 * Username should be unique
-	 * @param user User to be added
+	 * @param user SystemUser to be added
 	 * @throws NoAuthorityException
 	 * @throws UserAlreadyExistsException
 	 * @throws DaoSaveObjectException  
 	 */
-	public void add(User user) throws NoAuthorityException, UserAlreadyExistsException, DaoSaveObjectException
+	public void add(SystemUser user) throws NoAuthorityException, UserAlreadyExistsException, DaoSaveObjectException
 	{
 		checkMinimalRights(UserRights.ReadWriteAndUserManagement);
 		
-		List<User> foundUsers;
+		List<SystemUser> foundUsers;
 		// Check if the uses does not already exists
 		try {
 			foundUsers = this.userDAO.search(user, userMatcher);
@@ -59,27 +59,27 @@ public class UserManagement {
 			throw new UserAlreadyExistsException();
 		}
 		
-		// User does not exists, so add it
+		// SystemUser does not exists, so add it
 		this.userDAO.create(user);
 	}
 	/**
 	 * Delete the user
-	 * @param user User to be deleted
+	 * @param user SystemUser to be deleted
 	 * @throws NoAuthorityException
 	 * @throws DaoSaveObjectException 
 	 */
-	public void delete(User user) throws NoAuthorityException, DaoSaveObjectException
+	public void delete(SystemUser user) throws NoAuthorityException, DaoSaveObjectException
 	{
 		checkMinimalRights(UserRights.ReadWriteAndUserManagement);
 		this.userDAO.delete(user);
 	}
 	/**
-	 * Update the User
-	 * @param user User to be updated
+	 * Update the SystemUser
+	 * @param user SystemUser to be updated
 	 * @throws NoAuthorityException
 	 * @throws DaoSaveObjectException 
 	 */
-	public void update(User user) throws NoAuthorityException, DaoSaveObjectException
+	public void update(SystemUser user) throws NoAuthorityException, DaoSaveObjectException
 	{
 		checkMinimalRights(UserRights.ReadWriteAndUserManagement);
 		this.userDAO.update(user);
@@ -87,13 +87,13 @@ public class UserManagement {
 	
 	/**
 	 * Find a user using a specific matcher
-	 * @param user User to be find
+	 * @param user SystemUser to be find
 	 * @param matcher Matched containing match logic
 	 * @return a List of found Users
 	 * @throws NoAuthorityException
 	 * @throws DaoLoadObjectException 
 	 */
-	public List<User> find(User user, IMatcher<User> matcher) throws NoAuthorityException, DaoLoadObjectException
+	public List<SystemUser> find(SystemUser user, IMatcher<SystemUser> matcher) throws NoAuthorityException, DaoLoadObjectException
 	{
 		checkMinimalRights(UserRights.ReadWriteAndUserManagement);
 		return this.userDAO.search(user, userMatcher);

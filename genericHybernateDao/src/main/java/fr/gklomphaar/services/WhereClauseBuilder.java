@@ -81,7 +81,7 @@ public class WhereClauseBuilder {
 			this.fields.add(fieldName);
 			
 			// Generate a where clause
-			String whereClauseFrom =String.format("FROM %s %s_object ", tableName, tableName); 
+			String whereClauseFrom = String.format("FROM %s %s_object ", tableName, tableName); 
 			String whereClauseWhere = String.format("WHERE %s_object.%s =:%s", tableName, fieldName, fieldName);
 			
 			// Simple clause map

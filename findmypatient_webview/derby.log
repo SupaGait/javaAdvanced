@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sat Apr 30 23:37:41 CEST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-0154-691b-0da1-00000703ae98 
+on database directory C:\_ProjectsEpita\eclipse_workspace_jee\javaAdvanced\findmypatient_webview\database\PatientsDB with class loader sun.misc.Launcher$AppClassLoader@548c4f57 
+Loaded from file:/C:/Users/Gerard/.m2/repository/org/apache/derby/derby/10.11.1.1/derby-10.11.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_31-b13
+user.dir=C:\_ProjectsEpita\eclipse_workspace_jee\javaAdvanced\findmypatient_webview
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -22,20 +23,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
-import fr.gklomphaar.findmypatient.datamodel.User;
+import fr.gklomphaar.findmypatient.datamodel.SystemUser;
+import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.servlet.DeletePatient;
 
 @RunWith(SpringJUnit4ClassRunner.class) //This is to tell Junit to run with spring
 @ContextConfiguration(locations={"file:WebContent/WEB-INF/applicationContext.xml"}) // to tell spring to load the required context
-public class FindMyPatientTest extends Mockito
+public class TestFindMyPatient extends Mockito
 {
 	@Autowired
 	UserHybernateDAO userDAO;
 	
 	@Autowired
 	PatientHybernateDAO patientDAO;
+	
+	/*@Test
+	public void resetDataBase() throws DaoSaveObjectException {
+		SystemUser adminUser = new SystemUser("admin", "admin");
+		userDAO.create(adminUser);
+	}*/
 	
 	@Test
 	public void testObjectAutoWiring(){
@@ -44,14 +53,16 @@ public class FindMyPatientTest extends Mockito
 	}
 	
 	@Test
-	public void resetDataBase() throws DaoSaveObjectException {
-		User adminUser = new User("admin", "admin");
-		userDAO.create(adminUser); 
+	public void testAddPatient() throws NoAuthorityException, DaoLoadObjectException{
+		
+		UserController userController = new UserController(userDAO, patientDAO);
+		userController.getUserAuthority().login("admin", "admin");
 		
 		/*Patient patient = new Patient();
 		patient.setFirstName("Gerard");
 		patient.setLastName("Klomphaar");
 		patientDAO.create(patient);*/
+		
 	}
 	 
 	@Test

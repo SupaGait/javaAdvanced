@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import fr.gklomphaar.findmypatient.dao.IDataDAO;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.PatientManagement;
-import fr.gklomphaar.findmypatient.datamodel.User;
+import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority;
 import fr.gklomphaar.findmypatient.datamodel.UserManagement;
 import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
@@ -33,7 +33,7 @@ public class UserController {
 	 * @param userDao The DAO responsible for user CRUD operations
 	 * @param patientDao The DAO responsible for Patient CRUD operations
 	 */
-	public UserController(IDataDAO<User> userDAO, IDataDAO<Patient> patientDAO){
+	public UserController(IDataDAO<SystemUser> userDAO, IDataDAO<Patient> patientDAO){
 		this.userAuthority = new UserAuthority(userDAO);
 		this.userManagement = new UserManagement(userDAO, this.userAuthority);
 		this.patientManagement = new PatientManagement(patientDAO, userAuthority);

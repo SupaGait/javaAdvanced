@@ -14,8 +14,8 @@ import java.util.List;
 public class UserAuthority {
 	
 	private final MatchUserName userMatcher = new MatchUserName();
-	private IDataDAO<User> userDAO;
-	private User currentUser = null;
+	private IDataDAO<SystemUser> userDAO;
+	private SystemUser currentUser = null;
 	
 	public enum UserRights{
 		None(0),
@@ -32,7 +32,7 @@ public class UserAuthority {
 		}
 	}
 	
-	public UserAuthority(IDataDAO<User> userDAO)
+	public UserAuthority(IDataDAO<SystemUser> userDAO)
 	{
 		this.userDAO = userDAO;
 	}
@@ -45,13 +45,13 @@ public class UserAuthority {
 	 */
 	public void login(String userName, String password) throws NoAuthorityException, DaoLoadObjectException
 	{
-		User searchUser = new User(userName, password);
+		SystemUser searchUser = new SystemUser(userName, password);
 		
 		// Search for the user
-		List<User> foundUsers = this.userDAO.search(searchUser, userMatcher);
+		List<SystemUser> foundUsers = this.userDAO.search(searchUser, userMatcher);
 		if(foundUsers.size() > 0)
 		{
-			User foundUser = foundUsers.get(0);
+			SystemUser foundUser = foundUsers.get(0);
 			
 			// Check the password matches
 			if(foundUser.getPassword().equals(password)){
@@ -60,7 +60,7 @@ public class UserAuthority {
 			}
 		}
 		
-		// User with matching password not founds
+		// SystemUser with matching password not founds
 		throw new NoAuthorityException();
 	}
 	
@@ -90,9 +90,6 @@ public class UserAuthority {
 	 */
 	public UserRights getUserRights()
 	{
-		//TODO: Remove
-		return UserRights.ReadWriteAndUserManagement;
-		/*
 		UserRights rights = UserRights.None;
 		if(this.currentUser != null)
 		{
@@ -112,6 +109,6 @@ public class UserAuthority {
 					break;
 			}
 		}
-		return rights;*/
+		return rights;
 	}
 }

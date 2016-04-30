@@ -11,12 +11,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import fr.gklomphaar.findmypatient.datamodel.Patient;
-import fr.gklomphaar.findmypatient.datamodel.User;
-import fr.gklomphaar.findmypatient.helpers.IMatcher;
+import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 
 
-public class UserJDBCDAO extends JDBCDAO<User> {
+public class UserJDBCDAO extends JDBCDAO<SystemUser> {
 
 	public UserJDBCDAO(DataSource dataSource)
 	{
@@ -28,8 +26,8 @@ public class UserJDBCDAO extends JDBCDAO<User> {
 	 * @see fr.gklomphaar.findmypatient.dao.JDBCDAO#parseQueryResultSet(java.sql.ResultSet)
 	 */
 	@Override
-	protected List<User> parseQueryResultSet(ResultSet resultSet) throws SQLException {
-		List<User> userList = new ArrayList<User>();
+	protected List<SystemUser> parseQueryResultSet(ResultSet resultSet) throws SQLException {
+		List<SystemUser> userList = new ArrayList<SystemUser>();
 		
 		// Iterate through the results and add to list
 		while (resultSet.next()) {
@@ -38,7 +36,7 @@ public class UserJDBCDAO extends JDBCDAO<User> {
 			String rights = resultSet.getString("RIGHTS");
 			int id = resultSet.getInt("ID");
 
-			User user = new User(name, pass, rights, id);
+			SystemUser user = new SystemUser(name, pass, rights, id);
 			userList.add(user);
 		}
 		return userList;
@@ -48,7 +46,7 @@ public class UserJDBCDAO extends JDBCDAO<User> {
 	 * @see fr.gklomphaar.findmypatient.dao.JDBCDAO#insertData(java.lang.Object)
 	 */
 	@Override
-	protected PreparedStatement insertData(User user) throws SQLException {
+	protected PreparedStatement insertData(SystemUser user) throws SQLException {
 		PreparedStatement stmt = this.connection.prepareStatement("INSERT INTO USERS(NAME, PASSWORD) VALUES(?,?)");
 		stmt.setString(1, user.getName());
 		stmt.setString(2, user.getPassword());
@@ -59,7 +57,7 @@ public class UserJDBCDAO extends JDBCDAO<User> {
 	 * @see fr.gklomphaar.findmypatient.dao.JDBCDAO#updateData(java.lang.Object)
 	 */
 	@Override
-	protected PreparedStatement updateData(User user) throws SQLException {
+	protected PreparedStatement updateData(SystemUser user) throws SQLException {
 		PreparedStatement stmt = this.connection.prepareStatement("UPDATE USERS SET NAME=?,PASSWORD=? WHERE ID=?");
 		stmt.setString(1, user.getName());
 		stmt.setString(2, user.getPassword());
@@ -71,7 +69,7 @@ public class UserJDBCDAO extends JDBCDAO<User> {
 	 * @see fr.gklomphaar.findmypatient.dao.JDBCDAO#deleteData(java.lang.Object)
 	 */
 	@Override
-	protected PreparedStatement deleteData(User user) throws SQLException {
+	protected PreparedStatement deleteData(SystemUser user) throws SQLException {
 		PreparedStatement stmt = this.connection.prepareStatement("DELETE FROM USERS WHERE ID=?");
 		stmt.setInt(3, user.getId());
 		return stmt;

@@ -1,7 +1,6 @@
 
 package fr.gklomphaar.findmypatient.datamodel;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,26 +17,12 @@ public class Patient
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
-	@Column(name="PATIENT_SERIALNUMBER")
 	private String socialSecurityNumber;
-	
-	@Column(name="PATIENT_FIRSTNAME")
 	private String firstName;
-	
-	@Column(name="PATIENT_LASTNAME")
 	private String lastName;
-	
-	@Column(name="PATIENT_DATEOFBIRTH")
 	private String dateOfBirth;
-	
-	@Column(name="PATIENT_TELEPHONENUMBER")
 	private String telephoneNumber;
-	
-	@Column(name="PATIENT_EMAIL")
 	private String email;
-	
-	@Column(name="PATIENT_ROOMNUMBER")
 	private String roomNumber;
 	
 	public Patient(int pId, String ssnNo, String fName, String lName, String dob, String cellNo, String Email, String displayName, String roomNo) 

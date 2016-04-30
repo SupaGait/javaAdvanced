@@ -167,7 +167,7 @@ public class ProtoTypeTesting {
 	@Test
 	public void testUserAuthority(){
 		try {
-			System.out.println("--Test User authority --");
+			System.out.println("--Test SystemUser authority --");
 			
 			// Create a user DAO
 			UserJDBCDAO userDAO = new UserJDBCDAO(getDataSource());

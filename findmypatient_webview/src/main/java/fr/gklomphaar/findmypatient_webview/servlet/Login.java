@@ -15,7 +15,7 @@ import fr.gklomphaar.findmypatient.dao.IDataDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
-import fr.gklomphaar.findmypatient.datamodel.User;
+import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.UserController;
 import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;

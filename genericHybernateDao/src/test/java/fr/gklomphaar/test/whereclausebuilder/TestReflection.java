@@ -8,6 +8,8 @@ import fr.gklomphaar.datamodel.Test_Identity;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
+import org.junit.Test;
+
 /**
  * @author Gerard
  * 
@@ -18,7 +20,7 @@ public class TestReflection {
 
 	Test_Identity testIdentity = new Test_Identity("Frans","Bonnes","Frans@TestReflection.fun");
 	
-	//@Test
+	@Test
 	public void testGetFields() {
 		
 		// Get all fields of the class

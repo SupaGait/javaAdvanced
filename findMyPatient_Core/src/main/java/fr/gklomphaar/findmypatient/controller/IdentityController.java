@@ -24,7 +24,7 @@ import fr.gklomphaar.findmypatient.datamodel.UserManagement;
  * 
  * The Identity identityController is in charge of reading local settings, 
  * creating the sub classes and providing access based on current login 
- * User. 
+ * SystemUser. 
  *
  */
 public class IdentityController {
@@ -58,10 +58,10 @@ public class IdentityController {
 		this.patientJDBCDAO = new PatientJDBCDAO(this.dataSource);
 		this.patientDAOManagement = this.patientJDBCDAO;
 		
-		// Create the User Authority
+		// Create the SystemUser Authority
 		this.userAuthority = new UserAuthority(this.userJDBCDAO);
 		
-		// Create the Patient and User management, pass the relative DAO's
+		// Create the Patient and SystemUser management, pass the relative DAO's
 		this.userManagement = new UserManagement(this.userJDBCDAO, this.userAuthority);
 		this.patientManagement = new PatientManagement(this.patientJDBCDAO, this.userAuthority);
 		
@@ -72,7 +72,7 @@ public class IdentityController {
 	/**
 	 * Setup and enable the database connection
 	 * @param url Url to the JDBC database
-	 * @param name User name for connection to the DB
+	 * @param name SystemUser name for connection to the DB
 	 * @param password password for the connection to the DB
 	 * @throws DaoInitializationException 
 	 */

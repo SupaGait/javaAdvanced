@@ -1,13 +1,14 @@
 // The matcher username file
 package fr.gklomphaar.findmypatient.helpers;
+import java.util.ArrayList;
 import java.util.List;
 
-import fr.gklomphaar.findmypatient.datamodel.User;
+import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 
-public class MatchUserName implements IMatcher<User> {
+public class MatchUserName implements IMatcher<SystemUser> {
 	
 	@Override
-	public String getSQLMatchStatement(String tableName, User user) {
+	public String getSQLMatchStatement(String tableName, SystemUser user) {
 		return "select * from "+tableName+" where NAME='"+user.getName()+"'";
 	}
 	
@@ -18,6 +19,8 @@ public class MatchUserName implements IMatcher<User> {
 
 	@Override
 	public List<String> getFields() {
-		return null;
+		List<String> fieldList = new ArrayList<String>();
+		fieldList.add("userName");
+		return fieldList;
 	}
 }
