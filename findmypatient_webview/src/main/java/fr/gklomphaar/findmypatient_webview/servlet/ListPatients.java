@@ -1,8 +1,6 @@
 package fr.gklomphaar.findmypatient_webview.servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,16 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fr.gklomphaar.findmypatient.dao.IDataDAO;
-import fr.gklomphaar.findmypatient.dao.PatientJDBCDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
-import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.UserController;
@@ -66,10 +58,10 @@ public class ListPatients extends GenericSpringServlet {
         
         // Dispatch request to the JSP
         try {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/listPatients.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/listPatients.jsp");
             rd.forward(request, response);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: check if this is correct
         }
 	}
 

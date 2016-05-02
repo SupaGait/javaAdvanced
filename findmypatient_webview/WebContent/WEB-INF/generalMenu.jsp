@@ -10,16 +10,18 @@
 			</button>
 			<a class="navbar-brand" href="index.jsp">Patient find</a>
 		</div>
-		<div id="navbar" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<!-- <li class="active"><a href="#">Home</a></li> -->
-				<li><a href="index.jsp">Home</a></li>
-				<li><a href="CreatePatient">Add</a></li>
-				<li><a href="ListPatients">List</a></li>
-				<!-- <li><a href="#about">Search</a></li> -->
-				<!-- <li><a href="#contact">Contact</a></li> -->
-			</ul>
-		</div>
+		<c:if test ="${showMenu == true}">
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<!-- <li class="active"><a href="#">Home</a></li> -->
+					<li><a href="index.jsp">Home</a></li>
+					<li><a href="CreatePatient">Add</a></li>
+					<li><a href="ListPatients">List</a></li>
+					<!-- <li><a href="#about">Search</a></li> -->
+					<!-- <li><a href="#contact">Contact</a></li> -->
+				</ul>
+			</div>
+		</c:if>
 		<!--/.nav-collapse -->
 	</div>
 </nav>

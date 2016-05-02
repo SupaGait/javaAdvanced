@@ -35,9 +35,8 @@ public class GenericSpringServlet extends HttpServlet{
 			str += part;
 			part = reader.readLine();
 		}
-		
 		// Debug
-		System.out.println("Received: "+str);
+		System.out.println(request.getServletPath()+" Received: "+str);
 				
 		return new JSONObject(str);
 	}

@@ -20,7 +20,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.mockito.Mockito.*;
+import org.mockito.MockitoAnnotations.Mock;
 import org.mockito.MockitoAnnotations;
 
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
@@ -29,10 +31,12 @@ import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.servlet.DeletePatient;
+import fr.gklomphaar.findmypatient_webview.servlet.Login;
 
 @RunWith(SpringJUnit4ClassRunner.class) //This is to tell Junit to run with spring
 @ContextConfiguration(locations={"file:WebContent/WEB-INF/applicationContext.xml"}) // to tell spring to load the required context
-public class TestFindMyPatient extends Mockito
+@WebAppConfiguration
+public class TestFindMyPatient
 {
 	@Autowired
 	UserHybernateDAO userDAO;
@@ -53,10 +57,13 @@ public class TestFindMyPatient extends Mockito
 	}
 	
 	@Test
-	public void testAddPatient() throws NoAuthorityException, DaoLoadObjectException{
+	public void testLoginAdmin() throws NoAuthorityException, DaoLoadObjectException{
 		
 		UserController userController = new UserController(userDAO, patientDAO);
 		userController.getUserAuthority().login("admin", "admin");
+		
+		String userName = userController.getUserAuthority().getUserName();
+		Assert.assertEquals("admin", userName);
 		
 		/*Patient patient = new Patient();
 		patient.setFirstName("Gerard");
@@ -64,6 +71,29 @@ public class TestFindMyPatient extends Mockito
 		patientDAO.create(patient);*/
 		
 	}
+	
+	@Test
+	public void testLoginAdminWithServlet() throws ServletException, IOException {
+		HttpServletRequest stubHttpRequest = Mockito.mock(HttpServletRequest.class);       
+		HttpServletResponse stubHttpResponse = Mockito.mock(HttpServletResponse.class); 
+		
+		// Writers
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		
+		StringReader sr = new StringReader("{\"admin\":\"admin\"}");
+		BufferedReader br = new BufferedReader(sr);
+		
+		// Response
+		Mockito.when(stubHttpResponse.getWriter()).thenReturn(pw);
+		// Request
+		Mockito.when(stubHttpRequest.getReader()).thenReturn(br);
+		
+		Login loginServlet = new Login();
+		loginServlet.init();
+		loginServlet.service(stubHttpRequest, stubHttpResponse);
+	}
+	 
 	 
 	@Test
 	public void deletePatientServletTest() throws ServletException, IOException{

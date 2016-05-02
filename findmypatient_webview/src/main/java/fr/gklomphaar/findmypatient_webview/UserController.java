@@ -3,18 +3,12 @@
  */
 package fr.gklomphaar.findmypatient_webview;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import fr.gklomphaar.findmypatient.dao.IDataDAO;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.PatientManagement;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority;
 import fr.gklomphaar.findmypatient.datamodel.UserManagement;
-import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 
 /**
  * 

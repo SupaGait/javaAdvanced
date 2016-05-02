@@ -31,7 +31,7 @@ public class DeletePatient extends GenericSpringServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Get info
+		// Interpret input data as a JSON object
 		JSONObject requestAsJson = getRequestAsJson(request);
 		JSONObject jsonResult = new JSONObject();
 		

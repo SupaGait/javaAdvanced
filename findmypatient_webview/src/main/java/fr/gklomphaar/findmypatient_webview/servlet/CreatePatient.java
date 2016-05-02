@@ -1,6 +1,5 @@
 package fr.gklomphaar.findmypatient_webview.servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -12,13 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
-import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
-import fr.gklomphaar.findmypatient_webview.UserController;
+import fr.gklomphaar.findmypatient_webview.JSONResult;
 
 /**
  * Servlet implementation class CreatePatient
@@ -43,7 +40,7 @@ public class CreatePatient extends GenericSpringServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Dispatch request to the JSP
         try {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/createPatient.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/createPatient.jsp");
             rd.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,11 +52,9 @@ public class CreatePatient extends GenericSpringServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Read the buffer to get all data
+		// Interpret input data as a JSON object
 		JSONObject jsonRequest = getRequestAsJson(request);
-		
-		// Interpret data as a JSON object and parse it
-		JSONObject jsonResult = new JSONObject();
+		JSONObject jsonResult;
 		
 		// Get the parameters
 		try {
@@ -86,20 +81,16 @@ public class CreatePatient extends GenericSpringServlet {
 			// Save the new patient
 			try {
 				userController.getPatientManagement().add(newPatient);
-				jsonResult.put("succes", true);
-				jsonResult.put("message", "Thank you for the new user.");
+				jsonResult = JSONResult.CreateSimpleMessage(true, "Thank you for the new user.");
 				
 			} catch (DaoSaveObjectException e) {
-				jsonResult.put("succes", false);
-				jsonResult.put("message", "Error while creating the new patient.");
+				jsonResult = JSONResult.CreateSimpleMessage(false, "Error while creating the new patient.");
 			} catch (NoAuthorityException e) {
-				jsonResult.put("succes", false);
-				jsonResult.put("message", "Not sufficient rights to peform the requested action.");
+				jsonResult = JSONResult.CreateSimpleMessage(false, "Not sufficient rights to peform the requested action.");
 			}
 			
 		} catch (JSONException e) {
-			jsonResult.put("succes", false);
-			jsonResult.put("message", "Error while parsing the JSON request for the new patient.");
+			jsonResult = JSONResult.CreateSimpleMessage(false, "Error while retrieving patient info.");
 		}
 		
 		// Write the resulting JSON string back
