@@ -8,7 +8,7 @@
 	
 	<!-- Style sheets, Bootstrap & custom -->
 	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="generalLayout.css" rel="stylesheet">
+	<link href="css/generalLayout.css" rel="stylesheet">
 </head>
 
 <body>

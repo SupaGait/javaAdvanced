@@ -1,6 +1,7 @@
 
 package fr.gklomphaar.findmypatient.datamodel;
 
+import java.io.Serializable;
 import java.util.List;
 
 import fr.gklomphaar.findmypatient.dao.IDataDAO;
@@ -16,7 +17,8 @@ import fr.gklomphaar.findmypatient.helpers.MatchUserName;
  * Contains the logic for modifying the users in the system.
  *
  */
-public class UserManagement {
+public class UserManagement implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	private IDataDAO<SystemUser> userDAO;
 	private UserAuthority userAuthority;

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +31,7 @@ import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;
+import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.servlet.DeletePatient;
 import fr.gklomphaar.findmypatient_webview.servlet.Login;
@@ -44,11 +47,14 @@ public class TestFindMyPatient
 	@Autowired
 	PatientHybernateDAO patientDAO;
 	
-	/*@Test
-	public void resetDataBase() throws DaoSaveObjectException {
-		SystemUser adminUser = new SystemUser("admin", "admin");
-		userDAO.create(adminUser);
-	}*/
+	@Before
+	public void beforeEachTest() throws DaoSaveObjectException, DaoLoadObjectException {
+		// Delete all users
+		List<SystemUser> readAll = userDAO.readAll();
+		for (SystemUser systemUser : readAll) {
+			userDAO.delete(systemUser);
+		}
+	}
 	
 	@Test
 	public void testObjectAutoWiring(){
@@ -57,7 +63,10 @@ public class TestFindMyPatient
 	}
 	
 	@Test
-	public void testLoginAdmin() throws NoAuthorityException, DaoLoadObjectException{
+	public void testLoginAdmin() throws NoAuthorityException, DaoLoadObjectException, DaoSaveObjectException{
+		
+		// Add single administrator
+		userDAO.create(new SystemUser("admin", "admin", UserRights.ReadWriteAndUserManagement));
 		
 		UserController userController = new UserController(userDAO, patientDAO);
 		userController.getUserAuthority().login("admin", "admin");

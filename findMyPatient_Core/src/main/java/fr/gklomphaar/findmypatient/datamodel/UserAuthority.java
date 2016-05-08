@@ -8,10 +8,12 @@ import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient.helpers.MatchUserName;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class UserAuthority {
+public class UserAuthority implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	private final MatchUserName userMatcher = new MatchUserName();
 	private IDataDAO<SystemUser> userDAO;

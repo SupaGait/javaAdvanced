@@ -1,45 +1,21 @@
 package fr.gklomphaar.findmypatient_webview;
 
-import java.io.BufferedReader;
-import java.io.Console;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.mockito.Mockito.*;
-import org.mockito.MockitoAnnotations.Mock;
-import org.mockito.MockitoAnnotations;
 
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
-import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
-import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
-import fr.gklomphaar.findmypatient_webview.servlet.DeletePatient;
-import fr.gklomphaar.findmypatient_webview.servlet.Login;
 
 @RunWith(SpringJUnit4ClassRunner.class) //This is to tell Junit to run with spring
 @ContextConfiguration(locations={"file:WebContent/WEB-INF/applicationContext.xml"}) // to tell spring to load the required context
@@ -66,7 +42,6 @@ public class TestInitialConfig
 		for (SystemUser systemUser : readAll) {
 			userDAO.delete(systemUser);
 		}
-		
 	}
 	
 	/**

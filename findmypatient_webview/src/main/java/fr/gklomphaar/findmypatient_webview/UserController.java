@@ -3,6 +3,8 @@
  */
 package fr.gklomphaar.findmypatient_webview;
 
+import java.io.Serializable;
+
 import fr.gklomphaar.findmypatient.dao.IDataDAO;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.PatientManagement;
@@ -11,12 +13,12 @@ import fr.gklomphaar.findmypatient.datamodel.UserAuthority;
 import fr.gklomphaar.findmypatient.datamodel.UserManagement;
 
 /**
- * 
+ * Controller for the current user context (Session)
  * @author Gerard
  *
  */
-public class UserController {
-	
+public class UserController implements Serializable {
+	private static final long serialVersionUID = 1L;
 	// Management, requires user authority
 	private UserAuthority userAuthority;
 	private PatientManagement patientManagement;

@@ -3,6 +3,7 @@
  */
 package fr.gklomphaar.findmypatient.datamodel;
 
+import java.io.Serializable;
 import java.util.List;
 
 import fr.gklomphaar.findmypatient.dao.IDataDAO;
@@ -17,7 +18,9 @@ import fr.gklomphaar.findmypatient.helpers.IMatcher;
  * 
  *
  */
-public class PatientManagement {
+public class PatientManagement implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private UserAuthority userAuthority;
 	private IDataDAO<Patient> patientDAO;
 	

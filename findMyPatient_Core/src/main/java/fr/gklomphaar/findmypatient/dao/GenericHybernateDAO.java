@@ -1,5 +1,6 @@
 package fr.gklomphaar.findmypatient.dao;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,8 +27,9 @@ import fr.gklomphaar.services.WhereClauseBuilder;
  *
  * @param <DataType> class on which CRUD operations will be done
  */
-public class GenericHybernateDAO<DataType> implements IDataDAO<DataType> {
-
+public class GenericHybernateDAO<DataType> implements IDataDAO<DataType>, Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private SessionFactory sessionFactory;
 	private Class<DataType> typeClass;
 	

@@ -73,7 +73,7 @@ public class MainPage extends GenericSpringServlet {
 	    	{
 		    	// Forward to the welcome page
 		        try {
-		            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/welcomePage.jsp");
+		            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/login.jsp");
 		            rd.forward(request, response);
 		        } catch (Exception e) {
 		        	response.getWriter().append("Server error");

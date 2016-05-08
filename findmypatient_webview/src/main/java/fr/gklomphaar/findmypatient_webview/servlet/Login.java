@@ -44,14 +44,24 @@ public class Login extends GenericSpringServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	//TODO: enable, check for user rights
-    	//if( userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue())
+    	if( userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue())
     	{
 	    	// Forward to the welcome page
 	        try {
 	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/welcomePage.jsp");
 	            rd.forward(req, resp);
 	        } catch (Exception e) {
-	            
+	            //TODO
+	        }
+    	}
+    	else
+    	{
+    		// Forward to the login page
+	        try {
+	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/login.jsp");
+	            rd.forward(req, resp);
+	        } catch (Exception e) {
+	            //TODO
 	        }
     	}
     }
