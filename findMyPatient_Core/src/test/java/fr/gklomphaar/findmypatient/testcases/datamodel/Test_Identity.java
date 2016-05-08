@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.gklomphaar.findmypatient.testcases;
+package fr.gklomphaar.findmypatient.testcases.datamodel;
 
 import java.util.Date;
 

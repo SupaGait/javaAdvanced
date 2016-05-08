@@ -22,14 +22,14 @@
 
                 <p>Thanks to this action, you can create a brand new Patient, you can click on the button below to
                     begin</p>
-                <button>Create!</button>
+                <a  href="CreatePatient"><button>Create new patient!</button></a>
             </div>
             <div class="col-xs-6">
                 <h4>Patient Search</h4>
 
                 <p>Thanks to this action, you can search an patient and then access to its information. Through this
                     action, you can also modify or delete the wished patient</p>
-                <button>Search!</button>
+                <a href="ListPatients"><button>Show and search patients</button></a>
             </div>
         </div>
     </div>

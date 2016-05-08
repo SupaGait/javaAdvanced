@@ -16,9 +16,9 @@
 		<property name="hibernateProperties" ref="hibernateProperties" />
 		<property name="packagesToScan" >
 			<list>
-				<!-- <value>fr.gklomphaar.datamodel</value>
-				<value>fr.gklomphaar.findmypatient.datamodel</value> -->
-				<value>fr.gklomphaar.findmypatient.testcases</value>
+				<!-- <value>fr.gklomphaar.datamodel</value> -->
+				<value>fr.gklomphaar.findmypatient.datamodel</value>
+				<value>fr.gklomphaar.findmypatient.testcases.datamodel</value>
 			</list>
 		</property>
 	</bean>

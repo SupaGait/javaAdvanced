@@ -17,8 +17,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop> <!-- create -->
 				<prop key="hibernate.connection.autocommit">false</prop>
 			</props>
 		</property>
@@ -45,50 +44,17 @@
 		<constructor-arg ref="userDAO"/>
 		<constructor-arg ref="patientDAO"/>
 	</bean>
-	
-<!-- 	<bean id="webController" class="fr.gklomphaar.findmypatient_webview.WebController">
-		<constructor-arg ref="UserDAO"/>
-		<constructor-arg ref="patientDAO"/>
-	</bean> -->
-	
-	<!-- 
-    <bean id="PatientJDBCDAO" class="fr.gklomphaar.findmypatient.dao.PatientJDBCDAO" init-method="connect">
-    	<constructor-arg ref="dataSourceBean" />
-    </bean> -->
- 
-	
-
-	
-<!-- 	<bean id="beanBasedSessionFactory"	class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSourceBean" />
-		<property name="hibernateProperties" ref="hibernateProperties" />
-		<property name="packagesToScan" value="fr.tbr.iamcore.datamodel" />
-	</bean>
-	
-	
-	<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean" id="hibernateProperties">
-		<property name="properties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.connection.autocommit">false</prop>
-			</props>
-		</property>
-	</bean>
-	
-	 -->
-	<!-- <bean id="mySessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="configLocation">
-			<value>
-				classpath:hibernateTestTemp.cfg.xml
-			</value>
-		</property>
-	</bean> -->
-    
-    
-    
-    
-
+		
+	<!-- production profile, normally used -->
+	<beans profile="production">
+		<bean id="configuration" class="fr.gklomphaar.findmypatient_webview.Configuration">
+			<constructor-arg ref="userDAO"/>
+		</bean>
+	</beans>
+	<!-- test profile, used with prototype scope for new instance for each test  -->
+	<beans profile="test">
+		<bean id="configuration" class="fr.gklomphaar.findmypatient_webview.Configuration" scope="prototype">
+			<constructor-arg ref="userDAO"/>
+		</bean>
+	</beans>
 </beans>

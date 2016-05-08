@@ -18,17 +18,23 @@ public class UserAuthority {
 	private SystemUser currentUser = null;
 	
 	public enum UserRights{
-		None(0),
-		ReadOnly(1),
-		ReadWrite(2),
-		ReadWriteAndUserManagement(3);
+		None(0, "ReadOnly"),
+		ReadOnly(1, "ReadWrite"),
+		ReadWrite(2, "ReadWriteAndUserManagement"),
+		ReadWriteAndUserManagement(3, "");
 		
 		private final int rightValue;
-		UserRights(int value){
+		private final String rightString;
+		
+		UserRights(int value, String rightString){
 			this.rightValue = value;
+			this.rightString = rightString;
 		}
 		public int getValue(){
 			return this.rightValue;
+		}
+		public String getString(){
+			return this.rightString;
 		}
 	}
 	
@@ -45,14 +51,13 @@ public class UserAuthority {
 	 */
 	public void login(String userName, String password) throws NoAuthorityException, DaoLoadObjectException
 	{
-		SystemUser searchUser = new SystemUser(userName, password);
+		SystemUser searchUser = new SystemUser(userName, password, UserRights.None);
 		
 		// Search for the user
 		List<SystemUser> foundUsers = this.userDAO.search(searchUser, userMatcher);
 		if(foundUsers.size() > 0)
 		{
 			SystemUser foundUser = foundUsers.get(0);
-			
 			// Check the password matches
 			if(foundUser.getPassword().equals(password)){
 				this.currentUser = foundUser;
@@ -93,22 +98,8 @@ public class UserAuthority {
 		UserRights rights = UserRights.None;
 		if(this.currentUser != null)
 		{
-			switch(this.currentUser.getRights())
-			{
-				case "ReadOnly":
-					rights = UserRights.ReadOnly;
-					break;
-				case "ReadWrite":
-					rights = UserRights.ReadWrite;
-					break;
-				case "ReadWriteAndUserManagement":
-					rights = UserRights.ReadWriteAndUserManagement;
-					break;
-				default:
-					rights = UserRights.None;
-					break;
-			}
+			return this.currentUser.getRights();
 		}
-		return rights;
+		return UserRights.None;
 	}
 }

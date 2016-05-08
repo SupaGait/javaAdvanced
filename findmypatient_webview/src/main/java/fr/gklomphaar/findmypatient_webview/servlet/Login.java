@@ -34,13 +34,7 @@ import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 @WebServlet("/Login")
 public class Login extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
- 
-	@Autowired
-	UserController userController;
-	
-	@Autowired
-	UserHybernateDAO userDAO;
-	
+
     /**
      * Default constructor. 
      */
@@ -68,7 +62,7 @@ public class Login extends GenericSpringServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Interpret input data as a JSON object
 		JSONObject jsonRequest = getRequestAsJson(request);
-		JSONObject jsonResult= new JSONObject();
+		JSONObject jsonResult = new JSONObject();
 		
 		try {
 			// Get the user info

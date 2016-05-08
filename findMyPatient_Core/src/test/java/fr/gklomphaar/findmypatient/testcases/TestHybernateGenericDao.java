@@ -21,10 +21,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import fr.gklomphaar.findmypatient.testcases.Test_Identity;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.helpers.IMatcher;
+import fr.gklomphaar.findmypatient.testcases.datamodel.Test_Identity;
 import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 import fr.gklomphaar.services.WhereClauseBuilder;
 import fr.gklomphaar.services.WhereClause;
@@ -135,7 +135,6 @@ public class TestHybernateGenericDao {
 		identity.setFirstName(changedFirstName);
 		identityDao.update(identity);
 		
-		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Test_Identity.class);
 		
 		// Verify that the new name is in the DAO using a search
 		IMatcher<Test_Identity> nameMatcher = new IMatcher<Test_Identity>() {

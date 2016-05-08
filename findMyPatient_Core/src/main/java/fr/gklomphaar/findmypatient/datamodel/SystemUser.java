@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
+
 /**
  * Model class, containing specific data about a single user
  *
@@ -18,19 +20,19 @@ public class SystemUser {
 	private int id;
 	private String userName;
 	private String password;
-	private String rights;
+	private UserRights rights;
 
 	/**
 	 * Creates a new SystemUser object
 	 * @param name of the user
 	 * @param password of the user
 	 */
-	public SystemUser(String name, String password)
+	public SystemUser(String name, String password, UserRights rights)
 	{
 		this.id = 0;
 		this.userName = name;
 		this.password = password;
-		this.rights = "";
+		this.rights = rights;
 	}
 	
 	/**
@@ -39,7 +41,7 @@ public class SystemUser {
 	public SystemUser() {
 		this.userName = "";
 		this.password = "";
-		this.rights = "";
+		this.rights = UserRights.None;
 		this.id = 0;
 	}
 
@@ -54,7 +56,7 @@ public class SystemUser {
 	{
 		this.userName = name;
 		this.password = password;
-		this.rights = rights;
+		this.rights = UserRights.None;
 		this.id = id;
 	}
 	/**
@@ -105,7 +107,7 @@ public class SystemUser {
 	/**
 	 * @param rights the rights to set
 	 */
-	public void setRights(String rights) {
+	public void setRights(UserRights rights) {
 		this.rights = rights;
 	}
 
@@ -118,7 +120,7 @@ public class SystemUser {
 	/**
 	 * @return the rights
 	 */
-	public String getRights() {
+	public UserRights getRights() {
 		return rights;
 	}
 }

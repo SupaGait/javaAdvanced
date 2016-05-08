@@ -23,7 +23,9 @@ public class GenericSpringServlet extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		// Set Servlet context, and set profile
 		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+		config.getServletContext().setInitParameter("spring.profiles.active", "production");
 	}
 
 	protected JSONObject getRequestAsJson(HttpServletRequest request) throws IOException{

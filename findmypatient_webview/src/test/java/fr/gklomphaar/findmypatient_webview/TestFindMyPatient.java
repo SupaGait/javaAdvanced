@@ -77,7 +77,7 @@ public class TestFindMyPatient
 		HttpServletRequest stubHttpRequest = Mockito.mock(HttpServletRequest.class);       
 		HttpServletResponse stubHttpResponse = Mockito.mock(HttpServletResponse.class); 
 		
-		// Writers
+		/*// Writers
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 		
@@ -91,7 +91,7 @@ public class TestFindMyPatient
 		
 		Login loginServlet = new Login();
 		loginServlet.init();
-		loginServlet.service(stubHttpRequest, stubHttpResponse);
+		loginServlet.service(stubHttpRequest, stubHttpResponse);*/
 	}
 	 
 	 
