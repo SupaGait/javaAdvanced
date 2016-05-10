@@ -14,6 +14,7 @@ import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
+import fr.gklomphaar.services.WhereClauseBuilder;
 
 /**
  * Servlet implementation class CreatePatient
@@ -21,9 +22,12 @@ import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 @WebServlet("/ListPatients")
 public class ListPatients extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
+	private List<String> searchFields;
 
     public ListPatients() {
         super();
+        WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Patient.class);
+        this.searchFields = whereClauseBuilder.getFields();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,6 +46,9 @@ public class ListPatients extends GenericSpringServlet {
 			}
 			// Pass in the session for to the JSP
 	        request.getSession().setAttribute("patientsList", patientList);
+	        
+	        // Set search fields
+	        request.getSession().setAttribute("searchFieldList", searchFields);
 	        
 	        // Dispatch request to the JSP
 	        try {

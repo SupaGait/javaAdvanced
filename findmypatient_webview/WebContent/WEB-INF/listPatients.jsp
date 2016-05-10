@@ -28,29 +28,38 @@
 		
 		<!--Search Form -->
 		<div class="row">
-  			<div class="col-sm-5 col-sm-offset-6">
+  			<div class="col-sm-12 col-sm-offset-0">
 				<div class="input-group">
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Search by <span class="caret"></span>
+							Search patients 
+							<span class="caret"></span>
 						</button>
-						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<!-- Populate the possible search options -->
+							<div id="searchFieldsContainer">
+								<c:choose>
+									<c:when test="${not empty searchFieldList}">
+										<c:forEach var="searchField" items="${searchFieldList}">
+											<li>
+										    	<div class="input-group input-group-sm">
+											      	<span class="input-group-addon">${searchField}</span>
+											      	<input type="text" class="form-control" name="${searchField}" placeholder="${searchField} of the patient"/>
+											   </div>
+											</li>
+										</c:forEach>
+										<li>
+											<button onclick="sendSearchPatient()" type="submit" class="btn btn-primary">Search</button>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>No search possible</li>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</ul>
 					</div>
-					<!-- /btn-group -->
-					<div id="formSearch">
-						<input type="text" class="form-control" name="firstName" placeholder="Enter patient first name">
-					</div>
-					
 				</div>
-			</div>
-			<div class="col-sm-1">
-				<button onclick="sendSearchPatient()" type="submit" class="btn btn-primary">Search</button>
 			</div>
 		</div>
 		<!-- /input-group -->
@@ -239,7 +248,7 @@
 	}
 	function sendSearchPatient() {
 		data = {}
-		var formContainer = document.getElementById("formSearch");
+		var formContainer = document.getElementById("searchFieldsContainer");
 		var inputs = formContainer.getElementsByTagName("input");
 		var inputsSize = inputs.length;
 		var data = {};

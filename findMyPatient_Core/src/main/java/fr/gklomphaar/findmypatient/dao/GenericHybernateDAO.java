@@ -7,15 +7,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.metamodel.relational.Datatype;
 
-import fr.gklomphaar.findmypatient.dao.IDataDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.helpers.IMatcher;
@@ -32,6 +28,7 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType>, Serial
 	
 	private SessionFactory sessionFactory;
 	private Class<DataType> typeClass;
+	private WhereClauseBuilder whereClauseBuilder;
 	
 	/**
 	 * @param typeClass
@@ -39,6 +36,7 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType>, Serial
 	public GenericHybernateDAO(Class<DataType> typeClass,SessionFactory sessionFactory) {
 		this.typeClass = typeClass;
 		this.sessionFactory = sessionFactory;
+		this.whereClauseBuilder = new WhereClauseBuilder(typeClass);
 	}
 	
 	@Override
@@ -67,8 +65,6 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType>, Serial
 		
 		// New session
 		Session session = sessionFactory.openSession();
-		
-		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(typeClass);
 		Map<String, WhereClause> dataTypeWhereClauses = whereClauseBuilder.getWhereClauses();
 		
 		// Find the where clauses for the given fields
@@ -142,5 +138,12 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType>, Serial
 		session.delete(data);
 		tx.commit();
 		session.close();
+	}
+	
+	/**
+	 * @return List of Strings with possible search fields
+	 */
+	public List<String> getSearchFields(){
+		return whereClauseBuilder.getFields();
 	}
 }
