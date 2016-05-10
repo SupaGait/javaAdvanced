@@ -10,6 +10,8 @@
 	<link href="css/generalLayout.css" rel="stylesheet">
 </head>
 <body>
+	<%@ include file="generalMenu.jsp" %>
+	
     <div class="jumbotron">
         <div class="container">
             <h1 class="text-info">Welcome to the Patient find System </h1><a href="#">disconnect</a>

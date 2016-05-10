@@ -33,7 +33,7 @@ import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 /**
  * Servlet implementation class Login
  */
-@WebServlet(urlPatterns = {"/index.html", "/ConfigWebsite"})
+@WebServlet(urlPatterns = {"/index.html", "/ConfigWebsite", "/MainPage"})
 public class MainPage extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
  
@@ -69,9 +69,19 @@ public class MainPage extends GenericSpringServlet {
     	
     	if(configured)
     	{
-	    	//if( userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue())
+	    	if( userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue())
 	    	{
 		    	// Forward to the welcome page
+		        try {
+		            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/welcome.jsp");
+		            rd.forward(request, response);
+		        } catch (Exception e) {
+		        	response.getWriter().append("Server error");
+		        }
+	    	}
+	    	else
+	    	{
+		    	// Forward to the login page
 		        try {
 		            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/login.jsp");
 		            rd.forward(request, response);
@@ -115,6 +125,8 @@ public class MainPage extends GenericSpringServlet {
 			// Save the new user
 			try {
 				userDAO.create(newUser);
+				
+				// Admin set, configuration OK
 				configuration.setConfigured(true);
 				
 				jsonResult = JSONResult.CreateSimpleMessage(true, "New admin set");

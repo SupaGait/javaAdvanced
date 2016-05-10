@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import org.json.JSONException;
@@ -48,8 +49,12 @@ public class Login extends GenericSpringServlet {
     	{
 	    	// Forward to the welcome page
 	        try {
-	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/welcomePage.jsp");
+	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/welcome.jsp");
 	            rd.forward(req, resp);
+	            
+	            // Set show menu
+	            req.getSession().setAttribute("showMenu", true);
+	            
 	        } catch (Exception e) {
 	            //TODO
 	        }

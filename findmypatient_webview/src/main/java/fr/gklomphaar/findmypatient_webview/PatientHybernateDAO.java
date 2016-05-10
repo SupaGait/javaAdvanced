@@ -12,6 +12,8 @@ import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
  *
  */
 public class PatientHybernateDAO extends GenericHybernateDAO<Patient> {
+	private static final long serialVersionUID = 1L;
+
 	public PatientHybernateDAO(SessionFactory sessionFactory) {
 		super(Patient.class, sessionFactory);
 	}
