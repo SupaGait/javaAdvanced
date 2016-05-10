@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-5 col-sm-offset-2">
-				<div id="messageLogin" class="alert invisible">Message</div>
+				<div id="alertMessageBox" class="alert invisible">Message</div>
 			</div>
 		</div>
 		
@@ -51,7 +51,7 @@
 <script type="text/javascript">
 	function callbackForLogin(xhr) {
 		// Get the container, and the response and parse it to an JSON object
-		var mssgContainer = document.getElementById('messageLogin')
+		var mssgContainer = document.getElementById('alertMessageBox')
 		var jsonObj = JSON.parse(xhr.responseText);
 		
 		// If succes, request redirect, otherwise show alert

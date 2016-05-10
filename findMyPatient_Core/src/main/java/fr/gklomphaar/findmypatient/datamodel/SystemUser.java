@@ -1,6 +1,8 @@
 
 package fr.gklomphaar.findmypatient.datamodel;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +15,8 @@ import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
  *
  */
 @Entity
-public class SystemUser {
+public class SystemUser implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

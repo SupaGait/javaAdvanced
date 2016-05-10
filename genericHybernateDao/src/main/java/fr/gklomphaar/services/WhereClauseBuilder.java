@@ -76,8 +76,12 @@ public class WhereClauseBuilder {
 		final Field[] classFfields = this.dataClass.getDeclaredFields();
 		for (Field field : classFfields) {
 			
-			// Get field and add to list
+			// Get field, skipp if its the serialVersionUID field
 			String fieldName = field.getName();
+			if(fieldName.equals("serialVersionUID"))
+				continue;
+			
+			// add to list
 			this.fields.add(fieldName);
 			
 			// Generate a where clause

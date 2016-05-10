@@ -97,11 +97,9 @@ public class UserAuthority implements Serializable {
 	 */
 	public UserRights getUserRights()
 	{
-		UserRights rights = UserRights.None;
 		if(this.currentUser != null)
-		{
 			return this.currentUser.getRights();
-		}
+
 		return UserRights.None;
 	}
 }

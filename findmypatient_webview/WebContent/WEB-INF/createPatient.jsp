@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-5 col-sm-offset-2">
-				<div id="messageCreatePatient" class="alert invisible">Message</div>
+				<div id="alertMessageBox" class="alert invisible">Message</div>
 			</div>
 		</div>
 		<div id="form" class="form-horizontal">
@@ -79,7 +79,7 @@
 <script type="text/javascript">
 	function callbackForCreate(xhr) {
 		// Get the container, and the response and parse it to an JSON object
-		var mssgContainer = document.getElementById('messageCreatePatient')
+		var mssgContainer = document.getElementById('alertMessageBox')
 		var jsonObj = JSON.parse(xhr.responseText);
 		
 		// Set the information of the container based on the message
