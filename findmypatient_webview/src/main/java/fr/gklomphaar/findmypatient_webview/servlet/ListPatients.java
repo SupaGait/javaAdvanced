@@ -26,8 +26,7 @@ public class ListPatients extends GenericSpringServlet {
 
     public ListPatients() {
         super();
-        WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Patient.class);
-        this.searchFields = whereClauseBuilder.getFields();
+        this.searchFields = (new WhereClauseBuilder(Patient.class)).getFields();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

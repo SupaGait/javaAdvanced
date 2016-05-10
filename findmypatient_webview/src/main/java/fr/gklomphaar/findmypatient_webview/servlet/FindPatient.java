@@ -1,15 +1,14 @@
 package fr.gklomphaar.findmypatient_webview.servlet;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +22,7 @@ import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient.helpers.IMatcher;
 import fr.gklomphaar.findmypatient.helpers.MatchPatientfirstName;
 import fr.gklomphaar.findmypatient_webview.JSONResult;
+import fr.gklomphaar.services.WhereClauseBuilder;
 
 /**
  * Servlet implementation class FindPatient
@@ -30,9 +30,11 @@ import fr.gklomphaar.findmypatient_webview.JSONResult;
 @WebServlet("/FindPatient")
 public class FindPatient extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
+	private List<String> searchFields;
        
     public FindPatient() {
         super();
+        this.searchFields = (new WhereClauseBuilder(Patient.class)).getFields();
     }
     
 	@Override
@@ -54,34 +56,56 @@ public class FindPatient extends GenericSpringServlet {
 		 if(userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue()){
 				// Interpret input data as a JSON object
 				JSONObject jsonRequest = getRequestAsJson(request);
-				JSONObject jsonResult;
+				JSONObject jsonResult = JSONResult.CreateSimpleMessage(false, "Unkown error");
 				
 				// Get the parameters
 				try {
-					String firstName = jsonRequest.getString("firstName");
-					/*String lastName = jsonRequest.getString("lastName");
-					String dateOfBirth = jsonRequest.getString("dateOfBirth");
-					String roomNumber = jsonRequest.getString("roomNumber");
-					String socialSecurityNumber = jsonRequest.getString("socialSecurityNumber");
-					String telephoneNumber = jsonRequest.getString("telephoneNumber");
-					String email = jsonRequest.getString("email");
-					*/
-					System.out.println("Finding patient:" + firstName);
-					
 					// Create the new patient
 					Patient findPatient = new Patient();
-					findPatient.setFirstName(firstName);
-					/*newPatient.setLastName(lastName);
-					newPatient.setDateOfBirth(dateOfBirth);
-					newPatient.setRoomNumber(roomNumber);
-					newPatient.setSocialSecurityNumber(socialSecurityNumber);
-					newPatient.setTelephoneNumber(telephoneNumber);
-					newPatient.setEmail(email);
-					*/
+					List<String> searchFieldsUsed = new ArrayList<String>();
+					
+					// Get the fields, use reflection to set the values
+					for (String searchField : searchFields) {
+						// Get the value from the request
+						String value = jsonRequest.getString(searchField);
+						
+						// Skip empty or not available values
+						if(value == null || value.equals(""))
+							continue;
+						
+						// Add to the valid fields for use with matcher
+						searchFieldsUsed.add(searchField);
+						
+						// Get the set method
+						Method instanceSetMethod = null;
+						String methodName = "set" + Character.toUpperCase(searchField.charAt(0)) + searchField.substring(1);
+						if(searchField.equals("id")){
+							// ID: int
+							instanceSetMethod = Patient.class.getDeclaredMethod(methodName, int.class);
+							instanceSetMethod.invoke(findPatient, new Object[]{Integer.parseInt(value)});
+						}
+						else{
+							// Other: String
+							instanceSetMethod = Patient.class.getDeclaredMethod(methodName, String.class);
+							instanceSetMethod.invoke(findPatient, new Object[]{value});
+						}
+					}
 					
 					// Search the patients
 					try {
-						IMatcher<Patient> matcher = new MatchPatientfirstName();
+						// Create a new matcher which uses the valid fields
+						IMatcher<Patient> matcher = new IMatcher<Patient>() {
+							@Override
+							public String getSQLMatchStatement(String tableName, Patient data) {
+								return null;
+							}
+							@Override
+							public List<String> getFields() {
+								return searchFieldsUsed;
+							}
+						};
+						
+						// Execute the search
 						List<Patient> foundMatchingPatients = userController.getPatientManagement().search(findPatient, matcher);
 						
 						// Pass in the session for to the JSP
@@ -96,6 +120,21 @@ public class FindPatient extends GenericSpringServlet {
 					}
 				} catch (JSONException e) {
 					jsonResult = JSONResult.CreateSimpleMessage(false, "Error while retrieving search info.");
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 				// Write the resulting JSON string back
