@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import fr.gklomphaar.findmypatient.dao.UserHybernateDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;

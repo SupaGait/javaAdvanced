@@ -21,12 +21,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoInitializationException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.helpers.IMatcher;
 import fr.gklomphaar.findmypatient.testcases.datamodel.Test_Identity;
 import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 import fr.gklomphaar.services.WhereClauseBuilder;
+import fr.gklomphaar.services.exception.WhereClauseGenerateException;
 import fr.gklomphaar.services.WhereClause;
 
 @RunWith(SpringJUnit4ClassRunner.class) //This is to tell Junit to run with spring
@@ -64,7 +66,7 @@ public class TestHybernateGenericDao {
 	}
 
 	//@Test
-	public void testAddAndRead() throws DaoLoadObjectException, DaoSaveObjectException {
+	public void testAddAndRead() throws DaoLoadObjectException, DaoSaveObjectException, DaoInitializationException {
 		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<Test_Identity>(Test_Identity.class, this.sessionFactory);
 		
 		// Add test identities
@@ -82,11 +84,13 @@ public class TestHybernateGenericDao {
 	}
 	
 	@Test
-	public void testFindFields() throws DaoSaveObjectException, DaoLoadObjectException {
+	public void testFindFields() throws DaoSaveObjectException, DaoLoadObjectException, WhereClauseGenerateException, DaoInitializationException {
 		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<Test_Identity>(Test_Identity.class, this.sessionFactory);
 		
 		// Generate where clauses, check that there are 5 clauses
 		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Test_Identity.class);
+		whereClauseBuilder.init();
+		
 		final Map<String, WhereClause> whereClauses = whereClauseBuilder.getWhereClauses();
 		org.junit.Assert.assertEquals(5, whereClauses.size());
 
@@ -124,7 +128,7 @@ public class TestHybernateGenericDao {
 	}
 	
 	@Test
-	public void testUpdate() throws DaoSaveObjectException, DaoLoadObjectException {
+	public void testUpdate() throws DaoSaveObjectException, DaoLoadObjectException, DaoInitializationException {
 		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<Test_Identity>(Test_Identity.class, this.sessionFactory);
 		
 		final List<Test_Identity> populateIdentities = populateIdentities(identityDao, 1);
@@ -156,7 +160,7 @@ public class TestHybernateGenericDao {
 	}
 	
 	@Test
-	public void testDelete() throws DaoSaveObjectException, DaoLoadObjectException {
+	public void testDelete() throws DaoSaveObjectException, DaoLoadObjectException, DaoInitializationException {
 		GenericHybernateDAO<Test_Identity> identityDao = new GenericHybernateDAO<Test_Identity>(Test_Identity.class, this.sessionFactory);
 		
 		// Populate and verify size

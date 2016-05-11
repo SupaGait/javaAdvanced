@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoInitializationException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;
@@ -58,7 +59,7 @@ public class TestSystemUser {
 	}
 
 	@Test
-	public void testAddAndReadSystemUser() throws DaoLoadObjectException, DaoSaveObjectException {
+	public void testAddAndReadSystemUser() throws DaoLoadObjectException, DaoSaveObjectException, DaoInitializationException {
 		GenericHybernateDAO<SystemUser> userDao = new GenericHybernateDAO<SystemUser>(SystemUser.class, this.sessionFactory);
 		
 		// Add test

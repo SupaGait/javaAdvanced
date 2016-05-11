@@ -23,6 +23,7 @@ import fr.gklomphaar.findmypatient.helpers.IMatcher;
 import fr.gklomphaar.findmypatient.helpers.MatchPatientfirstName;
 import fr.gklomphaar.findmypatient_webview.JSONResult;
 import fr.gklomphaar.services.WhereClauseBuilder;
+import fr.gklomphaar.services.exception.WhereClauseGenerateException;
 
 /**
  * Servlet implementation class FindPatient
@@ -32,9 +33,13 @@ public class FindPatient extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
 	private List<String> searchFields;
        
-    public FindPatient() {
+    public FindPatient() throws WhereClauseGenerateException {
         super();
-        this.searchFields = (new WhereClauseBuilder(Patient.class)).getFields();
+        
+        // Get the search fields from the Patient model 
+        WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Patient.class);
+        whereClauseBuilder.init();        
+		this.searchFields = whereClauseBuilder.getFields();
     }
     
 	@Override
@@ -91,9 +96,15 @@ public class FindPatient extends GenericSpringServlet {
 						}
 					}
 					
-					// Search the patients
-					try {
-						// Create a new matcher which uses the valid fields
+					// Check if the search query is empty, then just list all
+					List<Patient> foundMatchingPatients = new ArrayList<Patient>();
+					if(searchFieldsUsed.size() == 0)
+					{
+						foundMatchingPatients = userController.getPatientManagement().readAll();
+					}
+					else
+					{
+						// Search the patients
 						IMatcher<Patient> matcher = new IMatcher<Patient>() {
 							@Override
 							public String getSQLMatchStatement(String tableName, Patient data) {
@@ -104,37 +115,22 @@ public class FindPatient extends GenericSpringServlet {
 								return searchFieldsUsed;
 							}
 						};
-						
 						// Execute the search
-						List<Patient> foundMatchingPatients = userController.getPatientManagement().search(findPatient, matcher);
-						
-						// Pass in the session for to the JSP
-				        request.getSession().setAttribute("patientsList", foundMatchingPatients);
-				        
-						jsonResult = JSONResult.CreateSimpleMessage(true, "Found " +foundMatchingPatients.size()+" matching users");
-
-					} catch (NoAuthorityException e) {
-						jsonResult = JSONResult.CreateSimpleMessage(false, "Not sufficient rights to peform the requested action.");
-					} catch (DaoLoadObjectException e) {
-						jsonResult = JSONResult.CreateSimpleMessage(false, "Error while receiving patients");
+						foundMatchingPatients = userController.getPatientManagement().search(findPatient, matcher);
 					}
+					
+					// Pass in the session for to the JSP
+			        request.getSession().setAttribute("patientsList", foundMatchingPatients);
+					jsonResult = JSONResult.CreateSimpleMessage(true, "Found " +foundMatchingPatients.size()+" matching users");
+					
 				} catch (JSONException e) {
 					jsonResult = JSONResult.CreateSimpleMessage(false, "Error while retrieving search info.");
-				} catch (NoSuchMethodException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (NoAuthorityException e) {
+					jsonResult = JSONResult.CreateSimpleMessage(false, "Not sufficient rights to peform the requested action.");
+				} catch (DaoLoadObjectException e) {
+					jsonResult = JSONResult.CreateSimpleMessage(false, "Error while receiving patients");
+				} catch (NoSuchMethodException | SecurityException |IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					jsonResult = JSONResult.CreateSimpleMessage(false, "Error while receiving patients");
 				}
 				
 				// Write the resulting JSON string back

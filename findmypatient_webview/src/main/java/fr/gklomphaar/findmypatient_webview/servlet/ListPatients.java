@@ -15,6 +15,7 @@ import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.services.WhereClauseBuilder;
+import fr.gklomphaar.services.exception.WhereClauseGenerateException;
 
 /**
  * Servlet implementation class CreatePatient
@@ -24,9 +25,12 @@ public class ListPatients extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
 	private List<String> searchFields;
 
-    public ListPatients() {
+    public ListPatients() throws WhereClauseGenerateException {
         super();
-        this.searchFields = (new WhereClauseBuilder(Patient.class)).getFields();
+        // Get the search fields from the Patient model
+        WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(Patient.class);
+        whereClauseBuilder.init();
+		this.searchFields = whereClauseBuilder.getFields();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

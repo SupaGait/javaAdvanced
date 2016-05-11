@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoInitializationException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;
@@ -34,7 +35,7 @@ public class TestUserAuthority {
 	SessionFactory sessionFactory;
 	
 	@Before
-	public void beforeEachTest() throws DaoSaveObjectException{
+	public void beforeEachTest() throws DaoSaveObjectException, DaoInitializationException{
 		// Delete all users
 		Session session = sessionFactory.openSession();
 		session.createQuery("delete from "+SystemUser.class.getSimpleName()).executeUpdate();
@@ -54,7 +55,7 @@ public class TestUserAuthority {
 	}
 	
 	@Test
-	public void testUserAuthority() throws DaoLoadObjectException, NoAuthorityException{
+	public void testUserAuthority() throws DaoLoadObjectException, NoAuthorityException, DaoInitializationException{
 		// Create a user DAO
 		GenericHybernateDAO<SystemUser> userDao = new GenericHybernateDAO<SystemUser>(SystemUser.class, this.sessionFactory);
 		

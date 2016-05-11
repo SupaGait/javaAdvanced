@@ -33,10 +33,10 @@
 		</property>
 	</bean>
 	
-	<bean id="patientDAO" class="fr.gklomphaar.findmypatient_webview.PatientHybernateDAO">
+	<bean id="patientDAO" class="fr.gklomphaar.findmypatient.dao.PatientHybernateDAO">
 		<constructor-arg ref="beanBasedSessionFactory"/>
 	</bean>
-	<bean id="userDAO" class="fr.gklomphaar.findmypatient_webview.UserHybernateDAO">
+	<bean id="userDAO" class="fr.gklomphaar.findmypatient.dao.UserHybernateDAO">
 		<constructor-arg ref="beanBasedSessionFactory"/>
 	</bean>
 	

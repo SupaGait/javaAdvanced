@@ -1,34 +1,24 @@
 package fr.gklomphaar.findmypatient_webview.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
-import org.apache.tomcat.jni.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-import fr.gklomphaar.findmypatient.controller.IdentityController;
-import fr.gklomphaar.findmypatient.dao.IDataDAO;
+import fr.gklomphaar.findmypatient.dao.UserHybernateDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
-import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
-import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.Configuration;
 import fr.gklomphaar.findmypatient_webview.JSONResult;
-import fr.gklomphaar.findmypatient_webview.UserController;
-import fr.gklomphaar.findmypatient_webview.UserHybernateDAO;
-import fr.gklomphaar.findmypatient.dao.GenericHybernateDAO;
 
 /**
  * Servlet implementation class Login

@@ -5,6 +5,7 @@ package fr.gklomphaar.test.whereclausebuilder;
 
 import fr.gklomphaar.datamodel.Test_Identity;
 import fr.gklomphaar.services.WhereClauseBuilder;
+import fr.gklomphaar.services.exception.WhereClauseGenerateException;
 import fr.gklomphaar.services.WhereClause;
 
 import java.util.Map;
@@ -23,10 +24,11 @@ import org.junit.Test;
 public class TestWhereClauseBuilder {
 	
 	@Test 
-	public void testWhereClauseConstructor() {
+	public void testWhereClauseConstructorAndInit() throws WhereClauseGenerateException {
 		Test_Identity testIdentity = new Test_Identity("Frans","Bonnes","Frans@TestReflection.fun");
 		
 		WhereClauseBuilder builder = new WhereClauseBuilder(testIdentity.getClass());
+		builder.init();
 		final Set<Entry<String, String>> entrySet = builder.getSimpleClauses().entrySet();
 		System.out.println(entrySet.size());
 		for (Entry<String, String> entry : entrySet) {
@@ -38,10 +40,11 @@ public class TestWhereClauseBuilder {
 	}
 	
 	@Test
-	public void testGetWhereClause() {
+	public void testGetWhereClause() throws WhereClauseGenerateException {
 		Test_Identity testIdentity = new Test_Identity("Frans","Bonnes","Frans@TestReflection.fun");
 		
 		WhereClauseBuilder whereClauseBuilder = new WhereClauseBuilder(testIdentity.getClass());
+		whereClauseBuilder.init();
 		final Map<String, WhereClause> whereClauses = whereClauseBuilder.getWhereClauses();
 		
 		System.out.println(whereClauses.keySet());

@@ -1,9 +1,7 @@
 package fr.gklomphaar.findmypatient.dao;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,31 +10,45 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import fr.gklomphaar.findmypatient.dao.exceptions.DaoInitializationException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.helpers.IMatcher;
 import fr.gklomphaar.services.WhereClause;
 import fr.gklomphaar.services.WhereClauseBuilder;
+import fr.gklomphaar.services.exception.HybernateQueryException;
+import fr.gklomphaar.services.exception.WhereClauseGenerateException;
 
 /**
+ * Generic DAO implementation which can be used on different data models
+ * 
  * @author Gerard
- *
  * @param <DataType> class on which CRUD operations will be done
  */
 public class GenericHybernateDAO<DataType> implements IDataDAO<DataType>, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private SessionFactory sessionFactory;
+	private transient SessionFactory sessionFactory;
 	private Class<DataType> typeClass;
 	private WhereClauseBuilder whereClauseBuilder;
 	
 	/**
+	 * Create a new GenericHybernateDAO based on the given DataType
+	 * 
 	 * @param typeClass
+	 * @throws WhereClauseGenerateException 
 	 */
-	public GenericHybernateDAO(Class<DataType> typeClass,SessionFactory sessionFactory) {
+	public GenericHybernateDAO(Class<DataType> typeClass,SessionFactory sessionFactory) throws DaoInitializationException {
 		this.typeClass = typeClass;
 		this.sessionFactory = sessionFactory;
 		this.whereClauseBuilder = new WhereClauseBuilder(typeClass);
+		
+		// Catch exception from dynamic where clause generation.
+		try {
+			this.whereClauseBuilder.init();
+		} catch (WhereClauseGenerateException e) {
+			throw new DaoInitializationException(this, e);
+		}
 	}
 	
 	@Override
@@ -77,34 +89,10 @@ public class GenericHybernateDAO<DataType> implements IDataDAO<DataType>, Serial
 		
 		// Construct the query
 		if(!whereClauses.isEmpty() ){
-			// Build the query String and create the query
-			String queryString = whereClauses.get(0).getWhereClauseFrom();
-			boolean firstWhere = true;
-			for (WhereClause whereClause : whereClauses) {
-				if(!firstWhere){
-					queryString += " AND ";
-				}
-				else {
-					firstWhere = false;
-				}
-				queryString += whereClause.getWhereClauseWhere();
-			}
-			Query query = session.createQuery(queryString);
-			
-			// Fill the query with name and values
+			Query query;
 			try {
-				for(WhereClause whereClause : whereClauses){
-					// TODO: Use a better method, this is not maintainable and only Date and String supported
-					final Object valueObject = whereClause.getValue(data);
-					final String assignName = whereClause.getAssignName();
-					if(valueObject instanceof String) {
-						query.setString(assignName, (String)valueObject);
-					}
-					else if(valueObject instanceof Date) {
-						query.setDate(assignName, (Date)valueObject);
-					}
-				}				
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				query = WhereClauseBuilder.generateHybernateQuery(data, whereClauses, session);
+			} catch (HybernateQueryException e) {
 				throw new DaoLoadObjectException(this, e);
 			}
 			foundObjects = query.list();

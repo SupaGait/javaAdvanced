@@ -27,6 +27,8 @@ import org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations.Mock;
 import org.mockito.MockitoAnnotations;
 
+import fr.gklomphaar.findmypatient.dao.PatientHybernateDAO;
+import fr.gklomphaar.findmypatient.dao.UserHybernateDAO;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.Patient;
