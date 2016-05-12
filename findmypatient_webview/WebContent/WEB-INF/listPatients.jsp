@@ -62,20 +62,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- /input-group -->
-		<!-- 
-		<form action="/ListPatients" method="get" id="seachPatientForm">
-			<input type="hidden" id="searchAction" name="searchAction" value="searchByName" />
-			<div class="form-group col-xs-offset-7 col-xs-4">
-				<input type="text" name="patientName" id="patientName" class="form-control" />
-			</div>
-			<div class="form-group col-xs-1">
-				<button type="submit" class="btn btn-info">
-					<span class="glyphicon glyphicon-search"></span> Search
-				</button>
-			</div>
-			<br>
-		</form> -->
 
 		<!-- Patient list  -->
 		<h2>Patients</h2>
@@ -94,14 +80,11 @@
 									<td>Social security nr.</td>
 									<td>Telephone nr.</td>
 									<td>Email address</td>
-									<td>Delete</td>
+									<td>Modify</td>
 								</tr>
 							</thead>
-							<c:forEach var="patient" items="${patientsList}">
+							<c:forEach var="patient" varStatus="loop" items="${patientsList}">
 								<c:set var="classSucess" value="" />
-								<%-- <c:if test ="${idEmployee == employee.id}">                           
-			                    <c:set var="classSucess" value="info"/>
-			                </c:if> --%>
 								<tr class="${classSucess}" id="patient_${patient.id}_row">
 									<td>${patient.id}</td>
 									<td>${patient.firstName}</td>
@@ -113,7 +96,17 @@
 									<td>${patient.email}</td>
 									<td style="text-align: center;">				 
 										<a id="deletePatient" onclick="callDeleteModal(${patient.id},'${patient.firstName}','${patient.lastName}')">
-									  		<span class="glyphicon glyphicon-trash"/> <!-- trash or remove  -->
+									  		<span class="glyphicon glyphicon-trash" style="margin-left: 20px;"/>
+									  	</a>
+									  	<a id="modifyPatient" onclick="callModifyModal(	${patient.id},
+																					  	'${patient.firstName}',
+																					  	'${patient.lastName}',
+																					  	'${patient.dateOfBirth}',
+																					  	'${patient.roomNumber}',
+																					  	'${patient.socialSecurityNumber}',
+																					  	'${patient.telephoneNumber}',
+																					  	'${patient.email}')">
+									  		<span class="glyphicon glyphicon-wrench" style="margin-left: 20px;"/>
 									  	</a>
 									</td>
 								</tr>
@@ -139,7 +132,7 @@
 					</div>
 					<div class="modal-body" id="delConfirmModalBody">
 						<div style="font-weight: bold;">Deleting patient:</div>
-						<div style="font-size: 40px;" id="delConfirmModalFieldName"></div>
+						<div style="font-size: 30px;" id="delConfirmModalFieldName"></div>
 						<div style="font-size: 15px;" id="delConfirmModalFieldId"></div>
 					</div>
 					<div class="modal-footer">
@@ -148,6 +141,68 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		
+		<!-- Modify model window -->
+		<div class="modal" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		  <div class="modal-dialog modal-lg"  role="document">
+		    <div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modify patient</h4>
+				</div>
+				<div class="modal-body" id="modifyConfirmModalBody">
+					<div id="form" class="form-horizontal">
+						<input type="hidden" id="id"/>
+						<div class="form-group">
+							<label for="InputFirstName" class="col-sm-2 control-label">First name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control col-sm-10" style="cursor: auto;" id="firstName"></input>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="InputLastName" class="col-sm-2 control-label">Last name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" style="cursor: auto;" id="lastName"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="InputDateOfBirth" class="col-sm-2 control-label">Date of birth</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" style="cursor: auto;" id="dateOfBirth"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="InputRoomNumber" class="col-sm-2 control-label">Room number</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" style="cursor: auto;" id="roomNumber"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="InputSocialSecurityNumber" class="col-sm-2 control-label">Social security number</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" style="cursor: auto;" id="socialSecurityNumber"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="InputTelephoneNumber" class="col-sm-2 control-label">Telephone number</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" style="cursor: auto;" id="telephoneNumber"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="InputEmail" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" style="cursor: auto;" id="email"></input>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button id="ModifyConfirmButton" type="button" class="btn btn-warning" data-dismiss="modal" onclick="sendModifyInformation()">Modify</button>
+				</div>
+		    </div>
+		  </div>
 		</div>
 
 		<div class="row">
@@ -199,9 +254,8 @@
 	    return function (patientId, patientFrontName, patientLastName) {
 	    	deModalElementButton.onclick = new Function("sendDeleteInformation("+patientId+")");
 	    	delConfirmModalFieldElementName.innerHTML = "Name: " + patientFrontName + " " + patientLastName;
-	    	delConfirmModalFieldElementId.innerHtml = "id: "+ patientId;
+	    	delConfirmModalFieldElementId.innerHTML = "id: "+ patientId;
 	    	$("#delConfirmModal").modal();
-	    	return;
 	    	}
 	})();
 	function callbackForDelete(xhr, patientId) {
@@ -257,7 +311,61 @@
 		}
 		load("FindPatient", data, 0, callbackForSearch);
 	}
-
+	/* MODIFY */
+	// Set modal info on show
+	var callModifyModal = (function (id, firstName, lastName, dateOfBirth, roomNumber, socialSecuritynumber, telephoneNumber, email) {
+		var modifyid = document.getElementById('id');
+	    var modifyfirstName = document.getElementById('firstName');
+	    var modifylastName = document.getElementById('lastName');
+	    var modifydateOfBirth = document.getElementById('dateOfBirth');
+	    var modifyroomNumber = document.getElementById('roomNumber');
+	    var modifysocialSecurityNumber = document.getElementById('socialSecurityNumber');
+	    var modifytelephoneNumber = document.getElementById('telephoneNumber');
+	    var modifyemail = document.getElementById('email');
+	    
+	    // Set fields, show window
+	    return function (id, firstName, lastName, dateOfBirth, roomNumber, socialSecuritynumber, telephoneNumber, email) {
+	    	modifyid.setAttribute("value", id);
+	    	modifyfirstName.setAttribute("value", firstName);
+	    	modifylastName.setAttribute("value", lastName);
+	    	modifydateOfBirth.setAttribute("value", dateOfBirth);
+	    	modifyroomNumber.setAttribute("value", roomNumber);
+	    	modifysocialSecurityNumber.setAttribute("value", socialSecuritynumber);
+	    	modifytelephoneNumber.setAttribute("value", telephoneNumber);
+	    	modifyemail.setAttribute("value", email);
+	    	$("#modifyModal").modal();
+	    	}
+	})();
+	function callbackForModify(xhr, patientId) {
+		// Update
+		sendSearchPatient();
+		
+		// Get the container, and the response and parse it to an JSON object
+		var mssgContainer = document.getElementById('alertMessageBox')
+		var jsonObj = JSON.parse(xhr.responseText);
+		
+		// Set the information of the container based on the message
+		mssgContainer.innerHTML = jsonObj.message;
+		if(jsonObj.succes == true) {
+			mssgContainer.setAttribute("class","alert alert-success")
+		}
+		else {
+			mssgContainer.setAttribute("class","alert alert-danger")
+		}
+	}
+	function sendModifyInformation() {
+		data = {}
+		var formContainer = document.getElementById("modifyConfirmModalBody");
+		var inputs = formContainer.getElementsByTagName("input");
+		var inputsSize = inputs.length;
+		var data = {};
+		for (var i = 0; i < inputsSize; i++) {
+			data[inputs[i].id] = inputs[i].value;
+		}
+		load("ModifyPatient", data, 0, callbackForModify);
+	}
+	
+	/* GENERAL  */
 	function load(url, data, patientId, callback) {
 		var xhr;
 		if (typeof XMLHttpRequest !== 'undefined')
@@ -280,17 +388,14 @@
 			if (xhr.readyState < 4) {
 				return;
 			}
-
 			if (xhr.status !== 200) {
 				return;
 			}
-
 			// all is well  
 			if (xhr.readyState === 4) {
 				callback(xhr, patientId);
 			}
 		}
-
 		xhr.open('POST', url, true);
 		xhr.send(JSON.stringify(data));
 	}

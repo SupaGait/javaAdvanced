@@ -19,36 +19,15 @@ import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.JSONResult;
 
 /**
- * Servlet implementation class CreatePatient
+ * Servlet implementation class ModifyPatient
  */
-@WebServlet("/CreatePatient")
-public class CreatePatient extends GenericSpringServlet {
+@WebServlet("/ModifyPatient")
+public class ModifyPatient extends GenericSpringServlet {
 	private static final long serialVersionUID = 1L;
-
-    public CreatePatient() {
+	
+    public ModifyPatient() {
         super();
     }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue()){
-			// Dispatch request to the JSP
-	        try {
-	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/createPatient.jsp");
-	            rd.forward(request, response);
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-        }
-		else {
-			// If no rights, forward to the MainPage servlet
-	        try {
-	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/MainPage");
-	            rd.forward(request, response);
-	        } catch (Exception e) {
-	        	response.getWriter().append("Internal server error.");
-	        }
-		}
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -60,6 +39,8 @@ public class CreatePatient extends GenericSpringServlet {
 			
 			// Get the parameters
 			try {
+				int id = jsonRequest.getInt("id");
+				
 				String firstName = jsonRequest.getString("firstName");
 				String lastName = jsonRequest.getString("lastName");
 				String dateOfBirth = jsonRequest.getString("dateOfBirth");
@@ -68,25 +49,26 @@ public class CreatePatient extends GenericSpringServlet {
 				String telephoneNumber = jsonRequest.getString("telephoneNumber");
 				String email = jsonRequest.getString("email");
 				
-				System.out.println(firstName+" "+lastName+" "+email);
+				System.out.println(id + " " +firstName+" "+lastName+" "+email);
 				
-				// Create the new patient
-				Patient newPatient = new Patient();
-				newPatient.setFirstName(firstName);
-				newPatient.setLastName(lastName);
-				newPatient.setDateOfBirth(dateOfBirth);
-				newPatient.setRoomNumber(roomNumber);
-				newPatient.setSocialSecurityNumber(socialSecurityNumber);
-				newPatient.setTelephoneNumber(telephoneNumber);
-				newPatient.setEmail(email);
+				// Set the values of the new patient
+				Patient modifyPatient = new Patient();
+				modifyPatient.setId(id);
+				modifyPatient.setFirstName(firstName);
+				modifyPatient.setLastName(lastName);
+				modifyPatient.setDateOfBirth(dateOfBirth);
+				modifyPatient.setRoomNumber(roomNumber);
+				modifyPatient.setSocialSecurityNumber(socialSecurityNumber);
+				modifyPatient.setTelephoneNumber(telephoneNumber);
+				modifyPatient.setEmail(email);
 				
-				// Save the new patient
+				// Save the patient, its updated based on Id
 				try {
-					userController.getPatientManagement().add(newPatient);
-					jsonResult = JSONResult.CreateSimpleMessage(true, "Thank you for the new user.");
+					userController.getPatientManagement().modify(modifyPatient);
+					jsonResult = JSONResult.CreateSimpleMessage(true, "Patient updated");
 					
 				} catch (DaoSaveObjectException e) {
-					jsonResult = JSONResult.CreateSimpleMessage(false, "Error while creating the new patient.");
+					jsonResult = JSONResult.CreateSimpleMessage(false, "Error while updating the patient.");
 				} catch (NoAuthorityException e) {
 					jsonResult = JSONResult.CreateSimpleMessage(false, "Not sufficient rights to peform the requested action.");
 				}
