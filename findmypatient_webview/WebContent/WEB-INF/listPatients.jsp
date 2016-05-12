@@ -86,14 +86,14 @@
 							<c:forEach var="patient" varStatus="loop" items="${patientsList}">
 								<c:set var="classSucess" value="" />
 								<tr class="${classSucess}" id="patient_${patient.id}_row">
-									<td>${patient.id}</td>
-									<td>${patient.firstName}</td>
-									<td>${patient.lastName}</td>
-									<td>${patient.dateOfBirth}</td>
-									<td>${patient.roomNumber}</td>
-									<td>${patient.socialSecurityNumber}</td>
-									<td>${patient.telephoneNumber}</td>
-									<td>${patient.email}</td>
+									<td id="patient_id">${patient.id}</td>
+									<td id="patient_firstName">${patient.firstName}</td>
+									<td id="patient_lastName">${patient.lastName}</td>
+									<td id="patient_dateOfBirth">${patient.dateOfBirth}</td>
+									<td id="patient_roomNumber" >${patient.roomNumber}</td>
+									<td id="patient_socialSecurityNumber">${patient.socialSecurityNumber}</td>
+									<td id="patient_telephoneNumber">${patient.telephoneNumber}</td>
+									<td id="patient_email">${patient.email}</td>
 									<td style="text-align: center;">				 
 										<a id="deletePatient" onclick="callDeleteModal(${patient.id},'${patient.firstName}','${patient.lastName}')">
 									  		<span class="glyphicon glyphicon-trash" style="margin-left: 20px;"/>
@@ -238,7 +238,7 @@
 	</div>	<!-- container end  -->
 </body>
 <!-- Bootstrap scripts -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/jquery-1.12.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script type="text/javascript">
 
@@ -259,6 +259,9 @@
 	    	}
 	})();
 	function callbackForDelete(xhr, patientId) {
+		// Show the alert box
+		$("#alertMessageBox").fadeTo(0, 1);
+		
 		// Get the container, and the response and parse it to an JSON object
 		var mssgContainer = document.getElementById('alertMessageBox') 
 		var patientRowElement = document.getElementById("patient_"+patientId+"_row");
@@ -267,6 +270,7 @@
 		var jsonObj = JSON.parse(xhr.responseText);
 		mssgContainer.innerHTML = jsonObj.message;
 		if(jsonObj.succes == true) {
+			$("#alertMessageBox").fadeTo(4000, 0);
 			// Remove the row containing the patientId
 			mssgContainer.setAttribute("class","alert alert-success")
 			patientRowElement.parentNode.removeChild(patientRowElement);
@@ -282,6 +286,9 @@
 	}
 	/* SEARCH */
 	function callbackForSearch(xhr, patientId) {
+		// Show the alert box
+		$("#alertMessageBox").fadeTo(0, 1);
+		
 		// Get the container, and the response and parse it to an JSON object
 		var mssgContainer = document.getElementById('alertMessageBox')
 		var patientsContainer = document.getElementById('patientListContainer')
@@ -337,8 +344,8 @@
 	    	}
 	})();
 	function callbackForModify(xhr, patientId) {
-		// Update
-		sendSearchPatient();
+		// Show the alert box
+		$("#alertMessageBox").fadeTo(0, 1);
 		
 		// Get the container, and the response and parse it to an JSON object
 		var mssgContainer = document.getElementById('alertMessageBox')
@@ -347,7 +354,23 @@
 		// Set the information of the container based on the message
 		mssgContainer.innerHTML = jsonObj.message;
 		if(jsonObj.succes == true) {
+			$("#alertMessageBox").fadeTo(4000, 0);
 			mssgContainer.setAttribute("class","alert alert-success")
+			// The new info
+			var modifyModal = document.getElementById("modifyConfirmModalBody");
+			var newValuesElements = modifyModal.getElementsByTagName("input");
+			
+			// Update the row with the info from the modal
+			var patientRowElement = document.getElementById("patient_"+patientId+"_row");
+			var patientFieldsElements = patientRowElement.getElementsByTagName("td");
+			
+			// Set the patient field value to the modal field value
+			for (var i = 0; i < newValuesElements.length; i++) {
+				var elementName = newValuesElements[i].id;
+				var newValue = newValuesElements[i].value;
+				var patientFieldElement = patientFieldsElements.namedItem('patient_'+elementName);
+				patientFieldElement.innerHTML = newValue;
+			}
 		}
 		else {
 			mssgContainer.setAttribute("class","alert alert-danger")
@@ -362,7 +385,7 @@
 		for (var i = 0; i < inputsSize; i++) {
 			data[inputs[i].id] = inputs[i].value;
 		}
-		load("ModifyPatient", data, 0, callbackForModify);
+		load("ModifyPatient", data, data["id"], callbackForModify);
 	}
 	
 	/* GENERAL  */

@@ -73,11 +73,13 @@
 	</div><!-- /.container -->
 </body>
 <!-- Bootstrap scripts -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/jquery-1.12.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 
 <script type="text/javascript">
 	function callbackForCreate(xhr) {
+		$("#alertMessageBox").fadeTo(0, 1);
+		
 		// Get the container, and the response and parse it to an JSON object
 		var mssgContainer = document.getElementById('alertMessageBox')
 		var jsonObj = JSON.parse(xhr.responseText);
@@ -86,6 +88,7 @@
 		mssgContainer.innerHTML = jsonObj.message;
 		if(jsonObj.succes == true) {
 			mssgContainer.setAttribute("class","alert alert-success")
+			$("#alertMessageBox").fadeTo(4000, 0);
 		}
 		else {
 			mssgContainer.setAttribute("class","alert alert-danger")
