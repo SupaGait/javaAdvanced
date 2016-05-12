@@ -2,16 +2,16 @@
 
 title AJAX andd JSON flow example
 
-User -> Website : page load
+User -> Website : Page load
 activate Website
-User -> Website : Request modification
+User -> Website : Request patient modification
 Website -> Website: Create modification JSON
 
 Website -> Servlet: <b>[AJAX]</b> Request modify [JSON]
 activate Servlet
 
 Servlet -> Servlet: JSON to patient
-Servlet -> Controller: modify patient
+Servlet -> Controller: Modify patient
 
 activate Controller
 Controller --> Servlet: OK
@@ -20,6 +20,8 @@ Servlet -> Servlet: Result to JSON
 
 Servlet --> Website:<b>[AJAX]</b> OK [JSON]
 deactivate Servlet
+Website --> Website : Update patient view
+Website --> User : Done
 deactivate Website
 
 @enduml

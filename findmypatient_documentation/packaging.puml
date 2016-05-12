@@ -5,15 +5,13 @@ package "findmypatient_core" {
 	[Datamodels]
 	[Controller]
 }
-
 package "findmypatient_webview" {
-  [Servlets]
-  [Webpages]
+	[Servlets]
+	[Webpages]
 }
 package "Services" {
 	[WhereClauseBuilder]
 }
-
 database "Derby database" {
 	[Users]
 	[Patients]

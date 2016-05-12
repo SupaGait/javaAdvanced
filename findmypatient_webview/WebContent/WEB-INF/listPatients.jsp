@@ -28,7 +28,7 @@
 		
 		<!--Search Form -->
 		<div class="row">
-  			<div class="col-sm-12 col-sm-offset-0">
+  			<div class="col-sm-10">
 				<div class="input-group">
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,63 +61,17 @@
 					</div>
 				</div>
 			</div>
+			<div  class="col-sm-1">
+				<a href="CreatePatient">
+					<button type="submit" class="btn btn-primary  btn-md">New Patient</button>
+				</a>
+		</div>
 		</div>
 
 		<!-- Patient list  -->
 		<h2>Patients</h2>
 		<div id="patientListContainer">																	
-			<div class="form" id="patientsForm">
-				<c:choose>
-					<c:when test="${not empty patientsList}">
-						<table class="table table-hover table-bordered">
-							<thead style="font-weight: bold;">
-								<tr style="text-align: center;">
-									<td>#</td>
-									<td>First Name</td>
-									<td>Last name</td>
-									<td>Date of birth</td>
-									<td>Room number</td>
-									<td>Social security nr.</td>
-									<td>Telephone nr.</td>
-									<td>Email address</td>
-									<td>Modify</td>
-								</tr>
-							</thead>
-							<c:forEach var="patient" varStatus="loop" items="${patientsList}">
-								<c:set var="classSucess" value="" />
-								<tr class="${classSucess}" id="patient_${patient.id}_row">
-									<td id="patient_id">${patient.id}</td>
-									<td id="patient_firstName">${patient.firstName}</td>
-									<td id="patient_lastName">${patient.lastName}</td>
-									<td id="patient_dateOfBirth">${patient.dateOfBirth}</td>
-									<td id="patient_roomNumber" >${patient.roomNumber}</td>
-									<td id="patient_socialSecurityNumber">${patient.socialSecurityNumber}</td>
-									<td id="patient_telephoneNumber">${patient.telephoneNumber}</td>
-									<td id="patient_email">${patient.email}</td>
-									<td style="text-align: center;">				 
-										<a id="deletePatient" onclick="callDeleteModal(${patient.id},'${patient.firstName}','${patient.lastName}')">
-									  		<span class="glyphicon glyphicon-trash" style="margin-left: 20px;"/>
-									  	</a>
-									  	<a id="modifyPatient" onclick="callModifyModal(	${patient.id},
-																					  	'${patient.firstName}',
-																					  	'${patient.lastName}',
-																					  	'${patient.dateOfBirth}',
-																					  	'${patient.roomNumber}',
-																					  	'${patient.socialSecurityNumber}',
-																					  	'${patient.telephoneNumber}',
-																					  	'${patient.email}')">
-									  		<span class="glyphicon glyphicon-wrench" style="margin-left: 20px;"/>
-									  	</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</table>
-					</c:when>
-					<c:otherwise>
-						<div class="alert alert-info">No patients found</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
+			<%@ include file="generatePatientList.jsp"%>
 		</div>
 		
 		<!-- Delete confirm modal window  -->
@@ -228,13 +182,6 @@
 				</nav>
 			</div>
 		</div>
-
-		<div>
-			<a href="CreatePatient">
-				<button type="submit" class="btn btn-primary  btn-md">New Patient</button>
-			</a>
-		</div>
-
 	</div>	<!-- container end  -->
 </body>
 <!-- Bootstrap scripts -->

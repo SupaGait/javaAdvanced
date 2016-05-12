@@ -18,26 +18,33 @@
 						<td>Social security nr.</td>
 						<td>Telephone nr.</td>
 						<td>Email address</td>
-						<td>Delete</td>
+						<td>Modify</td>
 					</tr>
 				</thead>
-				<c:forEach var="patient" items="${patientsList}">
+				<c:forEach var="patient" varStatus="loop" items="${patientsList}">
 					<c:set var="classSucess" value="" />
-					<%-- <c:if test ="${idEmployee == employee.id}">                           
-                    <c:set var="classSucess" value="info"/>
-                </c:if> --%>
 					<tr class="${classSucess}" id="patient_${patient.id}_row">
-						<td>${patient.id}</td>
-						<td>${patient.firstName}</td>
-						<td>${patient.lastName}</td>
-						<td>${patient.dateOfBirth}</td>
-						<td>${patient.roomNumber}</td>
-						<td>${patient.socialSecurityNumber}</td>
-						<td>${patient.telephoneNumber}</td>
-						<td>${patient.email}</td>
+						<td id="patient_id">${patient.id}</td>
+						<td id="patient_firstName">${patient.firstName}</td>
+						<td id="patient_lastName">${patient.lastName}</td>
+						<td id="patient_dateOfBirth">${patient.dateOfBirth}</td>
+						<td id="patient_roomNumber" >${patient.roomNumber}</td>
+						<td id="patient_socialSecurityNumber">${patient.socialSecurityNumber}</td>
+						<td id="patient_telephoneNumber">${patient.telephoneNumber}</td>
+						<td id="patient_email">${patient.email}</td>
 						<td style="text-align: center;">				 
 							<a id="deletePatient" onclick="callDeleteModal(${patient.id},'${patient.firstName}','${patient.lastName}')">
-						  		<span class="glyphicon glyphicon-trash"/> <!-- trash or remove  -->
+						  		<span class="glyphicon glyphicon-trash" style="margin-left: 20px;"/>
+						  	</a>
+						  	<a id="modifyPatient" onclick="callModifyModal(	${patient.id},
+																		  	'${patient.firstName}',
+																		  	'${patient.lastName}',
+																		  	'${patient.dateOfBirth}',
+																		  	'${patient.roomNumber}',
+																		  	'${patient.socialSecurityNumber}',
+																		  	'${patient.telephoneNumber}',
+																		  	'${patient.email}')">
+						  		<span class="glyphicon glyphicon-wrench" style="margin-left: 20px;"/>
 						  	</a>
 						</td>
 					</tr>
