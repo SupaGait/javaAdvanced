@@ -32,20 +32,26 @@
 						<td id="patient_socialSecurityNumber">${patient.socialSecurityNumber}</td>
 						<td id="patient_telephoneNumber">${patient.telephoneNumber}</td>
 						<td id="patient_email">${patient.email}</td>
-						<td style="text-align: center;">				 
-							<a id="deletePatient" onclick="callDeleteModal(${patient.id},'${patient.firstName}','${patient.lastName}')">
-						  		<span class="glyphicon glyphicon-trash" style="margin-left: 20px;"/>
-						  	</a>
-						  	<a id="modifyPatient" onclick="callModifyModal(	${patient.id},
-																		  	'${patient.firstName}',
-																		  	'${patient.lastName}',
-																		  	'${patient.dateOfBirth}',
-																		  	'${patient.roomNumber}',
-																		  	'${patient.socialSecurityNumber}',
-																		  	'${patient.telephoneNumber}',
-																		  	'${patient.email}')">
-						  		<span class="glyphicon glyphicon-wrench" style="margin-left: 20px;"/>
-						  	</a>
+						<td style="text-align: center;">
+						<div style="width:40px;">
+							<div style="float:left; margin-left: 5px;" >
+								<a id="deletePatient" onclick="callDeleteModal(${patient.id},'${patient.firstName}','${patient.lastName}')">
+							  		<span class="glyphicon glyphicon-trash"/>
+							  	</a>
+						  	</div>
+						  	<div style="float:left; margin-left: 5px;">
+							  	<a id="modifyPatient" onclick="callModifyModal(	${patient.id},
+																			  	'${patient.firstName}',
+																			  	'${patient.lastName}',
+																			  	'${patient.dateOfBirth}',
+																			  	'${patient.roomNumber}',
+																			  	'${patient.socialSecurityNumber}',
+																			  	'${patient.telephoneNumber}',
+																			  	'${patient.email}')">
+							  		<span class="glyphicon glyphicon-wrench"/>
+							  	</a>
+						  	</div>
+						</div>
 						</td>
 					</tr>
 				</c:forEach>

@@ -6,6 +6,10 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+/* .patientActionButtons {
+	border: 10px;
+	background-color: black;
+} */
 /* 
 #messageCreatePatient {
 	color: green;

@@ -47,6 +47,7 @@ public class Configuration {
 	}
 
 	/**
+	 * Set the flag which indicate configuration status
 	 * @param isConfigured the isConfigured to set
 	 */
 	public void setConfigured(boolean isConfigured) {

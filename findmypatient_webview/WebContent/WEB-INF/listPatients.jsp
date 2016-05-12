@@ -44,7 +44,14 @@
 											<li>
 										    	<div class="input-group input-group-sm">
 											      	<span class="input-group-addon">${searchField}</span>
-											      	<input type="text" class="form-control" name="${searchField}" placeholder="${searchField} of the patient"/>
+											      	<c:choose>
+											      		<c:when test="${searchField == 'dateOfBirth'}">
+											      			<input type="date" class="form-control" name="${searchField}" placeholder="${searchField} of the patient"/>
+											      		</c:when>
+														<c:otherwise>
+															<input type="text" class="form-control" name="${searchField}" placeholder="${searchField} of the patient"/>
+														</c:otherwise>
+													</c:choose>											      		
 											   </div>
 											</li>
 										</c:forEach>
@@ -122,7 +129,7 @@
 						<div class="form-group">
 							<label for="InputDateOfBirth" class="col-sm-2 control-label">Date of birth</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" style="cursor: auto;" id="dateOfBirth"/>
+								<input type="date" class="form-control" style="cursor: auto;" id="dateOfBirth"/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -157,30 +164,6 @@
 				</div>
 		    </div>
 		  </div>
-		</div>
-
-		<div class="row">
-			<div class="col-sm-12" style="text-align: right">
-				<nav>
-				  <ul class="pagination">
-				    <li>
-				      <a href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li><a href="#">1</a></li>
-				    <li><a href="#">2</a></li>
-				    <li><a href="#">3</a></li>
-				    <li><a href="#">4</a></li>
-				    <li><a href="#">5</a></li>
-				    <li>
-				      <a href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
-				</nav>
-			</div>
 		</div>
 	</div>	<!-- container end  -->
 </body>

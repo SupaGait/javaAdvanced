@@ -2,6 +2,7 @@ package fr.gklomphaar.findmypatient_webview;
 
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +39,14 @@ public class TestInitialConfig
 	
 	@Before
 	public void beforeEachTest() throws DaoLoadObjectException, DaoSaveObjectException{
+		// Delete all users
+		List<SystemUser> readAll = userDAO.readAll();
+		for (SystemUser systemUser : readAll) {
+			userDAO.delete(systemUser);
+		}
+	}
+	@After
+	public void afterEachTest() throws DaoLoadObjectException, DaoSaveObjectException{
 		// Delete all users
 		List<SystemUser> readAll = userDAO.readAll();
 		for (SystemUser systemUser : readAll) {

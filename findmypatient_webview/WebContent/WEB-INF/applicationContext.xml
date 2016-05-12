@@ -6,8 +6,7 @@
  
     <bean id="dataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-		<!-- <property name="url" value="jdbc:derby:memory:PatientsDB;create=true"/> -->
-		<property name="url" value="jdbc:derby:database/PatientsDB;create=true"/>
+		<property name="url" value="jdbc:derby:PatientsDB;create=true"/>
 		<property name="username" value="root"/>
 		<property name="password" value="root"/>
 	</bean>

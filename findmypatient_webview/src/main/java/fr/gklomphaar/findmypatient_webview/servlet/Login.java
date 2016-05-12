@@ -53,7 +53,7 @@ public class Login extends GenericSpringServlet {
 	            req.getSession().setAttribute("showMenu", true);
 	            
 	        } catch (Exception e) {
-	            //TODO
+	        	resp.getWriter().append("Internal server error.");
 	        }
     	}
     	else
@@ -63,7 +63,7 @@ public class Login extends GenericSpringServlet {
 	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/login.jsp");
 	            rd.forward(req, resp);
 	        } catch (Exception e) {
-	            //TODO
+	        	resp.getWriter().append("Internal server error.");
 	        }
     	}
     }

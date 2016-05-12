@@ -4,17 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
 	   					   
-	   					   
-
-<!--     <bean id="firstDAO" class="fr.tbr.iamcore.services.dao.impl.IdentityJDBCDAO">
-    	<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
-    	<property name="url" value="jdbc:derby:memory:IAM;create=true" />
-    	<property name="user" value="tom" />
-    	<property name="password" value="tom" />
-    </bean> -->
-    
-    <!-- @Autowired -->
-    <!-- DataSource ds -->
     <bean id="dataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
 		<!-- <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/> -->
@@ -23,9 +12,6 @@
 		<property name="username" value="root"/>
 		<property name="password" value="root"/>
 	</bean>
-	
-
-	
 	<bean id="beanBasedSessionFactory"	class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceBean" />
 		<property name="hibernateProperties" ref="hibernateProperties" />
@@ -36,8 +22,6 @@
 			</list>
 		</property>
 	</bean>
-	
-	
 	<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean" id="hibernateProperties">
 		<property name="properties">
 			<props>
@@ -47,27 +31,5 @@
 				<prop key="hibernate.connection.autocommit">false</prop>
 			</props>
 		</property>
-	</bean>
-	
-<!-- 	<bean id="hybernateBean" class="fr.tbr.iamcore.services.dao.impl.IdentityHibernateDAO">
-	</bean>
-	
-	<bean id="selectIdentityByEmail" class="java.lang.String">
-	<constructor-arg><value>from Identiy identity where identity.email =:email</value></constructor-arg>
-	</bean>
-	 -->
-	
-	<!-- <bean id="mySessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="configLocation">
-			<value>
-				classpath:hibernateTestTemp.cfg.xml
-			</value>
-		</property>
-	</bean> -->
-    
-    
-    
-    
-
+	</bean>    
 </beans>

@@ -27,6 +27,13 @@ public class GenericSpringServlet extends HttpServlet{
 		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
 	}
 
+	/**
+	 * Interpret the content of a request as a JSON object
+	 * 
+	 * @param request the request to interpret the data from
+	 * @return JSON object with data
+	 * @throws IOException
+	 */
 	protected JSONObject getRequestAsJson(HttpServletRequest request) throws IOException{
 		// Read the buffer to get all data
 		String str = "";
@@ -36,8 +43,8 @@ public class GenericSpringServlet extends HttpServlet{
 			str += part;
 			part = reader.readLine();
 		}
-		// Debug
-		System.out.println(request.getServletPath()+" Received: "+str);
+		// Enable for debugging:
+		//System.out.println(request.getServletPath()+" Received: "+str);
 				
 		return new JSONObject(str);
 	}

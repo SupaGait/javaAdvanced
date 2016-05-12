@@ -43,8 +43,7 @@ public class ListPatients extends GenericSpringServlet {
 				patientList = userController.getPatientManagement().readAll();
 				
 			} catch (NoAuthorityException | DaoLoadObjectException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				response.getWriter().append("Internal server error.");
 			}
 			// Pass in the session for to the JSP
 	        request.getSession().setAttribute("patientsList", patientList);
@@ -57,7 +56,7 @@ public class ListPatients extends GenericSpringServlet {
 	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/listPatients.jsp");
 	            rd.forward(request, response);
 	        } catch (Exception e) {
-	            e.printStackTrace(); //TODO: check if this is correct
+	        	response.getWriter().append("Internal server error.");
 	        }
 		}
 		else {

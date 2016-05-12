@@ -35,8 +35,8 @@
 			</div>
 			<div class="form-group">
 				<label for="InputDateOfBirth" class="col-sm-2 control-label">Date of birth</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" style="cursor: auto;" id="dateOfBirth" name="dateOfBirth" placeholder="Enter patient date of birth" />
+				<div class="col-sm-10" data-provide="datepicker">
+					<input type="date" class="form-control" style="cursor: auto;" id="dateOfBirth" name="dateOfBirth" placeholder="Enter patient date of birth" />
 				</div>
 			</div>
 			<div class="form-group">

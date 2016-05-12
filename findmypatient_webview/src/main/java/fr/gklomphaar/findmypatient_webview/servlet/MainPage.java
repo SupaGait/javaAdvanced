@@ -17,6 +17,7 @@ import fr.gklomphaar.findmypatient.dao.exceptions.DaoLoadObjectException;
 import fr.gklomphaar.findmypatient.dao.exceptions.DaoSaveObjectException;
 import fr.gklomphaar.findmypatient.datamodel.SystemUser;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
+import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient_webview.Configuration;
 import fr.gklomphaar.findmypatient_webview.JSONResult;
 
@@ -52,10 +53,8 @@ public class MainPage extends GenericSpringServlet {
     	try {
 			configured = configuration.isConfigured();
 		} catch (DaoLoadObjectException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			response.getWriter().append("Internal server error.");
 		}
-    	System.out.println(request.getServletPath()+" configured: " + configured);
     	
     	if(configured)
     	{
@@ -119,11 +118,15 @@ public class MainPage extends GenericSpringServlet {
 				// Admin set, configuration OK
 				configuration.setConfigured(true);
 				
+				// Login
+				userController.getUserAuthority().login(adminName, adminPassword);
+				
 				jsonResult = JSONResult.CreateSimpleMessage(true, "New admin set");
 			} catch (DaoSaveObjectException e) {
 				jsonResult = JSONResult.CreateSimpleMessage(false, "Error while creating the user.");
+			} catch (NoAuthorityException | DaoLoadObjectException e) {
+				jsonResult = JSONResult.CreateSimpleMessage(false, "Admin created, Error while logging in, try again later");
 			}
-			
 		} catch (JSONException e) {
 			jsonResult = JSONResult.CreateSimpleMessage(false, "Error while retrieving admin info.");
 		}

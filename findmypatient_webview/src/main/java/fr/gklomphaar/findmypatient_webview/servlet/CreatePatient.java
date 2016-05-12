@@ -19,6 +19,7 @@ import fr.gklomphaar.findmypatient_webview.JSONResult;
 
 /**
  * Servlet implementation class CreatePatient
+ * Create a new patient, checks the required user rights from the session
  */
 @WebServlet("/CreatePatient")
 public class CreatePatient extends GenericSpringServlet {
@@ -30,6 +31,7 @@ public class CreatePatient extends GenericSpringServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue()){
+			//request.getSession().setAttribute("showMenu", true);
 			// Dispatch request to the JSP
 	        try {
 	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/createPatient.jsp");

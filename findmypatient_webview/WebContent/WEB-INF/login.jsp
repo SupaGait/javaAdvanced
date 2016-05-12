@@ -35,8 +35,8 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-2 col-sm-offset-3">
-					<button  onclick="sendLoginInformation()"  type="submit" class="btn btn-default">Login</button>
+				<div class="col-sm-2 col-sm-offset-2">
+					<button  onclick="sendLoginInformation()"  type="submit" class="btn btn-primary">Login</button>
 				</div>
 			</div>
 		</div>
