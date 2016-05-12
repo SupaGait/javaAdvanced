@@ -31,8 +31,18 @@ public class Login extends GenericSpringServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	//TODO: enable, check for user rights
-    	if( userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue())
+    	
+    	// Check for logout
+    	String logoutParameter = req.getParameter("logout");
+    	if(logoutParameter!=null && logoutParameter.equals("yes")) {
+    		userController.getUserAuthority().logout();
+    		
+    		// Hide menu
+    		req.getSession().setAttribute("showMenu", false);
+    	}
+    	
+    	// Login
+    	if(userController.getUserAuthority().getUserRights().getValue() > UserRights.None.getValue())
     	{
 	    	// Forward to the welcome page
 	        try {

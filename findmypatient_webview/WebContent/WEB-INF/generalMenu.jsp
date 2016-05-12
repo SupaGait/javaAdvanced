@@ -19,6 +19,9 @@
 					<li><a href="CreatePatient">Add patients</a></li>
 					<li><a href="ListPatients">List patients</a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="Login?logout=yes">Logout</a></li>
+				</ul>
 			</div>
 		</c:if>
 		<!--/.nav-collapse -->

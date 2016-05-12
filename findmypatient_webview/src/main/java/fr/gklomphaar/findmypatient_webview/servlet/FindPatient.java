@@ -20,7 +20,6 @@ import fr.gklomphaar.findmypatient.datamodel.Patient;
 import fr.gklomphaar.findmypatient.datamodel.UserAuthority.UserRights;
 import fr.gklomphaar.findmypatient.datamodel.exceptions.NoAuthorityException;
 import fr.gklomphaar.findmypatient.helpers.IMatcher;
-import fr.gklomphaar.findmypatient.helpers.MatchPatientfirstName;
 import fr.gklomphaar.findmypatient_webview.JSONResult;
 import fr.gklomphaar.services.WhereClauseBuilder;
 import fr.gklomphaar.services.exception.WhereClauseGenerateException;
