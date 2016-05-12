@@ -1,0 +1,25 @@
+@startuml
+
+title AJAX andd JSON flow example
+
+User -> Website : page load
+activate Website
+User -> Website : Request modification
+Website -> Website: Create modification JSON
+
+Website -> Servlet: <b>[AJAX]</b> Request modify [JSON]
+activate Servlet
+
+Servlet -> Servlet: JSON to patient
+Servlet -> Controller: modify patient
+
+activate Controller
+Controller --> Servlet: OK
+deactivate Controller
+Servlet -> Servlet: Result to JSON
+
+Servlet --> Website:<b>[AJAX]</b> OK [JSON]
+deactivate Servlet
+deactivate Website
+
+@enduml
