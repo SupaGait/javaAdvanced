@@ -1,0 +1,31 @@
+@startuml
+
+package "findmypatient_core" {
+	[DAO]
+	[Datamodels]
+	[Controller]
+}
+
+package "findmypatient_webview" {
+  [Servlets]
+  [Webpages]
+}
+package "Services" {
+	[WhereClauseBuilder]
+}
+
+database "Derby database" {
+	[Users]
+	[Patients]
+}
+
+[Servlets] --> [Controller]
+[Servlets] --> [Webpages]
+[Servlets] --> [Datamodels]
+[Controller] --> [DAO]
+[DAO] --> [Users]
+[Datamodels] -->[DAO]
+[DAO] --> [Patients]
+[DAO] --> [WhereClauseBuilder]
+
+@enduml
