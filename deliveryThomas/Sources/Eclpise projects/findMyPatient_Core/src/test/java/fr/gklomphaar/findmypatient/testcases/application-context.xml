@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+		<property name="url" value="jdbc:derby:memory:IAM;create=true"/>
+		<property name="username" value="root"/>
+		<property name="password" value="root"/>
+	</bean>
+	
+	<bean id="beanBasedSessionFactory"	class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceBean" />
+		<property name="hibernateProperties" ref="hibernateProperties" />
+		<property name="packagesToScan" >
+			<list>
+				<!-- <value>fr.gklomphaar.datamodel</value> -->
+				<value>fr.gklomphaar.findmypatient.datamodel</value>
+				<value>fr.gklomphaar.findmypatient.testcases.datamodel</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean" id="hibernateProperties">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.connection.autocommit">false</prop>
+			</props>
+		</property>
+	</bean>
+
+<!-- 
+ 	<bean id="DataSource" class="org.springframework.jdbc.datasource.DriverManager">
+     	<property name="setUrl" value="jdbc:derby://localhost:1527/PatientsDB;create=true"/>
+     	<property name="setUserName" value="root"/>
+     	<property name="setPassword" value="root"/>
+    </bean>
+    
+    <bean id="BeanBasedSessionFactory" class="...LocalSessionFactoryBean">
+    	<property name="PackagesToScan" value="fr.shazilgerard.findmypatient.datamodel"/>
+    </bean>
+    
+    <bean id="HybernateProperties.." class="...PropertiesFactoryBean">
+    	<property name="">
+    		<props>
+    			<prop key="hybernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>
+    		</props>
+    	</property>
+    </bean> -->
+    
+</beans>
