@@ -1,12 +1,15 @@
 package fr.gklomphaar.services;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
  * Helper class for whereClauses
  */
-public class WhereClause{
+public class WhereClause implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private String dataFieldName;
 	private String whereClauseFrom;
 	private String whereClauseWhere;
