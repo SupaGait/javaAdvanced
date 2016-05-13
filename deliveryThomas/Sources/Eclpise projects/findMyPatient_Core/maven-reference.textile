@@ -1,8 +1,0 @@
-
-h1. My example reference
-
-
-h2. Lecture
-
-{toc}
-

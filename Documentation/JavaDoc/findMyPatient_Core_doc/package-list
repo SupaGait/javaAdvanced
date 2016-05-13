@@ -1,0 +1,10 @@
+fr.gklomphaar.findmypatient.config
+fr.gklomphaar.findmypatient.config.exceptions
+fr.gklomphaar.findmypatient.controller
+fr.gklomphaar.findmypatient.dao
+fr.gklomphaar.findmypatient.dao.exceptions
+fr.gklomphaar.findmypatient.datamodel
+fr.gklomphaar.findmypatient.datamodel.exceptions
+fr.gklomphaar.findmypatient.helpers
+fr.gklomphaar.findmypatient.testcases
+fr.gklomphaar.findmypatient.testcases.datamodel
