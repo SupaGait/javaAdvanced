@@ -1,3 +1,5 @@
 /target/
 /database/
 /derby.log
+/doc/
+/PatientsDB/
