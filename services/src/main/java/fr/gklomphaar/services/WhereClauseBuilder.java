@@ -156,7 +156,6 @@ public class WhereClauseBuilder implements Serializable {
 		// Fill the query with name and values
 		try {
 			for(WhereClause whereClause : whereClauses){
-				// TODO: Use a better method, this is not maintainable and only Date and String supported
 				final Object valueObject = whereClause.getValue(dataObject);
 				final String assignName = whereClause.getAssignName();
 				if(valueObject instanceof String) {

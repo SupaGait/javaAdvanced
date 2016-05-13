@@ -103,4 +103,13 @@ public class PatientManagement implements Serializable {
 			throw new NoAuthorityException();
 		}
 	}
+
+	/**
+	 * Set patientDAO
+	 * @param patientDAO the patientDAO to set
+	 */
+	public void setPatientDAO(IDataDAO<Patient> patientDAO) {
+		this.patientDAO = patientDAO;
+	}
+	
 }

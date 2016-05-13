@@ -104,7 +104,7 @@ public class TestHybernateGenericDao {
 		{
 		    //System.out.println(entry.getKey() + "/" + entry.getValue());
 			if(entry.getKey().endsWith("id"))
-				continue; // id currently not updated in local Identity...TODO..
+				continue;
 			
 			List<String> fieldList = new ArrayList<String>();
 			fieldList.add(entry.getValue().getDataFieldName());

@@ -115,4 +115,12 @@ public class UserManagement implements Serializable {
 			throw new NoAuthorityException();
 		}
 	}
+
+	/**
+	 * Set the userDAO
+	 * @param userDAO the userDAO to set
+	 */
+	public void setUserDAO(IDataDAO<SystemUser> userDAO) {
+		this.userDAO = userDAO;
+	}
 }
