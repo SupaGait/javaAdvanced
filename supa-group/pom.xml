@@ -7,8 +7,9 @@
 	<artifactId>supa-group</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
-	
+
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<derby.version>10.11.1.1</derby.version>
 	</properties>

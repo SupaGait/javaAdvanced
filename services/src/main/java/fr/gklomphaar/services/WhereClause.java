@@ -13,7 +13,7 @@ public class WhereClause implements Serializable{
 	private String dataFieldName;
 	private String whereClauseFrom;
 	private String whereClauseWhere;
-	private Method instanceGetMethod;
+	private transient Method instanceGetMethod;
 	private String assignName;
 	
 	/**
