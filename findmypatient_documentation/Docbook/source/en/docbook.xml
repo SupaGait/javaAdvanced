@@ -8,27 +8,19 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <info>
     <title>FindMyPatient V2</title>
+
+    <subtitle>(Online extension)</subtitle>
+
+    <author>
+      <orgname>Gerard Klomphaar</orgname>
+    </author>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="resources/CoverImage.png"/>
+      </imageobject>
+    </mediaobject>
   </info>
-
-  <section>
-    <title>FindMyPatient V2</title>
-
-    <para>(Online extension)</para>
-
-    <para>Software documentation</para>
-
-    <!-- <mediaobject> -->
-
-    <!-- <imageobject> -->
-
-    <!-- <imagedata scalefit="1" width="100%" contentdepth="100%" -->
-
-    <!-- format="png" fileref="resources/hospital.png" /> -->
-
-    <!-- </imageobject> -->
-
-    <!-- </mediaobject> -->
-  </section>
 
   <section>
     <title>Subject description</title>
@@ -37,11 +29,12 @@
       <title>Goal</title>
 
       <para>This project is created as a mean to show sufficient knowledge of
-      java which is acquired during the Advanced Java classes at EPITA. During
-      these java classes a range of technologies and best practices related to
-      java is shown, this knowledge is implemented in this project to show
-      sufficient knowledge about the technology and how to apply them in
-      practice.</para>
+      java which is acquired during the Advanced Java classes at EPITA.</para>
+
+      <para>During these java classes a range of technologies and best
+      practices related to java is shown, this knowledge is implemented in
+      this project to show sufficient knowledge about the technology and how
+      to apply them in practice.</para>
     </section>
 
     <section>
@@ -50,20 +43,19 @@
       <para>As a use case a hospital patient management system is created
       which includes all the technologies and best practices acquired during
       java class. This system is an extension of the developed application
-      during the previous java class. The hospital management system which is
-      created should be a web application. The main features are analyzed in
-      the next chapter.</para>
+      during the previous java class.</para>
+
+      <para>The hospital management system which is created should be a web
+      application. The main features are analyzed in the next chapter.</para>
     </section>
   </section>
 
   <section>
     <title>Subject analysis</title>
 
-    <section>
       <para>The minimal requirements for the system are extracted from the
       specification provided on the Advanced Java webpage. The requirements
       are applied to the use case.</para>
-    </section>
 
     <section>
       <title>Major features</title>
@@ -89,9 +81,15 @@
         <listitem>
           <para>Search page</para>
 
-          <para>Delete option</para>
+          <itemizedlist>
+            <listitem>
+              <para>Delete option</para>
+            </listitem>
 
-          <para>Modify option</para>
+            <listitem>
+              <para>Modify option</para>
+            </listitem>
+          </itemizedlist>
         </listitem>
       </orderedlist>
 
@@ -207,8 +205,6 @@
       <para>The project mainly manages patient data, additional there is User
       data which will be used for authentication. Below the two data types are
       displayed.</para>
-
-      <para/>
 
       <table>
         <title>Patient data structure</title>
@@ -482,7 +478,7 @@
         <para>To provide authorization for each individual connected user each
         user will have an individual Controller assigned. The controller which
         also has the authentication functionality is saved in the http session
-        with the user. </para>
+        with the user.</para>
 
         <para>To provide additional security, no additional content or pages
         can be accessed without logging in. Any post or get functionality will
@@ -522,8 +518,13 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="resources/applicationFlow.png"/>
+          <imagedata fileref="resources/applicationFlow.png" scalefit="1"
+                     width="50%"/>
         </imageobject>
+
+        <caption>
+          <para>Application flow</para>
+        </caption>
       </mediaobject>
     </section>
   </section>
@@ -542,50 +543,101 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="resources/GUI_1_Comfig.png"/>
+          <imagedata fileref="resources/GUI_1_Comfig.png" scalefit="1"
+                     width="100%"/>
         </imageobject>
+
+        <caption>
+          <para>Configuration page</para>
+        </caption>
       </mediaobject>
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="resources/GUI_2_Login.png"/>
+          <imagedata fileref="resources/GUI_2_Login.png" width="100%"/>
         </imageobject>
+
+        <caption>
+          <para>Login page</para>
+        </caption>
+      </mediaobject>
+
+      <para>After login a welcome page will be displayed Figure 5, which gives
+      access to creating new patients or show the current patients. At the top
+      of the screen the navigation bar can also be used. At the top right the
+      logout option is can be found.</para>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="resources/GUI_3_Welcome.png" scalefit="1"
+                     width="100%"/>
+        </imageobject>
+
+        <caption>
+          <para>Welcome page</para>
+        </caption>
       </mediaobject>
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="resources/GUI_3_Welcome.png"/>
+          <imagedata fileref="resources/GUI_4_Creation.png" scalefit="1"
+                     width="100%"/>
         </imageobject>
+
+        <caption>
+          <para>Create patient page</para>
+        </caption>
       </mediaobject>
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="resources/GUI_4_Creation.png"/>
+          <imagedata fileref="resources/GUI_5_Overview.png" scalefit="1"
+                     width="100%"/>
         </imageobject>
+
+        <caption>
+          <para>Patient overview page</para>
+        </caption>
+      </mediaobject>
+
+      <para>In the “list patients” page search actions can be executes.
+      Multiple parameters can be combined in a single search.</para>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="resources/GUI_6_Search.png" scalefit="1"
+                     width="100%"/>
+        </imageobject>
+
+        <caption>
+          <para>Search patient page</para>
+        </caption>
+      </mediaobject>
+
+      <para>At the right of each patient in the patient overview list 2
+      actions are displayed, delete and modify. Both will pop up a new window
+      in which the actions can be confirmed. Figure 10 &amp; Figure 11</para>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="resources/GUI_7_Modify.png" scalefit="1"
+                     width="100%"/>
+        </imageobject>
+
+        <caption>
+          <para>Modify patient action</para>
+        </caption>
       </mediaobject>
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="resources/GUI_5_Overview.png"/>
+          <imagedata fileref="resources/GUI_8_Delete.png" scalefit="1"
+                     width="100%"/>
         </imageobject>
-      </mediaobject>
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_6_Search.png"/>
-        </imageobject>
-      </mediaobject>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_7_Modify.png"/>
-        </imageobject>
-      </mediaobject>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_8_Delete.png"/>
-        </imageobject>
+        <caption>
+          <para>Delete patient action</para>
+        </caption>
       </mediaobject>
     </section>
   </section>
@@ -598,10 +650,13 @@
 
       <para>The database is run as a derby in memory database. It is a
       persistence version and the location is: ‘PatientsDB’
-      (url:"jdbc:derby:PatientsDB;create=true"). It is tested with a Tomcat
-      v7.0 server. If preferred above url can be changed in
-      ”applicationContext.html”. The PatientsDB part can be replaced with an
-      absolute path, e.g. "jdbc:derby:C:/PatientsDB;create=true").</para>
+      (<literal>url:"jdbc:derby:PatientsDB;create=true"</literal>). It is
+      tested with a Tomcat v7.0 server. If preferred above url can be changed
+      in ”applicationContext.html”. </para>
+
+      <para>The <emphasis role="bold">PatientsDB</emphasis> part can be
+      replaced with an absolute path, e.g.
+      <literal>"jdbc:derby:C:/PatientsDB;create=true"</literal>).</para>
     </section>
 
     <section>
