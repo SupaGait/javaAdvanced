@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article version="5.0" xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <info>
+    <title>FindMyPatient V2</title>
+  </info>
+
+  <section>
+    <title>FindMyPatient V2</title>
+
+    <para>(Online extension)</para>
+
+    <para>Software documentation</para>
+
+    <!-- <mediaobject> -->
+
+    <!-- <imageobject> -->
+
+    <!-- <imagedata scalefit="1" width="100%" contentdepth="100%" -->
+
+    <!-- format="png" fileref="resources/hospital.png" /> -->
+
+    <!-- </imageobject> -->
+
+    <!-- </mediaobject> -->
+  </section>
+
+  <section>
+    <title>Subject description</title>
+
+    <section>
+      <title>Goal</title>
+
+      <para>This project is created as a mean to show sufficient knowledge of
+      java which is acquired during the Advanced Java classes at EPITA. During
+      these java classes a range of technologies and best practices related to
+      java is shown, this knowledge is implemented in this project to show
+      sufficient knowledge about the technology and how to apply them in
+      practice.</para>
+    </section>
+
+    <section>
+      <title>Use case</title>
+
+      <para>As a use case a hospital patient management system is created
+      which includes all the technologies and best practices acquired during
+      java class. This system is an extension of the developed application
+      during the previous java class. The hospital management system which is
+      created should be a web application. The main features are analyzed in
+      the next chapter.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Subject analysis</title>
+
+    <section>
+      <para>The minimal requirements for the system are extracted from the
+      specification provided on the Advanced Java webpage. The requirements
+      are applied to the use case.</para>
+    </section>
+
+    <section>
+      <title>Major features</title>
+
+      <para>The following 4 categories of features and associated requirements
+      are extracted:</para>
+
+      <para><emphasis role="bold">Main application features</emphasis></para>
+
+      <orderedlist>
+        <listitem>
+          <para>Login page for authentication</para>
+        </listitem>
+
+        <listitem>
+          <para>Welcome page, as a sort of dashboard</para>
+        </listitem>
+
+        <listitem>
+          <para>Creation page</para>
+        </listitem>
+
+        <listitem>
+          <para>Search page</para>
+
+          <para>Delete option</para>
+
+          <para>Modify option</para>
+        </listitem>
+      </orderedlist>
+
+      <para><emphasis role="bold">Technology requirements</emphasis></para>
+
+      <orderedlist continuation="continues">
+        <listitem>
+          <para>Use Hibernate or JDBC to store data models</para>
+        </listitem>
+      </orderedlist>
+
+      <para><emphasis role="bold">Process requirements</emphasis></para>
+
+      <orderedlist continuation="continues">
+        <listitem>
+          <para>Use Junit to test</para>
+        </listitem>
+
+        <listitem>
+          <para>Scalability</para>
+        </listitem>
+      </orderedlist>
+
+      <para><emphasis role="bold">Additional features</emphasis></para>
+
+      <orderedlist continuation="continues">
+        <listitem>
+          <para> Make it possible to dynamically add new fields to the data
+          model</para>
+        </listitem>
+      </orderedlist>
+    </section>
+
+    <section>
+      <title>Application Feasibility</title>
+
+      <para>To determine the feasibility we will analyze the requirements and
+      determine the risk for the realization of this requirement</para>
+
+      <para><table>
+          <title>Requirement analysis</title>
+
+          <tgroup align="left" cols="3" colsep="1" rowsep="1">
+            <thead>
+              <row>
+                <entry>Requirement</entry>
+
+                <entry>Analysis</entry>
+
+                <entry>Risk</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry>[REQ1] – [REQ4]</entry>
+
+                <entry>The creation of webpages including the communication
+                with servlets and backend processing is covered during class
+                and can used in this project.</entry>
+
+                <entry>Low risk</entry>
+              </row>
+
+              <row>
+                <entry>[REQ5]</entry>
+
+                <entry>The data models are simple and Hibernate and JDBC are
+                known technologies.</entry>
+
+                <entry>Low risk</entry>
+              </row>
+
+              <row>
+                <entry>[REQ6]</entry>
+
+                <entry>The context in this project is different from the
+                learned content during class. Since we are working with Spring
+                and JUnit on servlets this could provide issues while testing
+                and can result in addition time spend.</entry>
+
+                <entry>Medium risk</entry>
+              </row>
+
+              <row>
+                <entry>[REQ7]</entry>
+
+                <entry>Scalability in the context of web development is a new
+                area which knowledge needs to be accumulated, this can result
+                in potential extra work</entry>
+
+                <entry>Medium risk</entry>
+              </row>
+
+              <row>
+                <entry>[REQ8]</entry>
+
+                <entry>The addition of new fields in a web application is an
+                unknown area, since the data models are static, additional
+                technologies or methods need to be researched. This will
+                probably result in lots of effort.</entry>
+
+                <entry>High risk</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table></para>
+    </section>
+
+    <section>
+      <title>Data description</title>
+
+      <para>The project mainly manages patient data, additional there is User
+      data which will be used for authentication. Below the two data types are
+      displayed.</para>
+
+      <para/>
+
+      <table>
+        <title>Patient data structure</title>
+
+        <tgroup cols="2">
+          <colspec colname="c1"/>
+
+          <colspec colname="c2"/>
+
+          <thead>
+            <row>
+              <entry align="center" nameend="c2" namest="c1">Patient</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><emphasis role="bold">Field</emphasis></entry>
+
+              <entry><emphasis role="bold">Type</emphasis></entry>
+            </row>
+
+            <row>
+              <entry>id</entry>
+
+              <entry>int</entry>
+            </row>
+
+            <row>
+              <entry>First name</entry>
+
+              <entry>String</entry>
+            </row>
+
+            <row>
+              <entry>Last name</entry>
+
+              <entry>String</entry>
+            </row>
+
+            <row>
+              <entry>Social Security number</entry>
+
+              <entry>String</entry>
+            </row>
+
+            <row>
+              <entry>Telephone number</entry>
+
+              <entry>String</entry>
+            </row>
+
+            <row>
+              <entry>Email</entry>
+
+              <entry>String</entry>
+            </row>
+
+            <row>
+              <entry>Room</entry>
+
+              <entry>String</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+
+      <para/>
+
+      <table>
+        <title>User data structure</title>
+
+        <tgroup cols="2">
+          <colspec colname="c1"/>
+
+          <colspec colname="c2"/>
+
+          <thead>
+            <row>
+              <entry align="center" nameend="c2" namest="c1">User</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Type</entry>
+            </row>
+
+            <row>
+              <entry>Id</entry>
+
+              <entry>int</entry>
+            </row>
+
+            <row>
+              <entry>Name</entry>
+
+              <entry>String</entry>
+            </row>
+
+            <row>
+              <entry>Password</entry>
+
+              <entry>String</entry>
+            </row>
+
+            <row>
+              <entry>Rights</entry>
+
+              <entry>int</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+
+    <section>
+      <title>Expected results</title>
+
+      <para>The result of this project should contain the features and
+      extracted requirements. There should be documentation which is clear
+      enough to get the main idea of the application and its structure.</para>
+    </section>
+
+    <section>
+      <title>Algorithms study</title>
+
+      <para>The different possibilities to realize certain functions are
+      analyzed to result in the best applicable solution.</para>
+
+      <section>
+        <title>[A1] Saving data</title>
+
+        <para>To the two data models User and Patient previously a specific
+        DAO implementation is used. This implementation could handle different
+        data models, but cannot handle dynamic data. Since the application
+        should be scalable [REQ 7], it is preferred to have a more dynamic
+        solution. Hibernate can be a better solution to provide this [REQ
+        5].</para>
+      </section>
+
+      <section>
+        <title>[A2] Searching data</title>
+
+        <para>The application should feature a search method. Since the data
+        should be scalable [REQ 7] and [REQ 8], the search should be able to
+        handle dynamic fields.</para>
+      </section>
+
+      <section>
+        <title>[A3] Website Responsiveness</title>
+
+        <para>It should be able to do operations on Patients like create,
+        modify and delete without unnecessary page reloads.</para>
+      </section>
+
+      <section>
+        <title>[A4] Packaging &amp; Architecture</title>
+
+        <para>The different features required should be organized in a way
+        that is maintainable. The basic functionality from the previous java
+        semester can be used where necessary.</para>
+      </section>
+
+      <section>
+        <title>[A5] Authorization &amp; Security</title>
+
+        <para>To provide security an authorization mechanism should be
+        provided. The mechanism of the previous project will be used. A method
+        should be created to save the User credentials and status for each
+        connected in parallel.</para>
+      </section>
+
+      <section>
+        <title>[A6] Software configuration management</title>
+
+        <para>To control the different version of the used packages a system
+        needs to be used.</para>
+      </section>
+    </section>
+
+      <section>
+        <title>Scope of the application</title>
+
+        <para>The application is restricted to the features specified in
+        chapter Major features. Additional features which are out of
+        scope:</para>
+
+        <para><itemizedlist>
+            <listitem>
+              <para>The graphical design of the website (basics representation
+              be implemented).</para>
+            </listitem>
+
+            <listitem>
+              <para>Additional security: e.g. encryption of the http session,
+              encryption of saved User dat</para>
+            </listitem>
+          </itemizedlist></para>
+      </section>
+  </section>
+
+  <section>
+    <title>Conception</title>
+
+    <para/>
+  </section>
+</article>
