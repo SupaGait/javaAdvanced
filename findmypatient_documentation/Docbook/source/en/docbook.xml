@@ -4,22 +4,17 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns5="http://www.w3.org/1998/Math/MathML"
          xmlns:ns4="http://www.w3.org/2000/svg"
-         xmlns:ns3="http://www.w3.org/1999/xhtml">
-         
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <info>
     <title>FindMyPatient V2</title>
+
     <subtitle>(Online extension)</subtitle>
+
     <author>
       <orgname>Gerard Klomphaar</orgname>
     </author>
-    
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="resources/CoverImage.png"/>
-      </imageobject>
-    </mediaobject>
   </info>
-  
 
   <section>
     <title>Subject description</title>
@@ -64,21 +59,21 @@
 
       <para><emphasis role="bold">Main application features</emphasis></para>
 
-      <orderedlist>
+      <orderedlist xml:id="requirements">
         <listitem>
-          <para>Login page for authentication</para>
+          <para xml:id="req1" xreflabel="REQ1">Login page for authentication</para>
         </listitem>
 
         <listitem>
-          <para>Welcome page, as a sort of dashboard</para>
+          <para xml:id="req2" xreflabel="REQ2">Welcome page, as a sort of dashboard</para>
         </listitem>
 
         <listitem>
-          <para>Creation page</para>
+          <para xml:id="req3" xreflabel="REQ3">Creation page</para>
         </listitem>
 
         <listitem>
-          <para>Search page</para>
+          <para xml:id="req4" xreflabel="REQ4">Search page</para>
 
           <itemizedlist>
             <listitem>
@@ -90,33 +85,21 @@
             </listitem>
           </itemizedlist>
         </listitem>
-      </orderedlist>
 
-      <para><emphasis role="bold">Technology requirements</emphasis></para>
-
-      <orderedlist continuation="continues">
         <listitem>
-          <para>Use Hibernate or JDBC to store data models</para>
-        </listitem>
-      </orderedlist>
-
-      <para><emphasis role="bold">Process requirements</emphasis></para>
-
-      <orderedlist continuation="continues">
-        <listitem>
-          <para>Use Junit to test</para>
+          <para xml:id="req5" xreflabel="REQ5">Use Hibernate or JDBC to store data models</para>
         </listitem>
 
         <listitem>
-          <para>Scalability</para>
+          <para xml:id="req6" xreflabel="REQ6">Use Junit to test</para>
         </listitem>
-      </orderedlist>
 
-      <para><emphasis role="bold">Additional features</emphasis></para>
-
-      <orderedlist continuation="continues">
         <listitem>
-          <para>Make it possible to dynamically add new fields to the data
+          <para xml:id="req7" xreflabel="REQ7">Scalability</para>
+        </listitem>
+
+        <listitem>
+          <para xml:id="req8" xreflabel="REQ8">Make it possible to dynamically add new fields to the data
           model</para>
         </listitem>
       </orderedlist>
@@ -144,7 +127,12 @@
 
             <tbody>
               <row>
-                <entry>[REQ1] – [REQ4]</entry>
+                <entry>
+                	<xref linkend="req1"/>,
+                	<xref linkend="req2"/>,
+                	<xref linkend="req3"/>,
+                	<xref linkend="req4"/>
+                </entry>
 
                 <entry>The creation of webpages including the communication
                 with servlets and backend processing is covered during class
@@ -154,7 +142,7 @@
               </row>
 
               <row>
-                <entry>[REQ5]</entry>
+                <entry><xref linkend="req5"/></entry>
 
                 <entry>The data models are simple and Hibernate and JDBC are
                 known technologies.</entry>
@@ -163,7 +151,7 @@
               </row>
 
               <row>
-                <entry>[REQ6]</entry>
+                <entry><xref linkend="req6"/></entry>
 
                 <entry>The context in this project is different from the
                 learned content during class. Since we are working with Spring
@@ -174,7 +162,7 @@
               </row>
 
               <row>
-                <entry>[REQ7]</entry>
+                <entry><xref linkend="req7"/></entry>
 
                 <entry>Scalability in the context of web development is a new
                 area which knowledge needs to be accumulated, this can result
@@ -184,7 +172,7 @@
               </row>
 
               <row>
-                <entry>[REQ8]</entry>
+                <entry><xref linkend="req8"/></entry>
 
                 <entry>The addition of new fields in a web application is an
                 unknown area, since the data models are static, additional
@@ -342,16 +330,15 @@
         <para>To the two data models User and Patient previously a specific
         DAO implementation is used. This implementation could handle different
         data models, but cannot handle dynamic data. Since the application
-        should be scalable [REQ 7], it is preferred to have a more dynamic
-        solution. Hibernate can be a better solution to provide this [REQ
-        5].</para>
+        should be scalable <xref linkend="req7"/>, it is preferred to have a more dynamic
+        solution. Hibernate can be a better solution to provide this <xref linkend="req5"/>.</para>
       </section>
 
       <section>
         <title>[A2] Searching data</title>
 
         <para>The application should feature a search method. Since the data
-        should be scalable [REQ 7] and [REQ 8], the search should be able to
+        should be scalable <xref linkend="req7"/> and <xref linkend="req8"/>, the search should be able to
         handle dynamic fields.</para>
       </section>
 
@@ -471,15 +458,17 @@
         <title>[A4] Packaging &amp; Architecture</title>
 
         <para>To organize the different features the project is subdivided in
-        the packages as shown in <xref linkend="PackagingOverview"/>, each package is a project.</para>
+        the packages as shown in <xref linkend="PackagingOverview"/>, each
+        package is a project.</para>
 
-		<figure xml:id="PackagingOverview">
-			<title>Packaging overview</title>
-        	<mediaobject>
-	          <imageobject>
-	            <imagedata fileref="resources/Packages.png"/>
-	          </imageobject>
-        	</mediaobject>
+        <figure xml:id="PackagingOverview">
+          <title>Packaging overview</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resources/Packages.png"/>
+            </imageobject>
+          </mediaobject>
         </figure>
       </section>
 
@@ -525,16 +514,19 @@
       <title>Global application flow</title>
 
       <para>The global application flow is based on the specified requirements
-      [REQ 1-4]. The flow is depicted in <xref linkend="ApplicationFlow"/></para>
+      (<xref linkend="req1"/><xref linkend="req2"/><xref linkend="req3"/><xref linkend="req4"/>). 
+      The flow is depicted in <xref
+      linkend="ApplicationFlow"/></para>
 
-	<figure xml:id="ApplicationFlow">
-      	<title>Application flow</title>
-      	<mediaobject>
-        	<imageobject>
-          		<imagedata fileref="resources/applicationFlow.png" scalefit="1"
-                     width="50%"/>
-        	</imageobject>
-      	</mediaobject>
+      <figure xml:id="ApplicationFlow">
+        <title>Application flow</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/applicationFlow.png" scalefit="1"
+                       width="50%"/>
+          </imageobject>
+        </mediaobject>
       </figure>
     </section>
   </section>
@@ -546,100 +538,111 @@
       <title>LOGIN</title>
 
       <para>At first access to the webpage the backend database will still be
-      empty. This will result in the display of a configuration page Figure 1.
-      Through this page the initial administrator can be created. After
-      creation any following access will display the login page Figure
-      2.</para>
+      empty. This will result in the display of a configuration page as shown
+      in <xref linkend="ConfigurationPage"/>. Through this page the initial
+      administrator can be created. After creation any following access will
+      display the login page Figure 2.</para>
 
-		<figure>
-		<title>Configuration page</title>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_1_Comfig.png" scalefit="1"
-                     width="100%"/>
-        </imageobject>
-          
-      </mediaobject>
+      <figure xml:id="ConfigurationPage">
+        <title>Configuration page</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/GUI_1_Comfig.png" scalefit="1"
+                       width="100%"/>
+          </imageobject>
+        </mediaobject>
       </figure>
 
-		<figure>
-			<title>Login page</title>
-	      	<mediaobject>
-		        <imageobject>
-		          	<imagedata fileref="resources/GUI_2_Login.png" width="100%"/>
-		        </imageobject>
-	      </mediaobject>
-		</figure>
+      <figure>
+        <title>Login page</title>
 
-      <para>After login a welcome page will be displayed Figure 5, which gives
-      access to creating new patients or show the current patients. At the top
-      of the screen the navigation bar can also be used. At the top right the
-      logout option is can be found.</para>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/GUI_2_Login.png" width="100%"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
 
-		<figure>
-			<title>Welcome page</title>
-			<mediaobject>
-			  	<imageobject>
-			    	<imagedata fileref="resources/GUI_3_Welcome.png" scalefit="1"
-			               width="100%"/>
-			  	</imageobject>
-			</mediaobject>
-		</figure>
-		<figure>
-			<title>Create patient page</title>
-			<mediaobject>
-				<imageobject>
-			    	<imagedata fileref="resources/GUI_4_Creation.png" scalefit="1"
-			               width="100%"/>
-			  	</imageobject>
-			</mediaobject>
-		</figure>
-		<figure>
-			<title>Patient overview page</title>
-			<mediaobject>
-				<imageobject>
-			    <imagedata fileref="resources/GUI_5_Overview.png" scalefit="1"
-			               width="100%"/>
-			  	</imageobject>
-			</mediaobject>
-		</figure>
+      <para>After login a welcome page will be displayed as shown in <xref
+      linkend="WelcomePage"/>, which gives access to creating new patients or
+      show the current patients. At the top of the screen the navigation bar
+      can also be used. At the top right the logout option is can be
+      found.</para>
+
+      <figure xml:id="WelcomePage">
+        <title>Welcome page</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/GUI_3_Welcome.png" scalefit="1"
+                       width="100%"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <figure>
+        <title>Create patient page</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/GUI_4_Creation.png" scalefit="1"
+                       width="100%"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <figure>
+        <title>Patient overview page</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/GUI_5_Overview.png" scalefit="1"
+                       width="100%"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
 
       <para>In the “list patients” page search actions can be executes.
       Multiple parameters can be combined in a single search.</para>
 
-		<figure>
-	      	<title>Search patient page</title>
-	      	<mediaobject>
-	        	<imageobject>
-	          		<imagedata fileref="resources/GUI_6_Search.png" scalefit="1"
-	                     width="100%"/>
-	        	</imageobject>
-	        
-			</mediaobject>
-		</figure>
+      <figure>
+        <title>Search patient page</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/GUI_6_Search.png" scalefit="1"
+                       width="100%"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
 
       <para>At the right of each patient in the patient overview list 2
       actions are displayed, delete and modify. Both will pop up a new window
-      in which the actions can be confirmed. Figure 10 &amp; Figure 11</para>
+      in which the actions can be confirmed. see <xref
+      linkend="ModifyPatient"/> and <xref linkend="DeletePatient"/></para>
 
-		<figure>
-      		<para>Modify patient action</para>
-      		<mediaobject>
-        		<imageobject>
-          			<imagedata fileref="resources/GUI_7_Modify.png" scalefit="1"
-                     width="100%"/>
-				</imageobject>
-      		</mediaobject>
-		</figure>
-		<figure>
-		    <title>Delete patient action</title>
-		    <mediaobject>
-		        <imageobject>
-		        	<imagedata fileref="resources/GUI_8_Delete.png" scalefit="1"
-		                     width="100%"/>
-		        </imageobject>
-			</mediaobject>
-		</figure>
+      <figure xml:id="ModifyPatient">
+        <title>Modify patient action</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/GUI_7_Modify.png" scalefit="1"
+                       width="100%"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <figure xml:id="DeletePatient">
+        <title>Delete patient action</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resources/GUI_8_Delete.png" scalefit="1"
+                       width="100%"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
     </section>
   </section>
 

@@ -10,9 +10,6 @@
   <xsl:import href="&dbdir;/xhtml/docbook.xsl"/> 
 
   <xsl:output method="xml" indent="yes"/>
-
-  <!-- setting the CSS -->
-  <xsl:param name="html.stylesheet" select="'myCSS.css'"/>
   
   <!-- inserting a bar before each sect1 -->
   <xsl:template match="d:sect1">
