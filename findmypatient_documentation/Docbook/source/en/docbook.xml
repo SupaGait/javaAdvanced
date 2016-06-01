@@ -4,23 +4,22 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns5="http://www.w3.org/1998/Math/MathML"
          xmlns:ns4="http://www.w3.org/2000/svg"
-         xmlns:ns3="http://www.w3.org/1999/xhtml"
-         xmlns:ns="http://docbook.org/ns/docbook">
+         xmlns:ns3="http://www.w3.org/1999/xhtml">
+         
   <info>
     <title>FindMyPatient V2</title>
-
     <subtitle>(Online extension)</subtitle>
-
     <author>
       <orgname>Gerard Klomphaar</orgname>
     </author>
-
+    
     <mediaobject>
       <imageobject>
         <imagedata fileref="resources/CoverImage.png"/>
       </imageobject>
     </mediaobject>
   </info>
+  
 
   <section>
     <title>Subject description</title>
@@ -53,9 +52,9 @@
   <section>
     <title>Subject analysis</title>
 
-      <para>The minimal requirements for the system are extracted from the
-      specification provided on the Advanced Java webpage. The requirements
-      are applied to the use case.</para>
+    <para>The minimal requirements for the system are extracted from the
+    specification provided on the Advanced Java webpage. The requirements are
+    applied to the use case.</para>
 
     <section>
       <title>Major features</title>
@@ -429,14 +428,19 @@
         <para>To search data based on the potential dynamic fields of the data
         models, a custom where clause generation feature will be created. This
         clause can then be used with the chosen hybernate technology to
-        execute the search. In Figure 1 the sequence of searching using the
-        “WhereClauseBuilder” is depicted.</para>
+        execute the search. In <xref linkend="SearchExample"/> below the
+        sequence of searching using the “WhereClauseBuilder” is
+        depicted.</para>
 
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="resources/SearchPatientFlow.png"/>
-          </imageobject>
-        </mediaobject>
+        <figure xml:id="SearchExample">
+          <title>Search example using WhereClauseBuilder</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resources/SearchPatientFlow.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
       </section>
 
       <section>
@@ -449,27 +453,34 @@
         objects. This provides an efficient and scalable solution for data
         transfer.</para>
 
-        <para>Figure 2 depicts the sequence which is used for modifying a
-        Patient.</para>
+        <para><xref linkend="AJAXandJSON"/>depicts the sequence which is used
+        for modifying a Patient.</para>
 
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="resources/AjaxFlow.png"/>
-          </imageobject>
-        </mediaobject>
+        <figure xml:id="AJAXandJSON">
+          <title>AJAX and JSON flow example</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resources/AjaxFlow.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
       </section>
 
       <section>
         <title>[A4] Packaging &amp; Architecture</title>
 
         <para>To organize the different features the project is subdivided in
-        the packages shown below, each package is a project.</para>
+        the packages as shown in <xref linkend="PackagingOverview"/>, each package is a project.</para>
 
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="resources/Packages.png"/>
-          </imageobject>
-        </mediaobject>
+		<figure xml:id="PackagingOverview">
+			<title>Packaging overview</title>
+        	<mediaobject>
+	          <imageobject>
+	            <imagedata fileref="resources/Packages.png"/>
+	          </imageobject>
+        	</mediaobject>
+        </figure>
       </section>
 
       <section>
@@ -514,18 +525,17 @@
       <title>Global application flow</title>
 
       <para>The global application flow is based on the specified requirements
-      [REQ 1-4]. The flow is depicted below:</para>
+      [REQ 1-4]. The flow is depicted in <xref linkend="ApplicationFlow"/></para>
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/applicationFlow.png" scalefit="1"
+	<figure xml:id="ApplicationFlow">
+      	<title>Application flow</title>
+      	<mediaobject>
+        	<imageobject>
+          		<imagedata fileref="resources/applicationFlow.png" scalefit="1"
                      width="50%"/>
-        </imageobject>
-
-        <caption>
-          <para>Application flow</para>
-        </caption>
-      </mediaobject>
+        	</imageobject>
+      	</mediaobject>
+      </figure>
     </section>
   </section>
 
@@ -541,104 +551,95 @@
       creation any following access will display the login page Figure
       2.</para>
 
+		<figure>
+		<title>Configuration page</title>
       <mediaobject>
         <imageobject>
           <imagedata fileref="resources/GUI_1_Comfig.png" scalefit="1"
                      width="100%"/>
         </imageobject>
-
-        <caption>
-          <para>Configuration page</para>
-        </caption>
+          
       </mediaobject>
+      </figure>
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_2_Login.png" width="100%"/>
-        </imageobject>
-
-        <caption>
-          <para>Login page</para>
-        </caption>
-      </mediaobject>
+		<figure>
+			<title>Login page</title>
+	      	<mediaobject>
+		        <imageobject>
+		          	<imagedata fileref="resources/GUI_2_Login.png" width="100%"/>
+		        </imageobject>
+	      </mediaobject>
+		</figure>
 
       <para>After login a welcome page will be displayed Figure 5, which gives
       access to creating new patients or show the current patients. At the top
       of the screen the navigation bar can also be used. At the top right the
       logout option is can be found.</para>
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_3_Welcome.png" scalefit="1"
-                     width="100%"/>
-        </imageobject>
-
-        <caption>
-          <para>Welcome page</para>
-        </caption>
-      </mediaobject>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_4_Creation.png" scalefit="1"
-                     width="100%"/>
-        </imageobject>
-
-        <caption>
-          <para>Create patient page</para>
-        </caption>
-      </mediaobject>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_5_Overview.png" scalefit="1"
-                     width="100%"/>
-        </imageobject>
-
-        <caption>
-          <para>Patient overview page</para>
-        </caption>
-      </mediaobject>
+		<figure>
+			<title>Welcome page</title>
+			<mediaobject>
+			  	<imageobject>
+			    	<imagedata fileref="resources/GUI_3_Welcome.png" scalefit="1"
+			               width="100%"/>
+			  	</imageobject>
+			</mediaobject>
+		</figure>
+		<figure>
+			<title>Create patient page</title>
+			<mediaobject>
+				<imageobject>
+			    	<imagedata fileref="resources/GUI_4_Creation.png" scalefit="1"
+			               width="100%"/>
+			  	</imageobject>
+			</mediaobject>
+		</figure>
+		<figure>
+			<title>Patient overview page</title>
+			<mediaobject>
+				<imageobject>
+			    <imagedata fileref="resources/GUI_5_Overview.png" scalefit="1"
+			               width="100%"/>
+			  	</imageobject>
+			</mediaobject>
+		</figure>
 
       <para>In the “list patients” page search actions can be executes.
       Multiple parameters can be combined in a single search.</para>
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_6_Search.png" scalefit="1"
-                     width="100%"/>
-        </imageobject>
-
-        <caption>
-          <para>Search patient page</para>
-        </caption>
-      </mediaobject>
+		<figure>
+	      	<title>Search patient page</title>
+	      	<mediaobject>
+	        	<imageobject>
+	          		<imagedata fileref="resources/GUI_6_Search.png" scalefit="1"
+	                     width="100%"/>
+	        	</imageobject>
+	        
+			</mediaobject>
+		</figure>
 
       <para>At the right of each patient in the patient overview list 2
       actions are displayed, delete and modify. Both will pop up a new window
       in which the actions can be confirmed. Figure 10 &amp; Figure 11</para>
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_7_Modify.png" scalefit="1"
+		<figure>
+      		<para>Modify patient action</para>
+      		<mediaobject>
+        		<imageobject>
+          			<imagedata fileref="resources/GUI_7_Modify.png" scalefit="1"
                      width="100%"/>
-        </imageobject>
-
-        <caption>
-          <para>Modify patient action</para>
-        </caption>
-      </mediaobject>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="resources/GUI_8_Delete.png" scalefit="1"
-                     width="100%"/>
-        </imageobject>
-
-        <caption>
-          <para>Delete patient action</para>
-        </caption>
-      </mediaobject>
+				</imageobject>
+      		</mediaobject>
+		</figure>
+		<figure>
+		    <title>Delete patient action</title>
+		    <mediaobject>
+		        <imageobject>
+		        	<imagedata fileref="resources/GUI_8_Delete.png" scalefit="1"
+		                     width="100%"/>
+		        </imageobject>
+			</mediaobject>
+		</figure>
     </section>
   </section>
 
@@ -652,7 +653,7 @@
       persistence version and the location is: ‘PatientsDB’
       (<literal>url:"jdbc:derby:PatientsDB;create=true"</literal>). It is
       tested with a Tomcat v7.0 server. If preferred above url can be changed
-      in ”applicationContext.html”. </para>
+      in ”applicationContext.html”.</para>
 
       <para>The <emphasis role="bold">PatientsDB</emphasis> part can be
       replaced with an absolute path, e.g.
