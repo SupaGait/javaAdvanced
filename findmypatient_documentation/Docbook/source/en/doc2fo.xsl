@@ -1,13 +1,13 @@
 <?xml version='1.0'?> 
 <!DOCTYPE stylesheet [
-    <!ENTITY dbdir "D:\docbook-xsl-1.79.1">
+    <!ENTITY dbdir "C:\_ProjectsEpita\docbook-xsl-1.79.1">
 ]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  
                 version="1.0"
                 xmlns:d="http://docbook.org/ns/docbook"
                 xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
-	<xsl:import href= "&dbdir;/fo/docbook.xsl"/> 
+	<xsl:import href= "C:\_ProjectsEpita\docbook-xsl-1.79.1/fo/docbook.xsl"/> 
 
 	<xsl:output method="xml" indent="yes"/>
 
@@ -24,8 +24,8 @@
 
 	<!-- Show links -->
 	<xsl:attribute-set name="xref.properties">
-	<!-- <xsl:attribute name="color">#0000FF</xsl:attribute> -->
-	<xsl:attribute name="font-style">italic</xsl:attribute>
+		<xsl:attribute name="color">#00009F</xsl:attribute>
+		<xsl:attribute name="font-style">italic</xsl:attribute>
 	</xsl:attribute-set>
 
   	<!-- Print requirement before label -->
